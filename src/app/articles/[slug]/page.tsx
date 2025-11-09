@@ -1,6 +1,7 @@
-import { notFound } from 'next/navigation';
-import { articles } from '../../../data/articles';
-import './article-detail.css';
+import { notFound } from "next/navigation";
+import { articles } from "../../../data/articles";
+import Link from "next/link";
+import "./article-detail.css";
 
 interface Props {
   params: { slug: string };
@@ -8,16 +9,17 @@ interface Props {
 
 export default async function ArticlePage({ params }: Props) {
   const { slug } = params;
-  const article = articles.find(a => a.slug === slug);
+  const article = articles.find((a) => a.slug === slug);
   if (!article) return notFound();
-
 
   return (
     <>
       <section
         className="hero"
         style={{
-          backgroundImage: `linear-gradient(rgba(26,98,50,0), rgba(26,98,50,0)), url(${article.heroImage || article.image})`,
+          backgroundImage: `linear-gradient(rgba(26,98,50,0), rgba(26,98,50,0)), url(${
+            article.heroImage || article.image
+          })`,
         }}
       >
         <div>
@@ -26,15 +28,18 @@ export default async function ArticlePage({ params }: Props) {
       </section>
 
       <main className="detail">
-        <article className="body" dangerouslySetInnerHTML={{ __html: article.content || '' }} />
+        <article
+          className="body"
+          dangerouslySetInnerHTML={{ __html: article.content || "" }}
+        />
         <aside className="sidebar">
           <h3>More Export Articles</h3>
           <ul>
             {articles
-              .filter(a => a.slug !== article.slug)
-              .map(a => (
+              .filter((a) => a.slug !== article.slug)
+              .map((a) => (
                 <li key={a.slug}>
-                  <a href={`/articles/${a.slug}`}>{a.title}</a>
+                  <Link href={`/articles/${a.slug}`}>{a.title}</Link>
                 </li>
               ))}
           </ul>

@@ -59,7 +59,6 @@ export default function ContactPage() {
         ? `Dear Sales Team,\n\nI am interested in requesting a quotation for your product: ${productFromQuery}.\nCould you kindly provide the pricing details, packaging options, and shipping information?\n\nThank you in advance.\nBest regards,\n${prev.name || "[Your Name]"}`
         : getDefaultMessage(""),
     }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productFromQuery]);
 
   const validateEmail = (email: string) => {
@@ -148,44 +147,45 @@ export default function ContactPage() {
 
     if (!validateForm("submit")) return;
 
-    setLoading(true);
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+setLoading(true);
+try {
+  const res = await fetch("/api/contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(form),
+  });
 
-      let data: any;
-      try {
-        data = await res.json();
-      } catch {
-        data = null;
-      }
+  let data: Record<string, unknown> | null;
+  try {
+    data = await res.json();
+  } catch {
+    data = null;
+  }
 
-      if (res.ok && data?.success) {
-        setStatus({ success: true, msg: "Message sent successfully!" });
-        // reset name/email/phone and restore message to default template (not blank)
-        setForm({
-          name: "",
-          email: "",
-          phone: "",
-          product: productFromQuery,
-          subject: getDefaultSubject(productFromQuery),
-          message: getDefaultMessage(productFromQuery),
-        });
-        setErrors({});
-      } else {
-        // handle API failure gracefully
-        const msg = data?.msg || "Failed to send message. Try again later.";
-        setStatus({ success: false, msg });
-      }
-    } catch (err) {
-      console.error("Contact send error:", err);
-      setStatus({ success: false, msg: "Error sending message." });
-    } finally {
-      setLoading(false);
-    }
+  if (res.ok && (data as { success?: boolean })?.success) {
+    setStatus({ success: true, msg: "Message sent successfully!" });
+    setForm({
+      name: "",
+      email: "",
+      phone: "",
+      product: productFromQuery,
+      subject: getDefaultSubject(productFromQuery),
+      message: getDefaultMessage(productFromQuery),
+    });
+    setErrors({});
+  } else {
+    const msg =
+      (data as { msg?: string })?.msg ||
+      "Failed to send message. Try again later.";
+    setStatus({ success: false, msg });
+  }
+} catch (err) {
+  console.error("Contact send error:", err);
+  setStatus({ success: false, msg: "Error sending message." });
+} finally {
+  setLoading(false);
+}
+
   };
 
   const handleWhatsApp = () => {

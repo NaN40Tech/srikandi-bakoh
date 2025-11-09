@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { products } from "../data"; // pastikan path sesuai struktur project
 import { notFound } from "next/navigation";
 import "./product-detail.css";
@@ -43,12 +44,15 @@ export default function ProductPage({ params }: Props) {
             </p>
 
             <div className="pn-actions">
-              <a href={`/contact?product=${product.name}`} className="pn-btn primary">
+              <Link
+                href={`/contact?product=${product.name}`}
+                className="pn-btn primary"
+              >
                 Request Quote
-              </a>
-              <a href="/products" className="pn-btn secondary">
+              </Link>
+              <Link href="/products" className="pn-btn secondary">
                 Back to Products
-              </a>
+              </Link>
             </div>
           </div>
         </div>
