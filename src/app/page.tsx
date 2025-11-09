@@ -1,103 +1,316 @@
-import Image from "next/image";
-
-export default function Home() {
+import Link from 'next/link';
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* HERO */}
+      <section className="home-hero">
+        <div className="hero-content">
+          <h1>Indonesian Spices for the World</h1>
+          <p>Delivering premium spices and herbs with international standards.</p>
+          <Link href="/products" className="btn btn-primary">
+            Explore Products
+          </Link>
+          <Link href="/contact" className="btn btn-secondary">
+            Get a Quote
+          </Link>
+        </div>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* WHY CHOOSE US */}
+      <section className="why">
+        <h2>Why Choose Us</h2>
+        <div className="why-slider">
+          <button
+            className="arrow left"
+            aria-label="Scroll left"
+            suppressHydrationWarning
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            &#10094;
+          </button>
+          <div className="why-track">
+            <div className="feature-box">
+              <img
+                src="/assets/icon-quality.webp"
+                alt="Premium Quality"
+                width={60}
+                height={60}
+                loading="lazy"
+              />
+              <h3>Premium Quality</h3>
+              <p>Carefully selected spices with international standards.</p>
+            </div>
+
+            <div className="feature-box">
+              <img
+                src="/assets/icon-trace.webp"
+                alt="Traceability"
+                width={60}
+                height={60}
+                loading="lazy"
+              />
+              <h3>Traceability</h3>
+              <p>Full transparency from farm to export packaging.</p>
+            </div>
+
+            <div className="feature-box">
+              <img
+                src="/assets/icon-global.webp"
+                alt="Global Export"
+                width={60}
+                height={60}
+                loading="lazy"
+              />
+              <h3>Global Export</h3>
+              <p>Supplying partners worldwide with trust and consistency.</p>
+            </div>
+
+            <div className="feature-box">
+              <img
+                src="/assets/icon-sustain.webp"
+                alt="Sustainability"
+                width={60}
+                height={60}
+                loading="lazy"
+              />
+              <h3>Sustainability</h3>
+              <p>Working with farmers to ensure eco-friendly and ethical sourcing.</p>
+            </div>
+
+            <div className="feature-box">
+              <img
+                src="/assets/icon-support.webp"
+                alt="Customer Support"
+                width={60}
+                height={60}
+                loading="lazy"
+              />
+              <h3>Customer Support</h3>
+              <p>Dedicated team to assist with inquiries and international trade needs.</p>
+            </div>
+          </div>
+          <button
+            className="arrow right"
+            aria-label="Scroll right"
+            suppressHydrationWarning
+          >
+            &#10095;
+          </button>
+        </div>
+      </section>
+
+      {/* FEATURED PRODUCTS */}
+      <section className="featured">
+        <h2>Featured Products</h2>
+        <div className="product-slider">
+          <button
+            className="arrow left"
+            aria-label="Scroll left"
+            suppressHydrationWarning
+          >
+            &#10094;
+          </button>
+          <div className="product-track">
+            {/* === Product Cards === */}
+            <div className="product-card">
+              <img
+                src="/assets/nutmeg.webp"
+                alt="Nutmeg spice"
+                width={250}
+                height={200}
+                loading="lazy"
+              />
+              <h3>Nutmeg</h3>
+              <p>Rich aroma, perfect for culinary and industrial use.</p>
+              <div className="product-overlay">
+                <a href="/products/nutmeg" className="btn-detail">
+                  See Details
+                </a>
+              </div>
+            </div>
+
+            <div className="product-card">
+              <img
+                src="/assets/clove.webp"
+                alt="Clove spice"
+                width={250}
+                height={200}
+                loading="lazy"
+              />
+              <h3>Clove</h3>
+              <p>High-quality clove from Indonesia’s best regions.</p>
+              <div className="product-overlay">
+                <a href="/products/clove" className="btn-detail">
+                  See Details
+                </a>
+              </div>
+            </div>
+
+            <div className="product-card">
+              <img
+                src="/assets/cinnamon.webp"
+                alt="Cinnamon spice"
+                width={250}
+                height={200}
+                loading="lazy"
+              />
+              <h3>Cinnamon</h3>
+              <p>Aromatic cinnamon sticks and powder.</p>
+              <div className="product-overlay">
+                <a href="/products/cinnamon" className="btn-detail">
+                  See Details
+                </a>
+              </div>
+            </div>
+
+            <div className="product-card">
+              <img
+                src="/assets/ginger.webp"
+                alt="Ginger spice"
+                width={250}
+                height={200}
+                loading="lazy"
+              />
+              <h3>Ginger</h3>
+              <p>Fresh and dried ginger, perfect for culinary and health use.</p>
+              <div className="product-overlay">
+                <a href="/products/ginger" className="btn-detail">
+                  See Details
+                </a>
+              </div>
+            </div>
+
+            <div className="product-card">
+              <img
+                src="/assets/turmeric.webp"
+                alt="Turmeric spice"
+                width={250}
+                height={200}
+                loading="lazy"
+              />
+              <h3>Turmeric</h3>
+              <p>Golden spice with powerful health benefits.</p>
+              <div className="product-overlay">
+                <a href="/products/turmeric" className="btn-detail">
+                  See Details
+                </a>
+              </div>
+            </div>
+
+            <div className="product-card">
+              <img
+                src="/assets/cardamom.webp"
+                alt="Cardamom spice"
+                width={250}
+                height={200}
+                loading="lazy"
+              />
+              <h3>Cardamom</h3>
+              <p>Strong flavor, ideal for food and beverage industries.</p>
+              <div className="product-overlay">
+                <a href="/products/cardamom" className="btn-detail">
+                  See Details
+                </a>
+              </div>
+            </div>
+
+            <div className="product-card">
+              <img
+                src="/assets/blackpepper.webp"
+                alt="Black Pepper spice"
+                width={250}
+                height={200}
+                loading="lazy"
+              />
+              <h3>Black Pepper</h3>
+              <p>Premium black peppercorns for global markets.</p>
+              <div className="product-overlay">
+                <a href="/products/blackpepper" className="btn-detail">
+                  See Details
+                </a>
+              </div>
+            </div>
+          </div>
+          <button
+            className="arrow right"
+            aria-label="Scroll right"
+            suppressHydrationWarning
+          >
+            &#10095;
+          </button>
+        </div>
+      </section>
+
+      {/* ARTICLES */}
+      <section className="articles">
+        <h2>Articles</h2>
+        <div className="article-grid">
+          <div className="article-card">
+            <img
+              src="/assets/article-ginger1.webp"
+              alt="Ginger origin Ponorogo"
+              loading="lazy"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+            <div className="article-content">
+              <h3>The Origin of Ginger</h3>
+              <span className="date">Published: Jan 2025</span>
+              <p>
+                Our ginger is cultivated in Ponorogo, East Java—specifically the
+                Jenangan area, known for its fertile volcanic soil and premium
+                crop quality.
+              </p>
+              <Link href="/articles/ginger-origin" className="btn btn-secondary">
+                Read More
+              </Link>
+            </div>
+          </div>
+
+          <div className="article-card">
+            <img
+              src="/assets/article-ginger2.webp"
+              alt="Ginger plantation Ponorogo"
+              loading="lazy"
+            />
+            <div className="article-content">
+              <h3>Ginger Plantations</h3>
+              <span className="date">Published: Jan 2025</span>
+              <p>
+                Our ginger plantations are managed together with local farmers in
+                Jenangan, using eco-friendly farming methods to preserve soil
+                fertility.
+              </p>
+              <a href="/article-ginger" className="btn btn-secondary">
+                Read More
+              </a>
+            </div>
+          </div>
+
+          <div className="article-card">
+            <img
+              src="/assets/article-turmeric1.webp"
+              alt="Turmeric origin Ponorogo"
+              loading="lazy"
+            />
+            <div className="article-content">
+              <h3>The Origin of Turmeric</h3>
+              <span className="date">Published: Jan 2025</span>
+              <p>
+                Our turmeric comes from Ponorogo Jenangan, a region rich in
+                natural minerals that produce bright-colored turmeric with strong
+                flavor and aroma.
+              </p>
+              <a href="/article-turmeric" className="btn btn-secondary">
+                Read More
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="see-more">
+          <a href="/articles" className="btn btn-primary">
+            See More Articles
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+    </>
   );
 }

@@ -1,0 +1,146 @@
+/* ------------------------
+   Articles list (responsive)
+   ------------------------ */
+
+:root {
+  --accent: #e2b357;
+  --green: #1a6232;
+  --muted: #666;
+}
+
+
+/* HERO (list page) */
+
+.hero {
+  background: linear-gradient(rgba(26,98,50,0), rgba(26,98,50,0)),
+              url('/assets/articles-hero.webp') no-repeat center/cover;
+  color: #fff;
+  padding: 6rem 2rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh; /* biar hero tinggi & mewah */
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 700;
+}
+
+.hero p {
+  margin-top: 0.6rem;
+  color: rgba(243,243,243,0.95);
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+}
+
+/* GRID */
+.grid {
+  max-width: 1200px;
+  margin: 2.25rem auto;
+  padding: 0 1rem 3rem;
+  display: grid;
+  gap: 1.6rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(6,24,35,0.06);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(6,24,35,0.1);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.content h3 {
+  margin: 0;
+  font-size: 1.12rem;
+  color: var(--green);
+}
+
+.content .date {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.content p {
+  color: #444;
+  font-size: 0.96rem;
+  margin: 0;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.btn {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-block;
+  padding: 0.5rem 0.95rem;
+  background: var(--green);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 180ms ease, transform 180ms ease;
+}
+.btn:hover {
+  background: var(--accent);
+  color: #111;
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE GRID */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .card img {
+    height: 170px;
+  }
+}
+
+@media (max-width: 680px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .card img {
+    height: 220px;
+  }
+  .hero {
+    padding: 3rem 0.8rem;
+  }
+}
