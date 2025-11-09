@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
@@ -27,9 +28,9 @@ export default function AboutPage() {
               sustainability, we ensure every product meets international
               standards of quality, traceability, and authenticity.
             </p>
-            <a href="/products" className="btn btn-primary">
-              Explore Our Products
-            </a>
+          <Link href="/products" className="btn btn-primary">
+            Explore Our Products
+          </Link>
           </div>
           <div className="about-img" style={{ position: "relative", width: "100%", maxWidth: "500px", height: "350px" }}>
             <Image

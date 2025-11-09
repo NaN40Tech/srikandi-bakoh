@@ -3,10 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, product, subject, message } = await req.json();
+    const { name, email, subject, message } = await req.json(); // <-- product dihapus
 
     if (!name || !email || !message) {
-      return NextResponse.json({ success: false, msg: "All fields are required" }, { status: 400 });
+      return NextResponse.json(
+        { success: false, msg: "All fields are required" },
+        { status: 400 }
+      );
     }
 
     const transporter = nodemailer.createTransport({
@@ -28,9 +31,15 @@ export async function POST(req: NextRequest) {
       html: `<p>${message.replace(/\n/g, "<br>")}</p>`,
     });
 
-    return NextResponse.json({ success: true, msg: "Message sent successfully!" });
+    return NextResponse.json({
+      success: true,
+      msg: "Message sent successfully!",
+    });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ success: false, msg: "Error sending message." }, { status: 500 });
+    return NextResponse.json(
+      { success: false, msg: "Error sending message." },
+      { status: 500 }
+    );
   }
 }
