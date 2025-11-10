@@ -16,26 +16,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Tetap pakai CSS eksternal */}
+        {/* Styles tetap pakai CSS eksternal */}
         <link rel="stylesheet" href="/styles.css" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         />
       </head>
-
       <body>
         {/* HEADER */}
         <header>
-          <Link
-            href="/"
-            className="logo"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              textDecoration: "none",
-            }}
-          >
+          <Link href="/" className="logo" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
             <Image
               src="/assets/logo.webp"
               alt="PT Srikandi Barokah Logo"
@@ -47,13 +38,11 @@ export default function RootLayout({
             <strong>PT Srikandi Barokah</strong>
           </Link>
 
-          {/* Tombol menu mobile */}
           <button className="menu-toggle" aria-label="Toggle Menu">
             &#9776;
           </button>
 
-          {/* Navigasi */}
-          <nav className="nav-links">
+          <nav>
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
             <Link href="/products">Products</Link>
@@ -79,18 +68,10 @@ export default function RootLayout({
               <h3>PT Srikandi Bakoh</h3>
               <p>Bringing Indonesia’s finest spices to the global stage.</p>
               <div className="social-icons">
-                <a
-                  href="https://instagram.com/..."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://instagram.com/..." target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-instagram"></i>
                 </a>
-                <a
-                  href="https://linkedin.com/company/..."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://linkedin.com/company/..." target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-linkedin"></i>
                 </a>
               </div>
@@ -123,28 +104,8 @@ export default function RootLayout({
           </div>
         </footer>
 
-        {/* Script toggle menu responsif */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              document.addEventListener('DOMContentLoaded', function() {
-                const toggle = document.querySelector('.menu-toggle');
-                const nav = document.querySelector('nav.nav-links');
-                const links = document.querySelectorAll('nav.nav-links a');
-
-                toggle?.addEventListener('click', () => {
-                  nav?.classList.toggle('active');
-                });
-
-                links.forEach(link => {
-                  link.addEventListener('click', () => {
-                    nav?.classList.remove('active');
-                  });
-                });
-              });
-            `,
-          }}
-        />
+        {/* async */}
+        <script src="/script.js" async></script>
       </body>
     </html>
   );
