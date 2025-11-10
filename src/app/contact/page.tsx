@@ -41,7 +41,7 @@ export default function ContactPage() {
         message: getDefaultMessage(prev.product, prev.name),
       }));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [form.product]);
 
   const validatePhone = (phone: string) => /^\+?[1-9]\d{6,14}$/.test(phone);
