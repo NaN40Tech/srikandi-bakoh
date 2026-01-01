@@ -4,7 +4,7 @@ import Image from "next/image";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PT Srikandi Barokah",
+  title: "PT Srikandi Bakoh",
   description: "Export Indonesian spices worldwide",
 };
 
@@ -29,13 +29,13 @@ export default function RootLayout({
           <Link href="/" className="logo" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
             <Image
               src="/assets/logo.webp"
-              alt="PT Srikandi Barokah Logo"
+              alt="PT Srikandi Bakoh Logo"
               width={50}
               height={50}
               priority
               style={{ marginRight: "8px" }}
             />
-            <strong>PT Srikandi Barokah</strong>
+            <strong>PT Srikandi Bakoh</strong>
           </Link>
 
           <button className="menu-toggle" aria-label="Toggle Menu">
@@ -88,7 +88,7 @@ export default function RootLayout({
             <div className="footer-contact">
               <h4>Contact</h4>
               <p>
-                <i className="fas fa-envelope"></i> info@srikandibarokah.com
+                <i className="fas fa-envelope"></i> info@srikandibakoh.com
               </p>
               <p>
                 <i className="fas fa-phone"></i> +62 812-3456-7890
