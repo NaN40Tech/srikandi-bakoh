@@ -121,92 +121,60 @@ export default function HomePage() {
       {/* ARTICLES */}
       <section className="articles">
         <h2>Articles</h2>
+
         <div className="article-grid">
-          
-          <div className="article-card">
-          <Image
-            src="/assets/article-rice1.webp"
-            alt="Premium rice selection East Java"
-            width={400}
-            height={260}
-            loading="lazy"
-          />
-          <div className="article-content">
-            <h3>Carefully Selected in Every Grain, Excellence Served in Every Meal</h3>
-            <span className="date">Published: Jan 2025</span>
-            <p>
-              Premium rice sourced from selected local farmers in East Java, processed
-              with modern technology to preserve purity, taste, and consistent quality
-              from harvest to table.
-            </p>
-            <Link href="/articles/premium-rice" className="btn btn-secondary">
-              Read More
-            </Link>
-          </div>
-        </div>
-
-          <div className="article-card">
-            <Image
-              src="/assets/article-ginger1.webp"
-              alt="Ginger origin Ponorogo"
-              width={400}
-              height={260}
-              loading="lazy"
-            />
-            <div className="article-content">
-              <h3>The Origin of Ginger</h3>
-              <span className="date">Published: Jan 2025</span>
-              <p>
-                Our ginger is cultivated in Ponorogo, East Java—specifically the Jenangan area,
-                known for its fertile volcanic soil and premium crop quality.
-              </p>
-              <Link href="/articles/ginger-origin" className="btn btn-secondary">
-                Read More
-              </Link>
+          {[
+            {
+              slug: "premium-rice",
+              img: "/assets/article-rice1.webp",
+              title:
+                "Carefully Selected in Every Grain, Excellence Served in Every Meal",
+              desc:
+                "Premium rice sourced from selected local farmers in East Java, processed with modern technology to preserve quality.",
+            },
+            {
+              slug: "ginger-origin",
+              img: "/assets/article-ginger1.webp",
+              title: "The Origin of Ginger",
+              desc:
+                "Our ginger is cultivated in Ponorogo, East Java, known for its fertile volcanic soil.",
+            },
+            {
+              slug: "ginger-plantations",
+              img: "/assets/article-ginger2.webp",
+              title: "Ginger Plantations",
+              desc:
+                "Managed together with local farmers using eco-friendly farming methods.",
+            },
+            {
+              slug: "turmeric-origin",
+              img: "/assets/article-turmeric1.webp",
+              title: "The Origin of Turmeric",
+              desc:
+                "Turmeric from Ponorogo Jenangan with bright color and strong aroma.",
+            },
+          ].map((a) => (
+            <div className="article-card" key={a.slug}>
+              <Image
+                src={a.img}
+                alt={a.title}
+                width={400}
+                height={260}
+                loading="lazy"
+              />
+              <div className="article-content">
+                <h3>{a.title}</h3>
+                <span className="date">Published: Jan 2025</span>
+                <p>{a.desc}</p>
+                <Link
+                  href={`/articles/${a.slug}`}
+                  className="btn btn-secondary"
+                >
+                  Read More
+                </Link>
+              </div>
             </div>
-          </div>
-
-          <div className="article-card">
-            <Image
-              src="/assets/article-ginger2.webp"
-              alt="Ginger plantation Ponorogo"
-              width={400}
-              height={260}
-              loading="lazy"
-            />
-            <div className="article-content">
-              <h3>Ginger Plantations</h3>
-              <span className="date">Published: Jan 2025</span>
-              <p>
-                Our ginger plantations are managed together with local farmers in Jenangan,
-                using eco-friendly farming methods to preserve soil fertility.
-              </p>
-              <Link href="/article-ginger" className="btn btn-secondary">
-                Read More
-              </Link>
-            </div>
-          </div>
-
-          <div className="article-card">
-            <Image
-              src="/assets/article-turmeric1.webp"
-              alt="Turmeric origin Ponorogo"
-              width={400}
-              height={260}
-              loading="lazy"
-            />
-            <div className="article-content">
-              <h3>The Origin of Turmeric</h3>
-              <span className="date">Published: Jan 2025</span>
-              <p>
-                Our turmeric comes from Ponorogo Jenangan, a region rich in natural minerals that
-                produce bright-colored turmeric with strong flavor and aroma.
-              </p>
-              <Link href="/article-turmeric" className="btn btn-secondary">
-                Read More
-              </Link>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="see-more">

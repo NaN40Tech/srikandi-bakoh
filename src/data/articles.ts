@@ -9,6 +9,87 @@ export interface Article {
 }
 
 export const articles: Article[] = [
+
+  {
+    slug: 'premium-rice',
+    title: 'Carefully Selected in Every Grain, Excellence Served in Every Meal',
+    date: 'Jan 2025',
+    description:
+      'Premium rice sourced from selected local farmers in East Java, processed with modern technology to preserve purity, taste, and consistent quality.',
+    image: '/assets/article-rice1.webp',
+    heroImage: '/assets/rice-field.webp',
+    content: `
+      <h2>Carefully Selected in Every Grain, Excellence Served in Every Meal</h2>
+
+      <img src="/assets/article-rice1.webp" alt="Premium rice from East Java" />
+      <p class="caption">
+        Premium rice sourced from selected local farmers in East Java.
+      </p>
+
+      <p>
+        Premium rice sourced from carefully selected local farmers in
+        <strong>East Java</strong>, processed with modern technology to preserve
+        purity, taste, and consistent quality from harvest to table.
+      </p>
+
+      <h2>From Origin to Excellence</h2>
+
+      <img src="/assets/rice-field.webp" alt="Rice fields in East Java" />
+      <p class="caption">
+        East Java — one of Indonesia’s most fertile and renowned rice-producing regions.
+      </p>
+
+      <p>
+        We believe that exceptional rice begins at its origin. Our rice is produced
+        from carefully selected paddy sourced directly from experienced local farmers.
+      </p>
+
+      <p>
+        Each paddy grain undergoes a meticulous sorting process to ensure optimal
+        maturity, uniformity, and cleanliness. Controlled milling stages help
+        preserve natural aroma, texture, and superior eating quality.
+      </p>
+
+      <p>
+        Hygienic and standardized packaging systems are applied to maintain freshness
+        and integrity throughout distribution, delivering reliable quality for
+        global markets.
+      </p>
+
+      <h2>Rice Grades Available</h2>
+
+      <h3>Premium Rice</h3>
+      <p>
+        Uniform grain size, low broken content, and superior eating quality.
+        Ideal for premium retail, hospitality, and food service markets.
+      </p>
+
+      <h3>Medium Grade Rice</h3>
+      <p>
+        A cost-effective option with balanced quality, suitable for mass
+        distribution and general consumer markets.
+      </p>
+
+      <h3>Broken Rice (Menir)</h3>
+      <p>
+        Finely broken rice grains used in rice flour manufacturing and
+        food-processing industries.
+      </p>
+
+      <h2>Bulk Supply and Packaging</h2>
+      <p>
+        We are fully prepared to fulfill bulk orders with customized specifications,
+        including grain length, broken percentage, moisture level, and whitening degree.
+      </p>
+
+      <p>
+        Packaging options range from bulk bags to retail-ready formats, with private
+        labeling available upon request. Our production system supports consistent
+        supply and long-term partnerships.
+      </p>
+    `,
+  },
+
   {
     slug: 'ginger-origin',
     title: 'The Origin of Ginger',
@@ -102,83 +183,5 @@ export const articles: Article[] = [
     `,
   },
 
-  {
-    slug: 'premium-rice',
-    title: 'Carefully Selected in Every Grain, Excellence Served in Every Meal',
-    date: 'Jan 2025',
-    description:
-      'Premium rice sourced from selected local farmers in East Java, processed with modern technology to preserve purity, taste, and consistent quality.',
-    image: '/assets/article-rice1.webp',
-    heroImage: '/assets/rice-field.webp',
-    content: `
-      <h2>Carefully Selected in Every Grain, Excellence Served in Every Meal</h2>
-
-      <img src="/assets/article-rice1.webp" alt="Premium rice from East Java" />
-      <p class="caption">
-        Premium rice sourced from selected local farmers in East Java.
-      </p>
-
-      <p>
-        Premium rice sourced from carefully selected local farmers in
-        <strong>East Java</strong>, processed with modern technology to preserve
-        purity, taste, and consistent quality from harvest to table.
-      </p>
-
-      <h2>From Origin to Excellence</h2>
-
-      <img src="/assets/rice-field.webp" alt="Rice fields in East Java" />
-      <p class="caption">
-        East Java — one of Indonesia’s most fertile and renowned rice-producing regions.
-      </p>
-
-      <p>
-        We believe that exceptional rice begins at its origin. Our rice is produced
-        from carefully selected paddy sourced directly from experienced local farmers.
-      </p>
-
-      <p>
-        Each paddy grain undergoes a meticulous sorting process to ensure optimal
-        maturity, uniformity, and cleanliness. Controlled milling stages help
-        preserve natural aroma, texture, and superior eating quality.
-      </p>
-
-      <p>
-        Hygienic and standardized packaging systems are applied to maintain freshness
-        and integrity throughout distribution, delivering reliable quality for
-        global markets.
-      </p>
-
-      <h2>Rice Grades Available</h2>
-
-      <h3>Premium Rice</h3>
-      <p>
-        Uniform grain size, low broken content, and superior eating quality.
-        Ideal for premium retail, hospitality, and food service markets.
-      </p>
-
-      <h3>Medium Grade Rice</h3>
-      <p>
-        A cost-effective option with balanced quality, suitable for mass
-        distribution and general consumer markets.
-      </p>
-
-      <h3>Broken Rice (Menir)</h3>
-      <p>
-        Finely broken rice grains used in rice flour manufacturing and
-        food-processing industries.
-      </p>
-
-      <h2>Bulk Supply and Packaging</h2>
-      <p>
-        We are fully prepared to fulfill bulk orders with customized specifications,
-        including grain length, broken percentage, moisture level, and whitening degree.
-      </p>
-
-      <p>
-        Packaging options range from bulk bags to retail-ready formats, with private
-        labeling available upon request. Our production system supports consistent
-        supply and long-term partnerships.
-      </p>
-    `,
-  },
+  
 ];
