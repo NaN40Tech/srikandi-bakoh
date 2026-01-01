@@ -133,6 +133,7 @@ export default function ContactPage() {
               >
                 +62 812-3236-6354 (Chat via WhatsApp)
               </a>
+              <br />
                             <a
                 href="https://api.whatsapp.com/send?phone=6285335009222"
                 target="_blank"
