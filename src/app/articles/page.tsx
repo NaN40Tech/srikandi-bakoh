@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { articles } from "../../data/articles";
+import { articles } from "@/data/articles"; // Dari src/app/articles ke src/data
 import "./articles.css";
 
 export default function ArticlesPage() {

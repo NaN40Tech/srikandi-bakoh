@@ -1,5 +1,5 @@
 export interface Product {
-  slug: string;
+  slug: "rice" | "ginger" | "turmeric";
   name: string;
   image: string;
   origin: string;
@@ -8,35 +8,35 @@ export interface Product {
   description: string;
 }
 
-export const products: Product[] = [
+export const products = [
   {
-    slug: "nutmeg",
-    name: "Nutmeg",
-    image: "/assets/nutmeg.webp",
-    origin: "Indonesia",
-    grade: "Premium",
-    usage: "Culinary, Industrial, Health products",
+    slug: "rice",
+    name: "Rice",
+    image: "/assets/rice.webp",
+    origin: "East Java, Indonesia",
+    grade: "Premium, Medium, Broken (Menir)",
+    usage: "Culinary, Food Industry, Export",
     description:
-      "Our Nutmeg is carefully selected from the best regions in Indonesia, ensuring aromatic quality suitable for both culinary and industrial applications. Ideal for spice mixes, essential oils, and traditional remedies.",
+      "High-quality Indonesian rice sourced from selected farmers in East Java. Processed with modern milling technology to ensure consistent quality for global markets.",
   },
   {
-    slug: "clove",
-    name: "Clove",
-    image: "/assets/clove.webp",
-    origin: "Indonesia",
+    slug: "ginger",
+    name: "Ginger",
+    image: "/assets/ginger.webp",
+    origin: "Ponorogo, East Java",
     grade: "Premium",
-    usage: "Culinary, Industrial, Health products",
+    usage: "Fresh, Dried, Powder, Sliced",
     description:
-      "High-quality cloves sourced from Indonesian farms, perfect for spice, oil extraction, and herbal remedies.",
+      "Indonesian ginger cultivated in fertile volcanic soil of Ponorogo. Known for its strong aroma and high essential oil content.",
   },
   {
-    slug: "cinnamon",
-    name: "Cinnamon",
-    image: "/assets/cinnamon.webp",
-    origin: "Indonesia",
+    slug: "turmeric",
+    name: "Turmeric",
+    image: "/assets/turmeric.webp",
+    origin: "East Java, Indonesia",
     grade: "Premium",
-    usage: "Culinary, Industrial, Health products",
+    usage: "Fresh, Dried, Powder",
     description:
-      "Aromatic cinnamon sticks from the best plantations in Indonesia, great for culinary and industrial purposes.",
+      "Natural turmeric from East Java with bright color and high curcumin content.",
   },
-];
+] as const;
