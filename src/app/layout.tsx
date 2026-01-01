@@ -91,7 +91,10 @@ export default function RootLayout({
                 <i className="fas fa-envelope"></i> info@srikandibarokah.com
               </p>
               <p>
-                <i className="fas fa-phone"></i> +62 812 3456 7890
+                <i className="fas fa-phone"></i> +62 812-3456-7890
+              </p>
+              <p>
+                <i className="fas fa-phone"></i> +62 853-3500-9222
               </p>
               <p>
                 <i className="fas fa-map-marker-alt"></i> Ponorogo, Jawa Timur
