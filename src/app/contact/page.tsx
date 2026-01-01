@@ -82,7 +82,7 @@ export default function ContactPage() {
     if (!validateForm()) return;
     setLoading(true);
 
-    const waNumber = "6285536357246"; 
+    const waNumber = "6285335009222"; 
     const waMessage = [
       "Hello PT Srikandi Barokah Team,",
       "",
@@ -131,7 +131,14 @@ export default function ContactPage() {
                 target="_blank"
                 rel="noreferrer"
               >
-                +62 812 3236 6354 (Chat via WhatsApp)
+                +62 812-3236-6354 (Chat via WhatsApp)
+              </a>
+                            <a
+                href="https://api.whatsapp.com/send?phone=6285335009222"
+                target="_blank"
+                rel="noreferrer"
+              >
+                +62 853-3500-9222 (Chat via WhatsApp)
               </a>
             </p>
             <p>
@@ -235,7 +242,7 @@ export default function ContactPage() {
                   padding: "10px 14px",
                   borderRadius: 8,
                   border: "none",
-                  background: loading ? "#9ca3af" : "#25D366",
+                  background: loading ? "#ece5dd" : "#25d366",
                   color: "#fff",
                   cursor: loading ? "not-allowed" : "pointer",
                 }}

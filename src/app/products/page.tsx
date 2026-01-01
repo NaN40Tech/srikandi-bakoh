@@ -3,39 +3,31 @@ import Link from "next/link";
 
 const products = [
   {
-    name: "Nutmeg",
-    img: "/assets/nutmeg.webp",
-    specs: ["Origin: Indonesia", "Moisture: 10–12%", "Packaging: 25kg bag"],
-  },
-  {
-    name: "Clove",
-    img: "/assets/clove.webp",
-    specs: ["Origin: Indonesia", "Size: 5–7 mm", "Packaging: 20kg bag"],
-  },
-  {
-    name: "Cinnamon",
-    img: "/assets/cinnamon.webp",
-    specs: ["Origin: Indonesia", "Form: Powder", "Packaging: 25kg carton"],
+    name: "Rice",
+    img: "/assets/rice.webp",
+    specs: [
+      "Origin: East Java, Indonesia",
+      "Grades: Premium, Medium, Broken (Menir)",
+      "Packaging: Bulk & Retail Options",
+    ],
   },
   {
     name: "Ginger",
     img: "/assets/ginger.webp",
-    specs: ["Origin: Ponorogo", "Form: Dried", "Packaging: 20kg sack"],
+    specs: [
+      "Origin: Ponorogo, East Java",
+      "Form: Fresh, Dried, Sliced, Powder",
+      "Packaging: 20–25 kg sack",
+    ],
   },
   {
     name: "Turmeric",
     img: "/assets/turmeric.webp",
-    specs: ["Origin: Indonesia", "Form: Dried", "Packaging: 25kg bag"],
-  },
-  {
-    name: "Cardamom",
-    img: "/assets/cardamom.webp",
-    specs: ["Origin: Indonesia", "Form: Whole", "Packaging: 25kg sack"],
-  },
-  {
-    name: "Black Pepper",
-    img: "/assets/blackpepper.webp",
-    specs: ["Origin: Indonesia", "Form: Whole", "Packaging: 25kg bag"],
+    specs: [
+      "Origin: East Java, Indonesia",
+      "Form: Fresh, Dried, Powder",
+      "Packaging: 20–25 kg bag",
+    ],
   },
 ];
 
@@ -47,8 +39,8 @@ export default function ProductsPage() {
         <div className="hero-content">
           <h1>Our Products</h1>
           <p>
-            Premium Indonesian spices exported worldwide with trusted quality
-            standards.
+            Premium agricultural products from Indonesia, processed with
+            international quality standards for global markets.
           </p>
         </div>
       </section>
@@ -56,8 +48,9 @@ export default function ProductsPage() {
       {/* PRODUCTS GRID */}
       <section className="max-w-6xl mx-auto px-4 py-12">
         <h2 className="text-center text-2xl font-bold text-green-800 mb-10 font-serif">
-          Spice Collection
+          Product Collection
         </h2>
+
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <div
@@ -72,15 +65,18 @@ export default function ProductsPage() {
                 className="w-full h-48 object-cover"
                 sizes="(max-width: 768px) 100vw, 400px"
               />
+
               <div className="p-5 flex flex-col flex-1">
                 <h3 className="text-lg font-semibold text-green-900 mb-2">
                   {product.name}
                 </h3>
+
                 <ul className="text-sm text-gray-600 flex-1 mb-4 space-y-1">
-                  {product.specs.map((s, i) => (
-                    <li key={i}>{s}</li>
+                  {product.specs.map((spec, i) => (
+                    <li key={i}>{spec}</li>
                   ))}
                 </ul>
+
                 <Link
                   href={`/contact?product=${product.name}`}
                   className="btn-primary mt-auto"
@@ -93,17 +89,18 @@ export default function ProductsPage() {
         </div>
       </section>
 
-{/* CTA */}
-<section className="cta">
-  <h2>Request Export Quote</h2>
-  <p>
-    We provide premium Indonesian spices with consistent quality and
-    reliable global shipping. Contact us today to get your quotation.
-  </p>
-  <a href="/contact" className="btn btn-primary">
-    Contact Us
-  </a>
-</section>
+      {/* CTA */}
+      <section className="cta">
+        <h2>Request Export Quote</h2>
+        <p>
+          We supply rice, ginger, and turmeric with consistent quality,
+          flexible specifications, and reliable global shipping.
+          Contact us today to receive your quotation.
+        </p>
+        <Link href="/contact" className="btn btn-primary">
+          Contact Us
+        </Link>
+      </section>
     </>
   );
 }

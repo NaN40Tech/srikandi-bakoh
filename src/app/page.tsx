@@ -80,25 +80,37 @@ export default function HomePage() {
           </button>
           <div className="product-track">
             {[
-              { name: "Nutmeg", slug: "nutmeg", img: "/assets/nutmeg.webp", desc: "Rich aroma, perfect for culinary and industrial use." },
-              { name: "Clove", slug: "clove", img: "/assets/clove.webp", desc: "High-quality clove from Indonesia’s best regions." },
-              { name: "Cinnamon", slug: "cinnamon", img: "/assets/cinnamon.webp", desc: "Aromatic cinnamon sticks and powder." },
-              { name: "Ginger", slug: "ginger", img: "/assets/ginger.webp", desc: "Fresh and dried ginger, perfect for culinary and health use." },
-              { name: "Turmeric", slug: "turmeric", img: "/assets/turmeric.webp", desc: "Golden spice with powerful health benefits." },
-              { name: "Cardamom", slug: "cardamom", img: "/assets/cardamom.webp", desc: "Strong flavor, ideal for food and beverage industries." },
-              { name: "Black Pepper", slug: "blackpepper", img: "/assets/blackpepper.webp", desc: "Premium black peppercorns for global markets." },
-            ].map((p) => (
-              <div className="product-card" key={p.slug}>
-                <Image src={p.img} alt={p.name} width={250} height={200} loading="lazy" />
-                <h3>{p.name}</h3>
-                <p>{p.desc}</p>
-                <div className="product-overlay">
-                  <Link href={`/products/${p.slug}`} className="btn-detail">
-                    See Details
-                  </Link>
-                </div>
+            {
+              name: "Rice",
+              slug: "rice",
+              img: "/assets/rice.webp",
+              desc: "High-quality Indonesian rice cultivated with sustainable farming practices.",
+            },
+            {
+              name: "Ginger",
+              slug: "ginger",
+              img: "/assets/ginger.webp",
+              desc: "Fresh and dried ginger with strong aroma and premium quality.",
+            },
+            {
+              name: "Turmeric",
+              slug: "turmeric",
+              img: "/assets/turmeric.webp",
+              desc: "Natural turmeric with bright color and rich curcumin content.",
+            },
+          ].map((p) => (
+            <div className="product-card" key={p.slug}>
+              <Image src={p.img} alt={p.name} width={250} height={200} loading="lazy" />
+              <h3>{p.name}</h3>
+              <p>{p.desc}</p>
+              <div className="product-overlay">
+                <Link href={`/products/${p.slug}`} className="btn-detail">
+                  See Details
+                </Link>
               </div>
-            ))}
+            </div>
+          ))}
+
           </div>
           <button className="arrow right" aria-label="Scroll right" suppressHydrationWarning>
             &#10095;
@@ -110,6 +122,29 @@ export default function HomePage() {
       <section className="articles">
         <h2>Articles</h2>
         <div className="article-grid">
+          
+          <div className="article-card">
+          <Image
+            src="/assets/article-rice1.webp"
+            alt="Premium rice selection East Java"
+            width={400}
+            height={260}
+            loading="lazy"
+          />
+          <div className="article-content">
+            <h3>Carefully Selected in Every Grain, Excellence Served in Every Meal</h3>
+            <span className="date">Published: Jan 2025</span>
+            <p>
+              Premium rice sourced from selected local farmers in East Java, processed
+              with modern technology to preserve purity, taste, and consistent quality
+              from harvest to table.
+            </p>
+            <Link href="/articles/premium-rice" className="btn btn-secondary">
+              Read More
+            </Link>
+          </div>
+        </div>
+
           <div className="article-card">
             <Image
               src="/assets/article-ginger1.webp"
