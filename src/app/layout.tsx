@@ -72,13 +72,46 @@ export default function RootLayout({
               <h3>PT Dwi Srikandi Bakoh</h3>
               <p>Rooted in Indonesia, Trusted Worldwide.</p>
               <div className="social-icons">
-                <a href="https://instagram.com/..." target="_blank" rel="noopener noreferrer">
-                  <i className="fab fa-instagram"></i>
-                </a>
-                <a href="https://linkedin.com/company/..." target="_blank" rel="noopener noreferrer">
-                  <i className="fab fa-linkedin"></i>
-                </a>
-              </div>
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/ptdwisrikandi/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <i className="fab fa-instagram"></i>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/company/ptdwisrikandibakoh"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
+                <i className="fab fa-linkedin"></i>
+              </a>
+
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/profile.php?id=61590384339444"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+              >
+                <i className="fab fa-facebook"></i>
+              </a>
+
+              {/* Threads */}
+              <a
+                href="https://www.threads.com/@ptdwisrikandi"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Threads"
+              >
+                <i className="fab fa-threads"></i>
+              </a>
+            </div>
             </div>
 
             <div className="footer-links">
