@@ -12,15 +12,13 @@ export async function generateStaticParams() {
 }
 
 interface Props {
-  params: Promise<{ slug: string }>; // Next.js 15+ uses Promise
+  params: Promise<{ slug: string }>;
 }
 
 export default async function ProductPage({ params }: Props) {
-  // Await params in Next.js 15+
   const { slug } = await params;
-  
   const product = products.find((p) => p.slug === slug);
-  
+
   if (!product) {
     return notFound();
   }
@@ -42,18 +40,37 @@ export default async function ProductPage({ params }: Props) {
 
           <div className="pn-info">
             <h2>Product Details</h2>
-            <p><strong>Origin:</strong> {product.origin}</p>
-            <p><strong>Grade:</strong> {product.grade}</p>
-            <p><strong>Usage:</strong> {product.usage}</p>
+
+            <p>
+              <strong>Origin:</strong> {product.origin}
+            </p>
+
+            {product.type && (
+              <p>
+                <strong>Type:</strong> {product.type}
+              </p>
+            )}
+
+            {product.grade && (
+              <p>
+                <strong>Grade:</strong> {product.grade}
+              </p>
+            )}
+
+            <p>
+              <strong>Usage:</strong> {product.usage}
+            </p>
+
             <p>{product.description}</p>
 
             <div className="pn-actions">
-              <Link 
-                href={`/contact?product=${encodeURIComponent(product.name)}`} 
+              <Link
+                href={`/contact?product=${encodeURIComponent(product.name)}`}
                 className="pn-btn primary"
               >
                 Request Quote
               </Link>
+
               <Link href="/products" className="pn-btn secondary">
                 Back to Products
               </Link>
@@ -69,15 +86,15 @@ export default async function ProductPage({ params }: Props) {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const product = products.find((p) => p.slug === slug);
-  
+
   if (!product) {
     return {
-      title: 'Product Not Found',
+      title: "Product Not Found",
     };
   }
 
   return {
-    title: `${product.name} - Indonesian Spices`,
+    title: `${product.name} - PT Dwi Srikandi Bakoh`,
     description: product.description,
   };
 }

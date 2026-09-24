@@ -3,11 +3,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
+import { products } from "@/app/products/data";
 
 export default function HomePage() {
   const whyTrackRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+
+  const productTrackRef = useRef<HTMLDivElement>(null);
+  const [showProductLeft, setShowProductLeft] = useState(false);
+  const [showProductRight, setShowProductRight] = useState(true);
 
   const checkScroll = () => {
     if (whyTrackRef.current) {
@@ -17,15 +22,36 @@ export default function HomePage() {
     }
   };
 
+  const checkProductScroll = () => {
+    if (productTrackRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = productTrackRef.current;
+      setShowProductLeft(scrollLeft > 0);
+      setShowProductRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
   useEffect(() => {
     checkScroll();
     const trackElement = whyTrackRef.current;
     if (trackElement) {
-      trackElement.addEventListener('scroll', checkScroll);
-      window.addEventListener('resize', checkScroll);
+      trackElement.addEventListener("scroll", checkScroll);
+      window.addEventListener("resize", checkScroll);
       return () => {
-        trackElement.removeEventListener('scroll', checkScroll);
-        window.removeEventListener('resize', checkScroll);
+        trackElement.removeEventListener("scroll", checkScroll);
+        window.removeEventListener("resize", checkScroll);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    checkProductScroll();
+    const el = productTrackRef.current;
+    if (el) {
+      el.addEventListener("scroll", checkProductScroll);
+      window.addEventListener("resize", checkProductScroll);
+      return () => {
+        el.removeEventListener("scroll", checkProductScroll);
+        window.removeEventListener("resize", checkProductScroll);
       };
     }
   }, []);
@@ -33,7 +59,8 @@ export default function HomePage() {
   const scroll = (ref: React.RefObject<HTMLDivElement>, direction: "left" | "right") => {
     if (ref.current) {
       const scrollAmount = 300;
-      const newScrollLeft = ref.current.scrollLeft + (direction === "right" ? scrollAmount : -scrollAmount);
+      const newScrollLeft =
+        ref.current.scrollLeft + (direction === "right" ? scrollAmount : -scrollAmount);
       ref.current.scrollTo({ left: newScrollLeft, behavior: "smooth" });
     }
   };
@@ -71,60 +98,41 @@ export default function HomePage() {
     },
   ];
 
-  const featuredProducts = [
-    {
-      name: "Rice",
-      slug: "rice",
-      img: "/assets/rice.webp",
-      desc: "High-quality Indonesian rice cultivated with sustainable farming practices.",
-    },
-    {
-      name: "Ginger",
-      slug: "ginger",
-      img: "/assets/ginger.webp",
-      desc: "Fresh and dried ginger with strong aroma and premium quality.",
-    },
-    {
-      name: "Turmeric",
-      slug: "turmeric",
-      img: "/assets/turmeric.webp",
-      desc: "Natural turmeric with bright color and rich curcumin content.",
-    },
-  ];
+  const featuredProducts = products;
 
   const articles = [
-  {
-    img: "/assets/article-rice1.webp",
-    alt: "Premium rice selection East Java",
-    title: "Carefully Selected in Every Grain, Excellence Served in Every Meal",
-    date: "Jan 2025",
-    desc: "Premium rice sourced from selected local farmers in East Java, processed with modern technology to preserve purity, taste, and consistent quality from harvest to table.",
-    link: "/articles/premium-rice",
-  },
-  {
-    img: "/assets/article-ginger1.webp",
-    alt: "Ginger origin Ponorogo",
-    title: "The Origin of Ginger",
-    date: "Jan 2025",
-    desc: "Our ginger is cultivated in Ponorogo, East Java—specifically the Jenangan area, known for its fertile volcanic soil and premium crop quality.",
-    link: "/articles/ginger-origin",
-  },
-  {
-    img: "/assets/article-ginger2.webp",
-    alt: "Ginger plantation Ponorogo",
-    title: "Ginger Plantations",
-    date: "Jan 2025",
-    desc: "Our ginger plantations are managed together with local farmers in Jenangan, using eco-friendly farming methods to preserve soil fertility.",
-    link: "/articles/ginger-plantations", 
-  },
-];
+    {
+      img: "/assets/article-rice1.webp",
+      alt: "Premium rice selection East Java",
+      title: "Carefully Selected in Every Grain, Excellence Served in Every Meal",
+      date: "Jan 2025",
+      desc: "Premium rice sourced from selected local farmers in East Java, processed with modern technology to preserve purity, taste, and consistent quality from harvest to table.",
+      link: "/articles/premium-rice",
+    },
+    {
+      img: "/assets/article-ginger1.webp",
+      alt: "Ginger origin Ponorogo",
+      title: "The Origin of Ginger",
+      date: "Jan 2025",
+      desc: "Our ginger is cultivated in Ponorogo, East Java—specifically the Jenangan area, known for its fertile volcanic soil and premium crop quality.",
+      link: "/articles/ginger-origin",
+    },
+    {
+      img: "/assets/article-ginger2.webp",
+      alt: "Ginger plantation Ponorogo",
+      title: "Ginger Plantations",
+      date: "Jan 2025",
+      desc: "Our ginger plantations are managed together with local farmers in Jenangan, using eco-friendly farming methods to preserve soil fertility.",
+      link: "/articles/ginger-plantations",
+    },
+  ];
 
   return (
     <>
       {/* HERO */}
       <section className="home-hero">
         <div className="hero-content">
-          <h1>Indonesian Spices for the World</h1>
+          <h1>Where Indonesian Flavors Meet the World</h1>
           <p>Delivering premium spices and herbs with international standards.</p>
           <Link href="/products" className="btn btn-primary">
             Explore Products
@@ -180,25 +188,47 @@ export default function HomePage() {
       {/* FEATURED PRODUCTS */}
       <section className="featured">
         <h2>Featured Products</h2>
-        <div className="product-grid-center">
-          {featuredProducts.map((product) => (
-            <div className="product-card" key={product.slug}>
-              <Image
-                src={product.img}
-                alt={product.name}
-                width={250}
-                height={200}
-                loading="lazy"
-              />
-              <h3>{product.name}</h3>
-              <p>{product.desc}</p>
-              <div className="product-overlay">
-                <Link href={`/products/${product.slug}`} className="btn-detail">
-                  See Details
-                </Link>
+        <div className="product-slider">
+          {showProductLeft && (
+            <button
+              type="button"
+              className="arrow left"
+              onClick={() => scroll(productTrackRef, "left")}
+              aria-label="Scroll left"
+            >
+              &#10094;
+            </button>
+          )}
+          <div className="product-track" ref={productTrackRef}>
+            {featuredProducts.map((product) => (
+              <div className="product-card" key={product.slug}>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={250}
+                  height={200}
+                  loading="lazy"
+                />
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <div className="product-overlay">
+                  <Link href={`/products/${product.slug}`} className="btn-detail">
+                    See Details
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          {showProductRight && (
+            <button
+              type="button"
+              className="arrow right"
+              onClick={() => scroll(productTrackRef, "right")}
+              aria-label="Scroll right"
+            >
+              &#10095;
+            </button>
+          )}
         </div>
       </section>
 
@@ -228,7 +258,6 @@ export default function HomePage() {
             </article>
           ))}
         </div>
-
         <div className="see-more">
           <Link href="/articles" className="btn btn-primary">
             See More Articles

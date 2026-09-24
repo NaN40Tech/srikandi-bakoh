@@ -1,35 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-
-const products = [
-  {
-    name: "Rice",
-    img: "/assets/rice.webp",
-    specs: [
-      "Origin: East Java, Indonesia",
-      "Grades: Premium, Medium, Broken (Menir)",
-      "Packaging: Bulk & Retail Options",
-    ],
-  },
-  {
-    name: "Ginger",
-    img: "/assets/ginger.webp",
-    specs: [
-      "Origin: Ponorogo, East Java",
-      "Form: Fresh, Dried, Sliced, Powder",
-      "Packaging: 20–25 kg sack",
-    ],
-  },
-  {
-    name: "Turmeric",
-    img: "/assets/turmeric.webp",
-    specs: [
-      "Origin: East Java, Indonesia",
-      "Form: Fresh, Dried, Powder",
-      "Packaging: 20–25 kg bag",
-    ],
-  },
-];
+import { products } from "./data";
+import "./[slug]/product-detail.css";
 
 export default function ProductsPage() {
   return (
@@ -54,11 +26,11 @@ export default function ProductsPage() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <div
-              key={product.name}
+              key={product.slug}
               className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg"
             >
               <Image
-                src={product.img}
+                src={product.image}
                 alt={product.name}
                 width={400}
                 height={250}
@@ -67,22 +39,29 @@ export default function ProductsPage() {
               />
 
               <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-lg font-semibold text-green-900 mb-2">
+                <h3 className="text-lg font-semibold text-green-900 mb-3 text-center">
                   {product.name}
                 </h3>
 
                 <ul className="text-sm text-gray-600 flex-1 mb-4 space-y-1">
-                  {product.specs.map((spec, i) => (
-                    <li key={i}>{spec}</li>
-                  ))}
-                </ul>
+                <li><strong>Origin:</strong> {product.origin}</li>
+                {product.type && (
+                  <li><strong>Type:</strong> {product.type}</li>
+                )}
+                {product.grade && (
+                  <li><strong>Grade:</strong> {product.grade}</li>
+                )}
+                <li><strong>Usage:</strong> {product.usage}</li>
+              </ul>
 
-                <Link
-                  href={`/contact?product=${product.name}`}
-                  className="btn-primary mt-auto"
-                >
-                  Request Quote
-                </Link>
+                <div className="flex gap-2 mt-auto justify-center">
+                  <Link
+                    href={`/contact?product=${encodeURIComponent(product.name)}`}
+                    className="btn-primary"
+                  >
+                    Request Quote
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
@@ -93,11 +72,11 @@ export default function ProductsPage() {
       <section className="cta">
         <h2>Request Export Quote</h2>
         <p>
-          We supply rice, ginger, and turmeric with consistent quality,
+          We supply premium agricultural products with consistent quality,
           flexible specifications, and reliable global shipping.
           Contact us today to receive your quotation.
         </p>
-        <Link href="/contact" className="btn btn-primary">
+        <Link href="/contact" className="btn-primary">
           Contact Us
         </Link>
       </section>

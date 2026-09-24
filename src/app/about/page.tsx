@@ -7,8 +7,8 @@ export default function AboutPage() {
       {/* HERO */}
       <section className="home-hero">
         <div className="hero-content">
-          <h1>About PT Srikandi Bakoh</h1>
-          <p>Bringing Indonesia’s finest spices to the global stage.</p>
+          <h1>About Our Company</h1>
+          <p>Rooted in Indonesia, Trusted Worldwide.</p>
         </div>
       </section>
 
@@ -19,7 +19,7 @@ export default function AboutPage() {
             <h4>Company Profile</h4>
             <h2>Who We Are</h2>
             <p>
-              PT Srikandi Bakoh is an Indonesian exporter of premium spices and
+              PT Dwi Srikandi Bakoh is an Indonesian exporter of premium spices and
               herbs. We are dedicated to bringing the richness of Indonesia’s
               agriculture to global markets.
             </p>
@@ -49,29 +49,54 @@ export default function AboutPage() {
       </section>
 
       {/* VISION & MISSION */}
-      <section className="vision-mission">
-        <h2>Our Vision & Mission</h2>
-        <div className="vm-grid">
-          <div className="vm-card vision">
-            <h3>Vision</h3>
-            <p>
-              To become a trusted global supplier of authentic Indonesian spices,
-              bringing Indonesia’s rich heritage to the world.
-            </p>
-          </div>
-          <div className="vm-card mission">
-            <h3>Mission</h3>
-            <p>
-              Providing high-quality, traceable, and hygienically packaged
-              products while empowering local farmers, ensuring sustainability,
-              and meeting international standards.
-            </p>
-          </div>
-        </div>
-      </section>
+<section className="vision-mission">
+  <div className="vm-heading">
+    <span className="gold">Vision</span>
+    <span className="green">&amp; Mission</span>
+  </div>
+  <div className="vm-divider">
+    <div className="vm-divider-line"></div>
+    <div className="vm-divider-dot"></div>
+    <div className="vm-divider-line"></div>
+  </div>
+
+  <div className="vm-grid">
+    <div className="vm-vision">
+      <div className="vm-icon-circle">
+        <i className="ti ti-eye" aria-hidden="true"></i>
+      </div>
+      <div className="vm-card-title">
+        <div className="vm-card-title-line"></div>
+        <h3>Vision</h3>
+        <div className="vm-card-title-line"></div>
+      </div>
+      <p>
+        To become a leading Indonesian spice export company, bringing the rich
+        flavors of the archipelago to global markets through superior quality
+        and internationally recognized standards.
+      </p>
+    </div>
+
+    <div className="vm-mission">
+      <div className="vm-icon-circle">
+        <i className="ti ti-target" aria-hidden="true"></i>
+      </div>
+      <div className="vm-card-title">
+        <div className="vm-card-title-line"></div>
+        <h3>Mission</h3>
+        <div className="vm-card-title-line"></div>
+      </div>
+      <ul className="vm-list">
+        <li>Deliver premium-quality Indonesian spices that consistently meet international standards.</li>
+        <li>Foster sustainable partnerships with local farmers to ensure ethical sourcing and long-term growth.</li>
+        <li>Bring authentic Indonesian flavors to global markets through reliable service and customer excellence.</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
       {/* CERTIFICATIONS */}
-      <section className="certifications">
+      {/* <section className="certifications">
         <h2>Certifications</h2>
         <p>
           Our products are supported by certifications to ensure global market
@@ -91,7 +116,7 @@ export default function AboutPage() {
             <span>ISO 22000 Food Safety</span>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

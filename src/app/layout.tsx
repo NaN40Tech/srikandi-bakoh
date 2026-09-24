@@ -4,7 +4,7 @@ import Image from "next/image";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PT Srikandi Bakoh",
+  title: "PT Dwi Srikandi Bakoh",
   description: "Export Indonesian spices worldwide",
 };
 
@@ -22,6 +22,10 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         />
+        <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+  />
       </head>
       <body>
         {/* HEADER */}
@@ -29,13 +33,13 @@ export default function RootLayout({
           <Link href="/" className="logo" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
             <Image
               src="/assets/logo.webp"
-              alt="PT Srikandi Bakoh Logo"
+              alt="PT Dwi Srikandi Bakoh Logo"
               width={50}
               height={50}
               priority
               style={{ marginRight: "8px" }}
             />
-            <strong>PT Srikandi Bakoh</strong>
+            <strong>PT Dwi Srikandi Bakoh</strong>
           </Link>
 
           <button className="menu-toggle" aria-label="Toggle Menu">
@@ -65,8 +69,8 @@ export default function RootLayout({
                 height={50}
                 style={{ objectFit: "contain" }}
               />
-              <h3>PT Srikandi Bakoh</h3>
-              <p>Bringing Indonesia’s finest spices to the global stage.</p>
+              <h3>PT Dwi Srikandi Bakoh</h3>
+              <p>Rooted in Indonesia, Trusted Worldwide.</p>
               <div className="social-icons">
                 <a href="https://instagram.com/..." target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-instagram"></i>
@@ -86,24 +90,36 @@ export default function RootLayout({
             </div>
 
             <div className="footer-contact">
-              <h4>Contact</h4>
-              <p>
-                <i className="fas fa-envelope"></i> info@srikandibakoh.com
-              </p>
-              <p>
-                <i className="fas fa-phone"></i> +62 812-3456-7890
-              </p>
-              <p>
-                <i className="fas fa-phone"></i> +62 853-3500-9222
-              </p>
-              <p>
-                <i className="fas fa-map-marker-alt"></i> Ponorogo, Jawa Timur
-              </p>
-            </div>
+            <h4>Contact</h4>
+            <p>
+              <i className="fas fa-envelope"></i> ptdwisrikandibakoh@gmail.com
+            </p>
+            <p>
+              <i className="fas fa-phone"></i>{" "}
+              <a href="https://wa.me/6281232366354" target="_blank" rel="noopener noreferrer">
+                +62 812-3236-6354 (Admin 1)
+              </a>
+            </p>
+            <p>
+              <i className="fas fa-phone"></i>{" "}
+              <a href="https://wa.me/6285604950653" target="_blank" rel="noopener noreferrer">
+                +62 856-0495-0653 (Admin 2)
+              </a>
+            </p>
+            <p>
+              <i className="fas fa-phone"></i>{" "}
+              <a href="https://wa.me/6285159017001" target="_blank" rel="noopener noreferrer">
+                +62 851-5901-7001 (Admin 3)
+              </a>
+            </p>
+            <p>
+              <i className="fas fa-map-marker-alt"></i> Ponorogo, Jawa Timur
+            </p>
+          </div>
           </div>
 
           <div className="footer-bottom">
-            <p>&copy; 2025 PT Srikandi Bakoh. All rights reserved.</p>
+            <p>&copy; 2026 PT Dwi Srikandi Bakoh. All rights reserved.</p>
           </div>
         </footer>
 

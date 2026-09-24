@@ -82,9 +82,9 @@ export default function ContactPage() {
     if (!validateForm()) return;
     setLoading(true);
 
-    const waNumber = "6285335009222"; 
+    const waNumber = "6281232366354"; 
     const waMessage = [
-      "Hello PT Srikandi Barokah Team,",
+      "Hello PT Dwi Srikandi Bakoh Team,",
       "",
       `My name: ${form.name}`,
       `Phone: ${form.phone}`,
@@ -121,7 +121,7 @@ export default function ContactPage() {
             <h2>Get In Touch</h2>
             <p>
               <strong>Email:</strong>
-              <br /> info@srikandibakoh.com
+              <br /> ptdwisrikandibakoh@gmail.com
             </p>
             <p>
               <strong>Phone / WhatsApp:</strong>
@@ -131,25 +131,33 @@ export default function ContactPage() {
                 target="_blank"
                 rel="noreferrer"
               >
-                +62 812-3236-6354 (Chat via WhatsApp)
+                Admin 1:+62 812-3236-6354 (Chat via WhatsApp)
               </a>
-              <br />
-                            <a
-                href="https://api.whatsapp.com/send?phone=6285335009222"
+               <br />
+              <a
+                href="https://api.whatsapp.com/send?phone=6285604950653"
                 target="_blank"
                 rel="noreferrer"
               >
-                +62 853-3500-9222 (Chat via WhatsApp)
+                Admin 2:+62 856-0495-0653 (Chat via WhatsApp)
+              </a>
+              <br />
+                            <a
+                href="https://api.whatsapp.com/send?phone=6285159017001"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Admin 3: +62 851-5901-7001 (Chat via WhatsApp)
               </a>
             </p>
             <p>
               <strong>Address:</strong>
               <br />
-              Jl. Raya Jenangan No.129, Krajan II, Jimbe,
+              Jl. Raya Jenangan No.109, Krajan I, Desa Jenangan,
               <br />
-              Kec. Jenangan, Kabupaten Ponorogo,
+               Kecamatan Jenangan, Kabupaten Ponorogo,
               <br />
-              Jawa Timur 63492
+              Jawa Timur 63492, Indonesia
             </p>
           </div>
 
@@ -256,16 +264,17 @@ export default function ContactPage() {
       </section>
 
       {/* MAP */}
-      <section className="map" style={{ marginTop: 20 }}>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.0657053746056!2d111.47113727472906!3d-7.347194672181503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e79b9c6d3e94a53%3A0x301576d14febd40!2sJl.%20Raya%20Jenangan%20No.129%2C%20Jimbe%2C%20Kec.%20Jenangan%2C%20Kabupaten%20Ponorogo%2C%20Jawa%20Timur%2063492!5e0!3m2!1sid!2sid!4v1694092038000!5m2!1sid!2sid"
-          width="100%"
-          height="400"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-        />
-      </section>
+        <section className="map" style={{ marginTop: 20 }}>
+  <iframe
+    src="https://www.google.com/maps?q=-7.8229422,111.542023&z=17&output=embed"
+    width="100%"
+    height="400"
+    style={{ border: 0 }}
+    allowFullScreen
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+  />
+</section>
     </>
   );
 }

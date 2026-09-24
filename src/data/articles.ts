@@ -9,95 +9,138 @@ export interface Article {
 }
 
 export const articles: Article[] = [
-  {
-  slug: 'premium-rice',
-  title: 'Carefully Selected in Every Grain, Excellence Served in Every Meal',
-  date: 'Jan 2025',
+{
+  slug: 'black-keluak',
+  title: 'Black Keluak: Indonesia\'s Rarest Spice and Why Global Chefs Are Finally Paying Attention',
+  date: 'Jun 2026',
   description:
-    'Premium rice sourced from selected local farmers in East Java, processed with modern technology to preserve purity, taste, and consistent quality.',
-  image: '/assets/article-rice1.webp',
-  heroImage: '/assets/rice-field.webp',
+    'Black Keluak (Pangium edule) is one of Indonesia\'s most distinctive spices — earthy, umami-rich, and centuries old. Discover why international buyers and Michelin-starred chefs are sourcing it now.',
+  image: '/assets/article-keluak1.webp',
+  heroImage: '/assets/keluak-field.webp',
   content: `
-    <h2>Carefully Selected in Every Grain, Excellence Served in Every Meal</h2>
+    <h2>Black Keluak: Indonesia's Rarest Spice and Why Global Chefs Are Finally Paying Attention</h2>
 
-    <img src="/assets/article-rice1.webp" alt="Premium rice from East Java" />
+    <img src="/assets/article-keluak1.webp" alt="Black Keluak seeds from East Java, Indonesia" />
     <p class="caption">
-      Premium rice sourced from selected local farmers in East Java.
+      Fermented Black Keluak (Pangium edule) sourced from selected farmers in East Java.
     </p>
 
     <p>
-      Premium rice sourced from carefully selected local farmers in
-      <strong>East Java</strong>, processed with modern technology to preserve
-      purity, taste, and consistent quality from harvest to table.
+      There is a spice in the heart of <strong>East Java</strong> that has colored soups black
+      for centuries, earned a place at Michelin-starred tables in Singapore, and remained almost
+      completely unknown to the rest of the world. Its name is <strong>Black Keluak</strong> —
+      and for buyers who source premium, differentiated ingredients, it may be the most
+      undervalued commodity in Southeast Asia today.
     </p>
 
-    <h2>From Origin to Excellence</h2>
+    <h2>What Is Black Keluak?</h2>
 
     <p>
-      We believe that exceptional rice begins at its origin. Our rice is produced
-      from carefully selected paddy sourced directly from experienced local farmers
-      in East Java—one of Indonesia's most fertile and renowned rice-producing regions.
-    </p>
-
-    <p>
-      Each paddy grain undergoes a meticulous sorting process to ensure optimal
-      maturity, uniformity, and cleanliness. Through a series of controlled milling
-      stages using advanced modern equipment, we preserve the rice's natural aroma,
-      texture, and superior eating quality.
-    </p>
-
-    <p>
-      Hygienic and standardized packaging systems are applied to maintain freshness
-      and integrity throughout distribution. The result is premium-quality rice that
-      meets international standards and delivers reliability, consistency, and
-      excellence for global markets.
-    </p>
-
-    <h2>Rice Grades Available</h2>
-
-    <p>
-      We offer multiple rice grades to accommodate diverse market and industrial needs,
-      supported by flexible specifications and packaging options tailored to buyer
-      requirements.
-    </p>
-
-    <h3>Premium Rice</h3>
-    <img src="/assets/premium-rice-grade.webp" alt="Premium rice grade" />
-    <p>
-      Produced from carefully selected paddy, this grade delivers uniform grain size,
-      low broken content, and superior eating quality. Ideal for premium retail,
-      hospitality, and food service markets requiring consistent performance and
-      presentation.
-    </p>
-
-    <h3>Medium Grade Rice</h3>
-    <p>
-      A cost-effective solution with balanced quality and grain uniformity, suitable
-      for mass distribution, catering, and general consumer markets.
-    </p>
-
-    <h3>Broken Rice (Menir)</h3>
-    <img src="/assets/broken-rice.webp" alt="Broken rice (menir)" />
-    <p>
-      Finely broken rice grains commonly used in rice flour manufacturing and
-      food-processing industries. This grade ensures stable quality and efficiency
-      for industrial applications.
-    </p>
-
-    <h2>Bulk Supply and Packaging</h2>
-    <img src="/assets/rice-packaging.webp" alt="Rice packaging facility" />
-    
-    <p>
-      We are fully prepared to fulfill bulk orders with specifications customized
-      to buyer requirements, including grain length, broken percentage, moisture
-      level, and whitening degree.
+      Black Keluak (<em>Pangium edule</em>) is the fermented seed of a large tree native to
+      the mangrove swamps of Southeast Asia. In its raw state, the seed contains hydrogen
+      cyanide and is highly toxic. Through a traditional fermentation process — boiling,
+      then burying in ash, banana leaves, and earth for up to forty days — the toxins are
+      completely neutralized, leaving behind a seed with a deep, earthy, umami-rich flavor
+      and a characteristic near-black color.
     </p>
 
     <p>
-      Packaging options are flexible, ranging from bulk bags to retail-ready formats,
-      with private labeling available upon request. Our structured production system
-      and modern facilities enable us to support consistent supply and long-term
-      partnerships for global buyers.
+      The result is unlike anything else in the global spice palette. Its flavor profile
+      has been described as a cross between truffles, dark chocolate, and fermented black
+      bean — complex, funky, and deeply savory.
+    </p>
+
+    <h2>A Spice with Deep Roots in Indonesian Cuisine</h2>
+
+    <img src="/assets/keluak-rawon.webp" alt="Rawon, East Javanese black beef soup made with keluak" />
+    <p class="caption">
+      Rawon — East Java's iconic black beef soup — owes its signature color entirely to keluak.
+    </p>
+
+    <p>
+      Keluak is the defining ingredient in several of Indonesia's most iconic dishes.
+      <em>Rawon</em>, the black beef soup from East Java, <em>Brongkos</em> from Yogyakarta,
+      <em>Coto Makassar</em> from Sulawesi, and <em>Ayam Buah Keluak</em> from Peranakan
+      cuisine in Singapore and Malaysia — none of them exist without this spice.
+    </p>
+
+    <p>
+      For centuries, keluak was harvested by hand from wild trees, processed by local
+      communities using traditional methods, and traded only within the region. Its limited
+      availability and complex preparation kept it off the radar of international ingredient
+      buyers. That is now beginning to change.
+    </p>
+
+    <h2>Why Global Buyers Are Taking Notice</h2>
+
+    <p>
+      The global fine dining industry has been quietly discovering keluak for the past
+      several years. Singapore's Michelin-starred restaurants have featured it as a premium
+      ingredient. Food innovation teams at major FMCG companies have flagged it as a
+      candidate for next-generation umami solutions. And as clean-label, naturally fermented
+      ingredients gain momentum in the EU and North American food markets, keluak's profile
+      as a traditionally processed, plant-based flavor enhancer has become increasingly relevant.
+    </p>
+
+    <p>For importers in the food industry, three factors make keluak a strategically interesting sourcing target:</p>
+
+    <h3>1. True Uniqueness</h3>
+    <p>
+      Keluak has no direct substitute in terms of flavor and color. Unlike black pepper or
+      turmeric — commodities with multiple global supply origins — keluak is sourced almost
+      exclusively from Indonesia and Malaysia, with Indonesian supply being dominant.
+    </p>
+
+    <h3>2. Low Competition Among Suppliers</h3>
+    <p>
+      While demand in the culinary world is growing, the number of certified, export-ready
+      keluak suppliers remains very small. Buyers who establish early supply relationships
+      secure a structural advantage.
+    </p>
+
+    <h3>3. Regulatory Compliance Is Achievable</h3>
+    <p>
+      Properly fermented keluak contains no detectable hydrogen cyanide and has been traded
+      safely in international markets for decades. With HACCP-certified processing and full
+      traceability documentation, export compliance for EU, US, and GCC markets is entirely feasible.
+    </p>
+
+    <h2>Our Quality and Traceability Standards</h2>
+
+    <img src="/assets/keluak-processing.webp" alt="Keluak fermentation and processing facility" />
+    <p class="caption">
+      Every batch is processed and tested under HACCP and ISO 22000 standards before export.
+    </p>
+
+    <p>
+      At <strong>PT Dwi Srikandi Bakoh</strong>, our Black Keluak is sourced from selected
+      farmers across East Java — the historical heartland of keluak cultivation — and processed
+      under strict hygiene and fermentation standards. Every batch is tested for safety,
+      moisture content, and sensory quality before packaging.
+    </p>
+
+    <p>
+      Our operations are supported by <strong>HACCP certification</strong>,
+      <strong>Halal certification</strong>, and <strong>ISO 22000 Food Safety</strong> standards,
+      providing international buyers with the documentation and traceability they require
+      for import clearance across major markets.
+    </p>
+
+    <h2>Sourcing Information</h2>
+
+    <p>For buyers new to this ingredient, here is what you need to know:</p>
+
+    <ul>
+      <li><strong>Form:</strong> Whole fermented seeds (shell-on) or shelled flesh. Most international buyers prefer shell-on for longer shelf life and ease of storage.</li>
+      <li><strong>Certifications:</strong> HACCP, Halal, ISO 22000. Full documentation provided upon request.</li>
+      <li><strong>Lead time:</strong> Typically 2–4 weeks from order confirmation, depending on destination port.</li>
+      <li><strong>Markets served:</strong> Europe, Middle East, Southeast Asia, East Asia.</li>
+    </ul>
+
+    <p>
+      Black Keluak is one of the last great undiscovered spices in the global ingredient market.
+      If you are sourcing differentiated, story-rich ingredients for a discerning market,
+      we invite you to explore what keluak can do for your product line.
     </p>
   `,
 },
