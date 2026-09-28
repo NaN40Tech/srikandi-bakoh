@@ -72,25 +72,16 @@ export default function RootLayout({
               <h3>PT Dwi Srikandi Bakoh</h3>
               <p>Rooted in Indonesia, Trusted Worldwide.</p>
               <div className="social-icons">
-              {/* Instagram */}
-              <a
-                href="https://www.instagram.com/ptdwisrikandi/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-              >
-                <i className="fab fa-instagram"></i>
-              </a>
 
-              {/* LinkedIn */}
-              <a
-                href="https://www.linkedin.com/company/ptdwisrikandibakoh"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-              >
-                <i className="fab fa-linkedin"></i>
-              </a>
+                {/* TikTok */}
+                <a
+                  href="https://www.tiktok.com/@dwisrikandibakoh"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                >
+                  <i className="fab fa-tiktok"></i>
+                </a>
 
               {/* Facebook */}
               <a
@@ -111,6 +102,27 @@ export default function RootLayout({
               >
                 <i className="fab fa-threads"></i>
               </a>
+
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/ptdwisrikandi/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <i className="fab fa-instagram"></i>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/company/ptdwisrikandibakoh"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
+                <i className="fab fa-linkedin"></i>
+              </a>
+
             </div>
             </div>
 
@@ -135,8 +147,8 @@ export default function RootLayout({
             </p>
             <p>
               <i className="fas fa-phone"></i>{" "}
-              <a href="https://wa.me/6285604950653" target="_blank" rel="noopener noreferrer">
-                +62 856-0495-0653 (Admin 2)
+              <a href="https://wa.me/6282232294053" target="_blank" rel="noopener noreferrer">
+                +62 822-3229-4053 (Admin 2)
               </a>
             </p>
             <p>

@@ -135,11 +135,11 @@ export default function ContactPage() {
               </a>
                <br />
               <a
-                href="https://api.whatsapp.com/send?phone=6285604950653"
+                href="https://api.whatsapp.com/send?phone=6282232294053"
                 target="_blank"
                 rel="noreferrer"
               >
-                Admin 2:+62 856-0495-0653 (Chat via WhatsApp)
+                Admin 2:+62 822-3229-4053 (Chat via WhatsApp)
               </a>
               <br />
                             <a
