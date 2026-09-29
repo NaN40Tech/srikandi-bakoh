@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
 import { products } from "../data";
 import "./product-detail.css";
 
@@ -17,6 +18,7 @@ interface Props {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
+
   const product = products.find((p) => p.slug === slug);
 
   if (!product) {
@@ -27,6 +29,7 @@ export default async function ProductPage({ params }: Props) {
     <section className="pn-hero">
       <div className="pn-hero-content">
         <h1>{product.name}</h1>
+
         <p className="pn-subtitle">{product.usage}</p>
 
         <div className="pn-detail">
@@ -61,7 +64,25 @@ export default async function ProductPage({ params }: Props) {
               <strong>Usage:</strong> {product.usage}
             </p>
 
-            <p>{product.description}</p>
+            {product.moisture && (
+              <p>
+                <strong>Moisture:</strong> {product.moisture}
+              </p>
+            )}
+
+            {product.ash && (
+              <p>
+                <strong>Ash:</strong> {product.ash}
+              </p>
+            )}
+
+            {product.packing && (
+              <p>
+                <strong>Packing:</strong> {product.packing}
+              </p>
+            )}
+
+            <p className="pn-description">{product.description}</p>
 
             <div className="pn-actions">
               <Link
@@ -85,6 +106,7 @@ export default async function ProductPage({ params }: Props) {
 // Generate metadata for SEO
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
+
   const product = products.find((p) => p.slug === slug);
 
   if (!product) {
