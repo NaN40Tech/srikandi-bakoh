@@ -29,12 +29,11 @@ export const products: Product[] = [
     moisture: "10–12%",
     ash: "2%",
     packing: "25 kg / 40 kg PP bags with inner plastic",
-    description:
-      "Indonesian dried sliced turmeric prepared for spice and ingredient applications.",
+    description: "Dried sliced turmeric from Indonesia, prepared for spice, food, and ingredient applications.",
   },
   {
     slug: "dried-sliced-temulawak",
-    name: "Dried Sliced Temulawak",
+    name: "Dried Sliced Java Turmeric (Temulawak)",
     image: "/assets/temulawak.webp",
     origin: "Indonesia",
     grade: "Manual & Machine Sliced",
@@ -42,21 +41,20 @@ export const products: Product[] = [
     moisture: "10–12%",
     ash: "2%",
     packing: "25 kg / 40 kg PP bags with inner plastic",
-    description:
-      "Dried sliced temulawak from Indonesia, prepared for spice and ingredient applications.",
+    description: "Dried sliced Java turmeric (temulawak) from Indonesia, prepared for spice, herbal, and ingredient applications.",
   },
   {
     slug: "sliced-emprit-ginger",
-    name: "Sliced Emprit Ginger",
+    name: "Dried Sliced Emprit Ginger",
     image: "/assets/emprit-ginger.webp",
     origin: "Indonesia",
     grade: "Manual & Machine Sliced",
     usage: "Spice Ingredient",
-    moisture: "10-12%",
+    moisture: "10–12%",
     ash: "2%",
     packing: "25 kg / 40 kg PP bags with inner plastic",
     description:
-      "Indonesian emprit ginger processed into dried slices for spice and ingredient applications.",
+      "Dried sliced emprit ginger from Indonesia, prepared for spice, food, and ingredient sourcing requirements.",
   },
   {
     slug: "shelled-kluwek",
@@ -66,8 +64,7 @@ export const products: Product[] = [
     grade: "Fermented for 6 months",
     usage: "Culinary Ingredient",
     packing: "25 kg",
-    description:
-      "Indonesian kluwek processed through a 6-month fermentation process and prepared in shelled form.",
+    description:"Shelled kluwek from Indonesia, prepared for culinary and food ingredient applications.",
   },
   {
     slug: "dried-cloves",
@@ -76,10 +73,9 @@ export const products: Product[] = [
     origin: "Indonesia",
     grade: "AB6 / AB10",
     usage: "Spice Ingredient",
-    moisture: "8-12%",
+    moisture: "8–12%",
     ash: "2%",
     packing: "25 kg / 40 kg PP bags with inner plastic",
-    description:
-      "Indonesian dried cloves, manually dried and available in AB6 and AB10 grades.",
+    description: "Dried cloves from Indonesia, prepared for spice, food, and ingredient applications.",
   },
 ];

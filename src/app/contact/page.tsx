@@ -2,8 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 
+interface ContactForm {
+  name: string;
+  phone: string;
+  message: string;
+  product: string;
+}
+
 export default function ContactPage() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<ContactForm>({
     name: "",
     phone: "",
     message: "",
@@ -13,48 +20,64 @@ export default function ContactPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
-  // Template message generator
-  const getDefaultMessage = (product?: string, name?: string) =>
-    product
-      ? `Dear Sales Team,\n\nI am interested in requesting a quotation for your product: ${product}.\nCould you kindly provide the pricing details, packaging options, and shipping information?\n\nThank you in advance.\nBest regards,\n${name || "[Your Name]"}`
-      : `Dear Sales Team,\n\nI would like to get in touch regarding your products and services.\n\nBest regards,\n${name || "[Your Name]"}`;
+  const getDefaultMessage = (product?: string) => {
+    if (product) {
+      return `Hello,
 
-  // ambil query ?product=
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const product = params.get("product") || "";
+I am interested in ${product} and would like to request a quotation.
 
-      setForm((prev) => ({
-        ...prev,
-        product,
-        message: getDefaultMessage(product, prev.name),
-      }));
+Could you please provide more information about the product, packing options, availability, and shipping?
+
+Thank you.`;
     }
+
+    return `Hello,
+
+I would like to inquire about your products and request more information.
+
+Thank you.`;
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const product = params.get("product") || "";
+
+    setForm((prev) => ({
+      ...prev,
+      product,
+      message: getDefaultMessage(product),
+    }));
   }, []);
 
-  // update message otomatis jika product berubah
-  useEffect(() => {
-    if (form.product) {
-      setForm((prev) => ({
-        ...prev,
-        message: getDefaultMessage(prev.product, prev.name),
-      }));
-    }
-     
-  }, [form.product]);
+  const normalizePhone = (phone: string) => {
+    return phone.replace(/[\s\-()]/g, "");
+  };
 
-  const validatePhone = (phone: string) => /^\+?[1-9]\d{6,14}$/.test(phone);
+  const validatePhone = (phone: string) => {
+    const normalizedPhone = normalizePhone(phone);
+
+    return /^\+?[1-9]\d{6,14}$/.test(normalizedPhone);
+  };
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    if (!form.name.trim()) newErrors.name = "Name is required.";
-    if (!form.phone.trim()) newErrors.phone = "Phone number is required.";
-    else if (!validatePhone(form.phone))
-      newErrors.phone = "Invalid phone number.";
-    if (!form.message.trim()) newErrors.message = "Message is required.";
+
+    if (!form.name.trim()) {
+      newErrors.name = "Name is required.";
+    }
+
+    if (!form.phone.trim()) {
+      newErrors.phone = "Phone number is required.";
+    } else if (!validatePhone(form.phone)) {
+      newErrors.phone = "Please enter a valid phone number.";
+    }
+
+    if (!form.message.trim()) {
+      newErrors.message = "Message is required.";
+    }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -62,31 +85,32 @@ export default function ContactPage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+
     setForm((prev) => ({
       ...prev,
       [name]: value,
-      message:
-        name === "name"
-          ? getDefaultMessage(prev.product, value)
-          : prev.message,
     }));
 
     if (errors[name]) {
-      const newErr = { ...errors };
-      delete newErr[name];
-      setErrors(newErr);
+      setErrors((prev) => {
+        const updatedErrors = { ...prev };
+        delete updatedErrors[name];
+        return updatedErrors;
+      });
     }
   };
 
   const handleWhatsApp = () => {
     if (!validateForm()) return;
+
     setLoading(true);
 
-    const waNumber = "6281232366354"; 
+    const waNumber = "6281232366354";
+
     const waMessage = [
       "Hello PT Dwi Srikandi Bakoh Team,",
       "",
-      `My name: ${form.name}`,
+      `Name: ${form.name}`,
       `Phone: ${form.phone}`,
       "",
       form.message,
@@ -96,7 +120,8 @@ export default function ContactPage() {
       waMessage
     )}`;
 
-    window.open(url, "_blank");
+    window.open(url, "_blank", "noopener,noreferrer");
+
     setLoading(false);
   };
 
@@ -105,10 +130,11 @@ export default function ContactPage() {
       {/* HERO */}
       <section className="contact-hero">
         <div className="hero-content">
-          <h1>Contact Us</h1>
+          <h1>Contact PT Dwi Srikandi Bakoh</h1>
+
           <p>
-            We’d love to hear from you. Let’s connect for inquiries and
-            quotations.
+            Contact us for product inquiries, specifications, samples, and
+            quotations for domestic and international supply.
           </p>
         </div>
       </section>
@@ -118,44 +144,62 @@ export default function ContactPage() {
         <div className="contact-grid">
           {/* INFO */}
           <div className="contact-info">
-            <h2>Get In Touch</h2>
+            <h2>Get in Touch</h2>
+
+            <p>
+              Tell us the product, specification, quantity, and destination you
+              require. Our team will review your inquiry and provide the
+              relevant information.
+            </p>
+
             <p>
               <strong>Email:</strong>
-              <br /> ptdwisrikandibakoh@gmail.com
+              <br />
+
+              <a href="mailto:ptdwisrikandibakoh@gmail.com">
+                ptdwisrikandibakoh@gmail.com
+              </a>
             </p>
+
             <p>
               <strong>Phone / WhatsApp:</strong>
               <br />
+
               <a
                 href="https://api.whatsapp.com/send?phone=6281232366354"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
-                Admin 1:+62 812-3236-6354 (Chat via WhatsApp)
+                Admin 1: +62 812-3236-6354
               </a>
-               <br />
+
+              <br />
+
               <a
                 href="https://api.whatsapp.com/send?phone=6282232294053"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
-                Admin 2:+62 822-3229-4053 (Chat via WhatsApp)
+                Admin 2: +62 822-3229-4053
               </a>
+
               <br />
-                            <a
+
+              <a
                 href="https://api.whatsapp.com/send?phone=6285159017001"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
-                Admin 3: +62 851-5901-7001 (Chat via WhatsApp)
+                Admin 3: +62 851-5901-7001
               </a>
             </p>
+
             <p>
               <strong>Address:</strong>
               <br />
-              Jl. Raya Jenangan No.109, Krajan I, Desa Jenangan,
+              Jl. Raya Jenangan No. 109, Krajan I, Desa Jenangan,
               <br />
-               Kecamatan Jenangan, Kabupaten Ponorogo,
+              Kecamatan Jenangan, Kabupaten Ponorogo,
               <br />
               Jawa Timur 63492, Indonesia
             </p>
@@ -164,6 +208,7 @@ export default function ContactPage() {
           {/* FORM */}
           <div className="contact-form">
             <h2>Request a Quote</h2>
+
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -176,8 +221,10 @@ export default function ContactPage() {
                   type="text"
                   name="name"
                   placeholder="Your Name"
+                  autoComplete="name"
                   value={form.name}
                   onChange={handleChange}
+                  aria-invalid={Boolean(errors.name)}
                   style={{
                     width: "100%",
                     padding: "10px",
@@ -189,8 +236,16 @@ export default function ContactPage() {
                   }}
                 />
               </label>
+
               {errors.name && (
-                <div style={{ color: "#b91c1c", fontSize: "0.9rem" }}>
+                <div
+                  role="alert"
+                  style={{
+                    color: "#b91c1c",
+                    fontSize: "0.9rem",
+                    marginBottom: 8,
+                  }}
+                >
                   {errors.name}
                 </div>
               )}
@@ -199,9 +254,11 @@ export default function ContactPage() {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="Your Phone Number (e.g. +628***)"
+                  placeholder="Your Phone Number (e.g. +62 812 3456 7890)"
+                  autoComplete="tel"
                   value={form.phone}
                   onChange={handleChange}
+                  aria-invalid={Boolean(errors.phone)}
                   style={{
                     width: "100%",
                     padding: "10px",
@@ -213,8 +270,16 @@ export default function ContactPage() {
                   }}
                 />
               </label>
+
               {errors.phone && (
-                <div style={{ color: "#b91c1c", fontSize: "0.9rem" }}>
+                <div
+                  role="alert"
+                  style={{
+                    color: "#b91c1c",
+                    fontSize: "0.9rem",
+                    marginBottom: 8,
+                  }}
+                >
                   {errors.phone}
                 </div>
               )}
@@ -222,10 +287,11 @@ export default function ContactPage() {
               <label>
                 <textarea
                   name="message"
-                  placeholder="Your Message"
+                  placeholder="Tell us the product, specification, quantity, and destination you require."
                   rows={7}
                   value={form.message}
                   onChange={handleChange}
+                  aria-invalid={Boolean(errors.message)}
                   style={{
                     width: "100%",
                     padding: "10px",
@@ -237,8 +303,16 @@ export default function ContactPage() {
                   }}
                 />
               </label>
+
               {errors.message && (
-                <div style={{ color: "#b91c1c", fontSize: "0.9rem" }}>
+                <div
+                  role="alert"
+                  style={{
+                    color: "#b91c1c",
+                    fontSize: "0.9rem",
+                    marginBottom: 8,
+                  }}
+                >
                   {errors.message}
                 </div>
               )}
@@ -264,17 +338,18 @@ export default function ContactPage() {
       </section>
 
       {/* MAP */}
-        <section className="map" style={{ marginTop: 20 }}>
-  <iframe
-    src="https://www.google.com/maps?q=-7.8229422,111.542023&z=17&output=embed"
-    width="100%"
-    height="400"
-    style={{ border: 0 }}
-    allowFullScreen
-    loading="lazy"
-    referrerPolicy="no-referrer-when-downgrade"
-  />
-</section>
+      <section className="map" style={{ marginTop: 20 }}>
+        <iframe
+          title="PT Dwi Srikandi Bakoh Location"
+          src="https://www.google.com/maps?q=-7.8229422,111.542023&z=17&output=embed"
+          width="100%"
+          height="400"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </section>
     </>
   );
 }

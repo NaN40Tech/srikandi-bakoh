@@ -1,8 +1,28 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 import { products } from "./data";
 
+export const metadata: Metadata = {
+  title: "Indonesian Spices & Agricultural Products",
+
+  description:
+    "Explore Indonesian spices and agricultural products supplied by PT Dwi Srikandi Bakoh, including dried sliced turmeric and other selected commodities.",
+
+  alternates: {
+    canonical: "/products",
+  },
+
+  openGraph: {
+    title:
+      "Indonesian Spices & Agricultural Products | PT Dwi Srikandi Bakoh",
+    description:
+      "Explore Indonesian spices and agricultural products supplied by PT Dwi Srikandi Bakoh, including dried sliced turmeric and other selected commodities.",
+    url: "/products",
+    type: "website",
+  },
+};
 
 export default function ProductsPage() {
   return (
@@ -10,10 +30,11 @@ export default function ProductsPage() {
       {/* HERO */}
       <section className="products-hero">
         <div className="hero-content">
-          <h1>Our Products</h1>
+          <h1>Indonesian Spices & Agricultural Products</h1>
+
           <p>
-            Indonesian agricultural products prepared for food, spice, and
-            ingredient applications.
+            Explore our selection of Indonesian spices and agricultural
+            commodities for food, spice, and ingredient applications.
           </p>
         </div>
       </section>
@@ -21,26 +42,41 @@ export default function ProductsPage() {
       {/* PRODUCTS GRID */}
       <section className="products-section">
         <div className="products-container">
-          <h2>Product Collection</h2>
+          <h2>Our Product Collection</h2>
 
           <div className="products-grid">
             {products.map((product) => (
-              <div key={product.slug} className="product-card">
+              <article key={product.slug} className="product-card">
                 {/* PRODUCT IMAGE */}
                 <div className="product-card-image">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    width={600}
-                    height={400}
-                    className="w-full h-full object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
+                  <Link
+                    href={`/products/${product.slug}`}
+                    aria-label={`View ${product.name}`}
+                  >
+                    <Image
+                      src={product.image}
+                      alt={`${product.name} from Indonesia`}
+                      width={600}
+                      height={400}
+                      className="w-full h-full object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </Link>
                 </div>
 
                 {/* PRODUCT CONTENT */}
                 <div className="product-card-content">
-                  <h3>{product.name}</h3>
+                  <h3>
+                    <Link
+                      href={`/products/${product.slug}`}
+                      style={{
+                        color: "inherit",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {product.name}
+                    </Link>
+                  </h3>
 
                   <p className="product-description">
                     {product.description}
@@ -97,7 +133,7 @@ export default function ProductsPage() {
                     Request Quote
                   </Link>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
@@ -105,11 +141,12 @@ export default function ProductsPage() {
 
       {/* CTA */}
       <section className="cta">
-        <h2>Request a Quote</h2>
+        <h2>Looking for Indonesian Spices?</h2>
 
         <p>
-          Looking for a specific product or specification? Contact us to
-          discuss your requirements and receive a quotation.
+          Tell us the product, specification, and quantity you require. Our
+          team will review your requirements and provide further information
+          and a quotation.
         </p>
 
         <Link href="/contact" className="btn-primary">

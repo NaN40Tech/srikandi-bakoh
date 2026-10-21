@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -5,24 +6,75 @@ import { notFound } from "next/navigation";
 import { products } from "../data";
 import "./product-detail.css";
 
-// Generate static paths for all products
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
+/* Generate static paths for all products */
 export async function generateStaticParams() {
-  return products.map((p) => ({
-    slug: p.slug,
+  return products.map((product) => ({
+    slug: product.slug,
   }));
 }
 
-interface Props {
-  params: Promise<{ slug: string }>;
+/* Generate metadata for SEO */
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { slug } = await params;
+
+  const product = products.find((product) => product.slug === slug);
+
+  if (!product) {
+    return {
+      title: "Product Not Found",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const productUrl = `/products/${product.slug}`;
+
+  return {
+    title: product.name,
+
+    description: product.description,
+
+    alternates: {
+      canonical: productUrl,
+    },
+
+    openGraph: {
+      type: "website",
+      url: productUrl,
+      title: `${product.name} | PT Dwi Srikandi Bakoh`,
+      description: product.description,
+      images: [
+        {
+          url: product.image,
+          alt: `${product.name} from Indonesia`,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | PT Dwi Srikandi Bakoh`,
+      description: product.description,
+      images: [product.image],
+    },
+  };
 }
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
 
-  const product = products.find((p) => p.slug === slug);
+  const product = products.find((product) => product.slug === slug);
 
   if (!product) {
-    return notFound();
+    notFound();
   }
 
   return (
@@ -35,7 +87,7 @@ export default async function ProductPage({ params }: Props) {
         <div className="pn-detail">
           <Image
             src={product.image}
-            alt={product.name}
+            alt={`${product.name} from Indonesia`}
             width={400}
             height={300}
             priority
@@ -101,22 +153,4 @@ export default async function ProductPage({ params }: Props) {
       </div>
     </section>
   );
-}
-
-// Generate metadata for SEO
-export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-
-  const product = products.find((p) => p.slug === slug);
-
-  if (!product) {
-    return {
-      title: "Product Not Found",
-    };
-  }
-
-  return {
-    title: `${product.name} - PT Dwi Srikandi Bakoh`,
-    description: product.description,
-  };
 }
