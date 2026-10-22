@@ -13,9 +13,10 @@ import { products } from "@/app/products/data";
 export default function HomePage() {
   /* =====================================================
      WHY CHOOSE US
-     ===================================================== */
+  ===================================================== */
 
-  const whyTrackRef = useRef<HTMLDivElement>(null);
+  const whyTrackRef =
+    useRef<HTMLDivElement>(null);
 
   const [
     showLeftArrow,
@@ -30,7 +31,7 @@ export default function HomePage() {
 
   /* =====================================================
      FEATURED PRODUCTS
-     ===================================================== */
+  ===================================================== */
 
   const productTrackRef =
     useRef<HTMLDivElement>(null);
@@ -48,7 +49,7 @@ export default function HomePage() {
 
   /* =====================================================
      CHECK WHY SCROLL
-     ===================================================== */
+  ===================================================== */
 
   const checkScroll = () => {
     const track = whyTrackRef.current;
@@ -56,11 +57,15 @@ export default function HomePage() {
     if (!track) return;
 
     const maxScroll =
-      track.scrollWidth - track.clientWidth;
+      track.scrollWidth -
+      track.clientWidth;
 
-    const currentScroll = track.scrollLeft;
+    const currentScroll =
+      track.scrollLeft;
 
-    setShowLeftArrow(currentScroll > 5);
+    setShowLeftArrow(
+      currentScroll > 5
+    );
 
     setShowRightArrow(
       maxScroll - currentScroll > 5
@@ -70,19 +75,24 @@ export default function HomePage() {
 
   /* =====================================================
      CHECK PRODUCT SCROLL
-     ===================================================== */
+  ===================================================== */
 
   const checkProductScroll = () => {
-    const track = productTrackRef.current;
+    const track =
+      productTrackRef.current;
 
     if (!track) return;
 
     const maxScroll =
-      track.scrollWidth - track.clientWidth;
+      track.scrollWidth -
+      track.clientWidth;
 
-    const currentScroll = track.scrollLeft;
+    const currentScroll =
+      track.scrollLeft;
 
-    setShowProductLeft(currentScroll > 5);
+    setShowProductLeft(
+      currentScroll > 5
+    );
 
     setShowProductRight(
       maxScroll - currentScroll > 5
@@ -92,10 +102,11 @@ export default function HomePage() {
 
   /* =====================================================
      WHY SCROLL LISTENER
-     ===================================================== */
+  ===================================================== */
 
   useEffect(() => {
-    const track = whyTrackRef.current;
+    const track =
+      whyTrackRef.current;
 
     if (!track) return;
 
@@ -135,10 +146,11 @@ export default function HomePage() {
 
   /* =====================================================
      PRODUCT SCROLL LISTENER
-     ===================================================== */
+  ===================================================== */
 
   useEffect(() => {
-    const track = productTrackRef.current;
+    const track =
+      productTrackRef.current;
 
     if (!track) return;
 
@@ -178,7 +190,7 @@ export default function HomePage() {
 
   /* =====================================================
      GET CARD DISTANCE
-     ===================================================== */
+  ===================================================== */
 
   const getCardDistance = (
     track: HTMLDivElement,
@@ -209,11 +221,13 @@ export default function HomePage() {
 
   /* =====================================================
      SCROLL SLIDER
-     ===================================================== */
+  ===================================================== */
 
   const scrollSlider = (
     ref: {
-      current: HTMLDivElement | null;
+      current:
+        | HTMLDivElement
+        | null;
     },
     direction: "left" | "right",
     selector: string
@@ -235,25 +249,37 @@ export default function HomePage() {
         selector
       );
 
-    let targetScroll = currentScroll;
+    let targetScroll =
+      currentScroll;
 
-    if (direction === "right") {
+    if (
+      direction === "right"
+    ) {
       targetScroll =
-        currentScroll + cardDistance;
+        currentScroll +
+        cardDistance;
 
       if (
-        maxScroll - targetScroll <=
+        maxScroll -
+          targetScroll <=
         cardDistance
       ) {
-        targetScroll = maxScroll;
+        targetScroll =
+          maxScroll;
       }
     }
 
-    if (direction === "left") {
+    if (
+      direction === "left"
+    ) {
       targetScroll =
-        currentScroll - cardDistance;
+        currentScroll -
+        cardDistance;
 
-      if (targetScroll <= cardDistance) {
+      if (
+        targetScroll <=
+        cardDistance
+      ) {
         targetScroll = 0;
       }
     }
@@ -275,59 +301,74 @@ export default function HomePage() {
 
   /* =====================================================
      WHY CHOOSE US DATA
-     ===================================================== */
+  ===================================================== */
 
   const whyFeatures = [
     {
-      src: "/assets/icon-quality.webp",
+      src:
+        "/assets/icon-quality.webp",
 
-      alt: "Product requirements",
+      alt:
+        "Product requirements",
 
-      title: "Buyer Requirements",
+      title:
+        "Buyer Requirements",
 
       desc:
         "We review product specifications, quantity, packing, and destination needs before preparing an offer.",
     },
 
     {
-      src: "/assets/icon-trace.webp",
+      src:
+        "/assets/icon-trace.webp",
 
-      alt: "Supply coordination",
+      alt:
+        "Supply coordination",
 
-      title: "Supply Coordination",
+      title:
+        "Supply Coordination",
 
       desc:
         "We coordinate sourcing and product preparation according to the requirements discussed with each buyer.",
     },
 
     {
-      src: "/assets/icon-global.webp",
+      src:
+        "/assets/icon-global.webp",
 
-      alt: "Domestic and international buyers",
+      alt:
+        "Domestic and international buyers",
 
-      title: "Flexible Supply",
+      title:
+        "Flexible Supply",
 
       desc:
         "We serve domestic and international buyers looking for Indonesian spices and agricultural products.",
     },
 
     {
-      src: "/assets/icon-sustain.webp",
+      src:
+        "/assets/icon-sustain.webp",
 
-      alt: "Supplier partnerships",
+      alt:
+        "Supplier partnerships",
 
-      title: "Supplier Network",
+      title:
+        "Supplier Network",
 
       desc:
         "We work with suppliers and sourcing partners to support product availability and preparation.",
     },
 
     {
-      src: "/assets/icon-support.webp",
+      src:
+        "/assets/icon-support.webp",
 
-      alt: "Buyer communication",
+      alt:
+        "Buyer communication",
 
-      title: "Clear Communication",
+      title:
+        "Clear Communication",
 
       desc:
         "We keep product information, quotations, availability, and order requirements clear throughout the process.",
@@ -337,14 +378,15 @@ export default function HomePage() {
 
   /* =====================================================
      FEATURED PRODUCTS
-     ===================================================== */
+  ===================================================== */
 
-  const featuredProducts = products;
+  const featuredProducts =
+    products;
 
 
   /* =====================================================
      ARTICLES
-     ===================================================== */
+  ===================================================== */
 
   const articles = [
     {
@@ -413,9 +455,25 @@ export default function HomePage() {
     <>
       {/* =====================================================
           HERO
-          ===================================================== */}
+      ===================================================== */}
 
       <section className="home-hero">
+        <Image
+          src="/assets/spices.webp"
+          alt=""
+          fill
+          priority
+          quality={72}
+          sizes="100vw"
+          className="home-hero-image"
+          aria-hidden="true"
+        />
+
+        <div
+          className="home-hero-overlay"
+          aria-hidden="true"
+        />
+
         <div className="hero-content">
           <h1>
             Trusted Indonesian Spices
@@ -447,7 +505,7 @@ export default function HomePage() {
 
       {/* =====================================================
           WHY CHOOSE US
-          ===================================================== */}
+      ===================================================== */}
 
       <section className="why">
         <h2>
@@ -477,25 +535,36 @@ export default function HomePage() {
             ref={whyTrackRef}
           >
             {whyFeatures.map(
-              (feature, index) => (
+              (
+                feature,
+                index
+              ) => (
                 <div
                   className="feature-box"
                   key={index}
                 >
                   <Image
-                    src={feature.src}
-                    alt={feature.alt}
+                    src={
+                      feature.src
+                    }
+                    alt={
+                      feature.alt
+                    }
                     width={60}
                     height={60}
                     loading="lazy"
                   />
 
                   <h3>
-                    {feature.title}
+                    {
+                      feature.title
+                    }
                   </h3>
 
                   <p>
-                    {feature.desc}
+                    {
+                      feature.desc
+                    }
                   </p>
                 </div>
               )
@@ -524,7 +593,7 @@ export default function HomePage() {
 
       {/* =====================================================
           FEATURED PRODUCTS
-          ===================================================== */}
+      ===================================================== */}
 
       <section className="featured">
         <h2>
@@ -557,22 +626,33 @@ export default function HomePage() {
               (product) => (
                 <div
                   className="product-card"
-                  key={product.slug}
+                  key={
+                    product.slug
+                  }
                 >
                   <Image
-                    src={product.image}
-                    alt={product.name}
+                    src={
+                      product.image
+                    }
+                    alt={
+                      product.name
+                    }
                     width={250}
                     height={200}
                     loading="lazy"
+                    quality={75}
                   />
 
                   <h3>
-                    {product.name}
+                    {
+                      product.name
+                    }
                   </h3>
 
                   <p>
-                    {product.description}
+                    {
+                      product.description
+                    }
                   </p>
 
                   <div className="product-overlay">
@@ -610,7 +690,7 @@ export default function HomePage() {
 
       {/* =====================================================
           ARTICLES
-          ===================================================== */}
+      ===================================================== */}
 
       <section className="articles">
         <h2>
@@ -619,37 +699,54 @@ export default function HomePage() {
 
         <div className="article-grid">
           {articles.map(
-            (article, index) => (
+            (
+              article,
+              index
+            ) => (
               <article
                 className="article-card"
                 key={index}
               >
                 <Image
-                  src={article.img}
-                  alt={article.alt}
+                  src={
+                    article.img
+                  }
+                  alt={
+                    article.alt
+                  }
                   width={400}
                   height={260}
                   loading="lazy"
+                  quality={75}
                 />
 
                 <div className="article-content">
                   <h3>
-                    {article.title}
+                    {
+                      article.title
+                    }
                   </h3>
 
                   <time
                     className="date"
                     dateTime="2025-01"
                   >
-                    Published: {article.date}
+                    Published:{" "}
+                    {
+                      article.date
+                    }
                   </time>
 
                   <p>
-                    {article.desc}
+                    {
+                      article.desc
+                    }
                   </p>
 
                   <Link
-                    href={article.link}
+                    href={
+                      article.link
+                    }
                     className="btn btn-secondary"
                   >
                     Read Article
