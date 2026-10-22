@@ -1,27 +1,39 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact & Request a Quote",
+  title: "Contact Indonesian Spice Supplier & Request a Quote",
+
   description:
-    "Contact PT Dwi Srikandi Bakoh for Indonesian spices and agricultural commodity inquiries, product specifications, samples, and quotations for domestic and international supply.",
+    "Contact PT Dwi Srikandi Bakoh for Indonesian spice and agricultural product inquiries, specifications, samples, availability, and quotations for domestic and international supply.",
 
   alternates: {
     canonical: "/contact",
   },
 
+  robots: {
+    index: true,
+    follow: true,
+  },
+
   openGraph: {
-    title: "Contact PT Dwi Srikandi Bakoh",
-    description:
-      "Send your product requirements and request a quotation for Indonesian spices and agricultural commodities.",
-    url: "/contact",
     type: "website",
+    url: "/contact",
+
+    title:
+      "Contact Indonesian Spice Supplier | PT Dwi Srikandi Bakoh",
+
+    description:
+      "Send your product requirements, specifications, quantity, and destination to request information or a quotation for Indonesian spices and agricultural products.",
   },
 
   twitter: {
     card: "summary",
-    title: "Contact PT Dwi Srikandi Bakoh",
+
+    title:
+      "Contact Indonesian Spice Supplier | PT Dwi Srikandi Bakoh",
+
     description:
-      "Send your product requirements and request a quotation for Indonesian spices and agricultural commodities.",
+      "Send your product requirements, specifications, quantity, and destination to request information or a quotation for Indonesian spices and agricultural products.",
   },
 };
 

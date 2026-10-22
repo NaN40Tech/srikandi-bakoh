@@ -7,27 +7,41 @@ import { products } from "../data";
 import "./product-detail.css";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{
+    slug: string;
+  }>;
 }
 
-/* Generate static paths for all products */
+
+/* ========================================
+   GENERATE STATIC PRODUCT ROUTES
+======================================== */
+
 export async function generateStaticParams() {
   return products.map((product) => ({
     slug: product.slug,
   }));
 }
 
-/* Generate metadata for SEO */
+
+/* ========================================
+   PRODUCT METADATA
+======================================== */
+
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata> {
   const { slug } = await params;
 
-  const product = products.find((product) => product.slug === slug);
+  const product = products.find(
+    (product) =>
+      product.slug === slug
+  );
 
   if (!product) {
     return {
       title: "Product Not Found",
+
       robots: {
         index: false,
         follow: false,
@@ -35,12 +49,14 @@ export async function generateMetadata({
     };
   }
 
-  const productUrl = `/products/${product.slug}`;
+  const productUrl =
+    `/products/${product.slug}`;
 
   return {
     title: product.name,
 
-    description: product.description,
+    description:
+      product.description,
 
     alternates: {
       canonical: productUrl,
@@ -48,30 +64,56 @@ export async function generateMetadata({
 
     openGraph: {
       type: "website",
+
       url: productUrl,
-      title: `${product.name} | PT Dwi Srikandi Bakoh`,
-      description: product.description,
+
+      title:
+        `${product.name} | PT Dwi Srikandi Bakoh`,
+
+      description:
+        product.description,
+
       images: [
         {
           url: product.image,
-          alt: `${product.name} from Indonesia`,
+
+          alt:
+            `${product.name} from Indonesia`,
         },
       ],
     },
 
     twitter: {
-      card: "summary_large_image",
-      title: `${product.name} | PT Dwi Srikandi Bakoh`,
-      description: product.description,
-      images: [product.image],
+      card:
+        "summary_large_image",
+
+      title:
+        `${product.name} | PT Dwi Srikandi Bakoh`,
+
+      description:
+        product.description,
+
+      images: [
+        product.image,
+      ],
     },
   };
 }
 
-export default async function ProductPage({ params }: Props) {
+
+/* ========================================
+   PRODUCT PAGE
+======================================== */
+
+export default async function ProductPage({
+  params,
+}: Props) {
   const { slug } = await params;
 
-  const product = products.find((product) => product.slug === slug);
+  const product = products.find(
+    (product) =>
+      product.slug === slug
+  );
 
   if (!product) {
     notFound();
@@ -80,71 +122,176 @@ export default async function ProductPage({ params }: Props) {
   return (
     <section className="pn-hero">
       <div className="pn-hero-content">
-        <h1>{product.name}</h1>
 
-        <p className="pn-subtitle">{product.usage}</p>
+        {/* ========================================
+            PAGE HEADING
+        ======================================== */}
+
+        <div className="pn-hero-heading">
+          <span className="pn-eyebrow">
+            Indonesian Product
+          </span>
+
+          <h1>
+            {product.name}
+          </h1>
+
+          <p className="pn-subtitle">
+            {product.usage}
+          </p>
+        </div>
+
+
+        {/* ========================================
+            PRODUCT DETAIL
+        ======================================== */}
 
         <div className="pn-detail">
-          <Image
-            src={product.image}
-            alt={`${product.name} from Indonesia`}
-            width={400}
-            height={300}
-            priority
-          />
+
+          {/* PRODUCT IMAGE */}
+
+          <div className="pn-image-panel">
+            <Image
+              src={product.image}
+              alt={`${product.name} from Indonesia`}
+              width={600}
+              height={650}
+              priority
+              className="pn-image"
+            />
+          </div>
+
+
+          {/* PRODUCT INFORMATION */}
 
           <div className="pn-info">
-            <h2>Product Details</h2>
+            <div className="pn-info-header">
+              <span className="pn-info-label">
+                Product Information
+              </span>
 
-            <p>
-              <strong>Origin:</strong> {product.origin}
-            </p>
+              <h2>
+                Product Details
+              </h2>
+            </div>
 
-            {product.type && (
-              <p>
-                <strong>Type:</strong> {product.type}
+
+            {/* SPECIFICATIONS */}
+
+            <div className="pn-specs">
+              <div className="pn-spec-item">
+                <span className="pn-spec-label">
+                  Origin
+                </span>
+
+                <span className="pn-spec-value">
+                  {product.origin}
+                </span>
+              </div>
+
+
+              {product.type && (
+                <div className="pn-spec-item">
+                  <span className="pn-spec-label">
+                    Type
+                  </span>
+
+                  <span className="pn-spec-value">
+                    {product.type}
+                  </span>
+                </div>
+              )}
+
+
+              {product.grade && (
+                <div className="pn-spec-item">
+                  <span className="pn-spec-label">
+                    Grade
+                  </span>
+
+                  <span className="pn-spec-value">
+                    {product.grade}
+                  </span>
+                </div>
+              )}
+
+
+              <div className="pn-spec-item">
+                <span className="pn-spec-label">
+                  Usage
+                </span>
+
+                <span className="pn-spec-value">
+                  {product.usage}
+                </span>
+              </div>
+
+
+              {product.moisture && (
+                <div className="pn-spec-item">
+                  <span className="pn-spec-label">
+                    Moisture
+                  </span>
+
+                  <span className="pn-spec-value">
+                    {product.moisture}
+                  </span>
+                </div>
+              )}
+
+
+              {product.ash && (
+                <div className="pn-spec-item">
+                  <span className="pn-spec-label">
+                    Ash
+                  </span>
+
+                  <span className="pn-spec-value">
+                    {product.ash}
+                  </span>
+                </div>
+              )}
+
+
+              {product.packing && (
+                <div className="pn-spec-item">
+                  <span className="pn-spec-label">
+                    Packing
+                  </span>
+
+                  <span className="pn-spec-value">
+                    {product.packing}
+                  </span>
+                </div>
+              )}
+            </div>
+
+
+            {/* DESCRIPTION */}
+
+            <div className="pn-description-wrap">
+              <p className="pn-description">
+                {product.description}
               </p>
-            )}
+            </div>
 
-            {product.grade && (
-              <p>
-                <strong>Grade:</strong> {product.grade}
-              </p>
-            )}
 
-            <p>
-              <strong>Usage:</strong> {product.usage}
-            </p>
-
-            {product.moisture && (
-              <p>
-                <strong>Moisture:</strong> {product.moisture}
-              </p>
-            )}
-
-            {product.ash && (
-              <p>
-                <strong>Ash:</strong> {product.ash}
-              </p>
-            )}
-
-            {product.packing && (
-              <p>
-                <strong>Packing:</strong> {product.packing}
-              </p>
-            )}
-
-            <p className="pn-description">{product.description}</p>
+            {/* ACTIONS */}
 
             <div className="pn-actions">
               <Link
-                href={`/contact?product=${encodeURIComponent(product.name)}`}
+                href={`/contact?product=${encodeURIComponent(
+                  product.name
+                )}`}
                 className="pn-btn primary"
               >
                 Request Quote
               </Link>
 
-              <Link href="/products" className="pn-btn secondary">
+              <Link
+                href="/products"
+                className="pn-btn secondary"
+              >
                 Back to Products
               </Link>
             </div>

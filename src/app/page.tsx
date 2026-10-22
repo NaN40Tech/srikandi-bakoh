@@ -1,8 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { products } from "@/app/products/data";
 
@@ -13,20 +17,37 @@ export default function HomePage() {
 
   const whyTrackRef = useRef<HTMLDivElement>(null);
 
-  const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
+  const [
+    showLeftArrow,
+    setShowLeftArrow,
+  ] = useState(false);
+
+  const [
+    showRightArrow,
+    setShowRightArrow,
+  ] = useState(true);
+
 
   /* =====================================================
      FEATURED PRODUCTS
      ===================================================== */
 
-  const productTrackRef = useRef<HTMLDivElement>(null);
+  const productTrackRef =
+    useRef<HTMLDivElement>(null);
 
-  const [showProductLeft, setShowProductLeft] = useState(false);
-  const [showProductRight, setShowProductRight] = useState(true);
+  const [
+    showProductLeft,
+    setShowProductLeft,
+  ] = useState(false);
+
+  const [
+    showProductRight,
+    setShowProductRight,
+  ] = useState(true);
+
 
   /* =====================================================
-     CHECK WHY CHOOSE US SCROLL
+     CHECK WHY SCROLL
      ===================================================== */
 
   const checkScroll = () => {
@@ -46,8 +67,9 @@ export default function HomePage() {
     );
   };
 
+
   /* =====================================================
-     CHECK FEATURED PRODUCTS SCROLL
+     CHECK PRODUCT SCROLL
      ===================================================== */
 
   const checkProductScroll = () => {
@@ -67,8 +89,9 @@ export default function HomePage() {
     );
   };
 
+
   /* =====================================================
-     WHY CHOOSE US SCROLL LISTENER
+     WHY SCROLL LISTENER
      ===================================================== */
 
   useEffect(() => {
@@ -86,17 +109,32 @@ export default function HomePage() {
 
     handleScroll();
 
-    track.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
+    track.addEventListener(
+      "scroll",
+      handleScroll
+    );
+
+    window.addEventListener(
+      "resize",
+      handleResize
+    );
 
     return () => {
-      track.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
+      track.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
     };
   }, []);
 
+
   /* =====================================================
-     FEATURED PRODUCTS SCROLL LISTENER
+     PRODUCT SCROLL LISTENER
      ===================================================== */
 
   useEffect(() => {
@@ -114,14 +152,29 @@ export default function HomePage() {
 
     handleScroll();
 
-    track.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
+    track.addEventListener(
+      "scroll",
+      handleScroll
+    );
+
+    window.addEventListener(
+      "resize",
+      handleResize
+    );
 
     return () => {
-      track.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
+      track.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
     };
   }, []);
+
 
   /* =====================================================
      GET CARD DISTANCE
@@ -132,7 +185,9 @@ export default function HomePage() {
     selector: string
   ) => {
     const cards =
-      track.querySelectorAll<HTMLElement>(selector);
+      track.querySelectorAll<HTMLElement>(
+        selector
+      );
 
     if (cards.length === 0) {
       return track.clientWidth;
@@ -151,6 +206,7 @@ export default function HomePage() {
     );
   };
 
+
   /* =====================================================
      SCROLL SLIDER
      ===================================================== */
@@ -167,29 +223,24 @@ export default function HomePage() {
     if (!track) return;
 
     const maxScroll =
-      track.scrollWidth - track.clientWidth;
+      track.scrollWidth -
+      track.clientWidth;
 
-    const currentScroll = track.scrollLeft;
+    const currentScroll =
+      track.scrollLeft;
 
-    const cardDistance = getCardDistance(
-      track,
-      selector
-    );
+    const cardDistance =
+      getCardDistance(
+        track,
+        selector
+      );
 
     let targetScroll = currentScroll;
-
-    /* -----------------------------
-       RIGHT
-       ----------------------------- */
 
     if (direction === "right") {
       targetScroll =
         currentScroll + cardDistance;
 
-      /*
-       * Jika sisa scroll kurang dari satu
-       * card, langsung menuju ujung.
-       */
       if (
         maxScroll - targetScroll <=
         cardDistance
@@ -198,30 +249,21 @@ export default function HomePage() {
       }
     }
 
-    /* -----------------------------
-       LEFT
-       ----------------------------- */
-
     if (direction === "left") {
       targetScroll =
         currentScroll - cardDistance;
 
-      /*
-       * Jika sudah dekat dengan awal,
-       * langsung kembali ke posisi 0.
-       */
       if (targetScroll <= cardDistance) {
         targetScroll = 0;
       }
     }
 
-    /* -----------------------------
-       SAFETY BOUNDARY
-       ----------------------------- */
-
     targetScroll = Math.max(
       0,
-      Math.min(targetScroll, maxScroll)
+      Math.min(
+        targetScroll,
+        maxScroll
+      )
     );
 
     track.scrollTo({
@@ -230,6 +272,7 @@ export default function HomePage() {
     });
   };
 
+
   /* =====================================================
      WHY CHOOSE US DATA
      ===================================================== */
@@ -237,35 +280,60 @@ export default function HomePage() {
   const whyFeatures = [
     {
       src: "/assets/icon-quality.webp",
-      alt: "Premium Quality",
-      title: "Premium Quality",
-      desc: "Carefully selected spices with international standards.",
+
+      alt: "Product requirements",
+
+      title: "Buyer Requirements",
+
+      desc:
+        "We review product specifications, quantity, packing, and destination needs before preparing an offer.",
     },
+
     {
       src: "/assets/icon-trace.webp",
-      alt: "Traceability",
-      title: "Traceability",
-      desc: "Full transparency from farm to export packaging.",
+
+      alt: "Supply coordination",
+
+      title: "Supply Coordination",
+
+      desc:
+        "We coordinate sourcing and product preparation according to the requirements discussed with each buyer.",
     },
+
     {
       src: "/assets/icon-global.webp",
-      alt: "Global Export",
-      title: "Global Export",
-      desc: "Supplying partners worldwide with trust and consistency.",
+
+      alt: "Domestic and international buyers",
+
+      title: "Flexible Supply",
+
+      desc:
+        "We serve domestic and international buyers looking for Indonesian spices and agricultural products.",
     },
+
     {
       src: "/assets/icon-sustain.webp",
-      alt: "Sustainability",
-      title: "Sustainability",
-      desc: "Working with farmers to ensure eco-friendly and ethical sourcing.",
+
+      alt: "Supplier partnerships",
+
+      title: "Supplier Network",
+
+      desc:
+        "We work with suppliers and sourcing partners to support product availability and preparation.",
     },
+
     {
       src: "/assets/icon-support.webp",
-      alt: "Customer Support",
-      title: "Customer Support",
-      desc: "Dedicated team to assist with inquiries and international trade needs.",
+
+      alt: "Buyer communication",
+
+      title: "Clear Communication",
+
+      desc:
+        "We keep product information, quotations, availability, and order requirements clear throughout the process.",
     },
   ];
+
 
   /* =====================================================
      FEATURED PRODUCTS
@@ -273,36 +341,73 @@ export default function HomePage() {
 
   const featuredProducts = products;
 
+
   /* =====================================================
      ARTICLES
      ===================================================== */
 
   const articles = [
     {
-      img: "/assets/article-turmeric1.webp",
-      alt: "Turmeric origin in Indonesia",
-      title: "The Origin of Turmeric",
-      date: "Jan 2025",
-      desc: "Discover the origin of turmeric and how it is cultivated as one of Indonesia's important agricultural commodities.",
-      link: "/articles/turmeric-origin",
+      img:
+        "/assets/article-turmeric1.webp",
+
+      alt:
+        "Dried sliced turmeric from Indonesia",
+
+      title:
+        "Dried Sliced Turmeric from Indonesia: What Buyers Should Know",
+
+      date:
+        "Jan 2025",
+
+      desc:
+        "A practical overview of dried sliced turmeric, product form, sourcing considerations, and what buyers should check before requesting a quotation.",
+
+      link:
+        "/articles/turmeric-origin",
     },
+
     {
-      img: "/assets/article-ginger1.webp",
-      alt: "Ginger cultivated in Ponorogo, East Java",
-      title: "Ginger from Ponorogo, East Java",
-      date: "Jan 2025",
-      desc: "Ginger cultivated in Ponorogo, East Java, particularly in the Jenangan area, where agricultural land supports the cultivation of quality crops.",
-      link: "/articles/ginger-origin",
+      img:
+        "/assets/article-turmeric2.webp",
+
+      alt:
+        "Dried sliced turmeric processing",
+
+      title:
+        "How Dried Sliced Turmeric Is Processed in Indonesia",
+
+      date:
+        "Jan 2025",
+
+      desc:
+        "Learn about the main stages involved in preparing dried sliced turmeric, from raw material handling to slicing, drying, and packing.",
+
+      link:
+        "/articles/turmeric-plantations",
     },
+
     {
-      img: "/assets/article-ginger2.webp",
-      alt: "Ginger plantation in Ponorogo",
-      title: "Ginger Cultivation in Ponorogo",
-      date: "Jan 2025",
-      desc: "Ginger is cultivated in partnership with local farmers in Jenangan, with attention to responsible farming practices and maintaining soil quality.",
-      link: "/articles/ginger-plantations",
+      img:
+        "/assets/article-ginger1.webp",
+
+      alt:
+        "Emprit ginger from Indonesia",
+
+      title:
+        "Emprit Ginger from Indonesia: A Short Buyer Guide",
+
+      date:
+        "Jan 2025",
+
+      desc:
+        "A short introduction to Indonesian emprit ginger and several points buyers may consider when sourcing dried ginger products.",
+
+      link:
+        "/articles/ginger-origin",
     },
   ];
+
 
   return (
     <>
@@ -312,11 +417,15 @@ export default function HomePage() {
 
       <section className="home-hero">
         <div className="hero-content">
-          <h1>Where Indonesian Flavors Meet the World</h1>
+          <h1>
+            Trusted Indonesian Spices
+            & Agricultural Products Supplier
+          </h1>
 
           <p>
-            Delivering premium spices and herbs with
-            international standards.
+            Reliable sourcing, flexible supply,
+            and clear communication for domestic
+            and international buyers.
           </p>
 
           <Link
@@ -330,17 +439,20 @@ export default function HomePage() {
             href="/contact"
             className="btn btn-secondary"
           >
-            Get a Quote
+            Request a Quote
           </Link>
         </div>
       </section>
+
 
       {/* =====================================================
           WHY CHOOSE US
           ===================================================== */}
 
       <section className="why">
-        <h2>Why Choose Us</h2>
+        <h2>
+          Why Work With Us
+        </h2>
 
         <div className="why-slider">
           {showLeftArrow && (
@@ -364,24 +476,30 @@ export default function HomePage() {
             className="why-track"
             ref={whyTrackRef}
           >
-            {whyFeatures.map((feature, index) => (
-              <div
-                className="feature-box"
-                key={index}
-              >
-                <Image
-                  src={feature.src}
-                  alt={feature.alt}
-                  width={60}
-                  height={60}
-                  loading="lazy"
-                />
+            {whyFeatures.map(
+              (feature, index) => (
+                <div
+                  className="feature-box"
+                  key={index}
+                >
+                  <Image
+                    src={feature.src}
+                    alt={feature.alt}
+                    width={60}
+                    height={60}
+                    loading="lazy"
+                  />
 
-                <h3>{feature.title}</h3>
+                  <h3>
+                    {feature.title}
+                  </h3>
 
-                <p>{feature.desc}</p>
-              </div>
-            ))}
+                  <p>
+                    {feature.desc}
+                  </p>
+                </div>
+              )
+            )}
           </div>
 
           {showRightArrow && (
@@ -403,12 +521,15 @@ export default function HomePage() {
         </div>
       </section>
 
+
       {/* =====================================================
           FEATURED PRODUCTS
           ===================================================== */}
 
       <section className="featured">
-        <h2>Featured Products</h2>
+        <h2>
+          Featured Products
+        </h2>
 
         <div className="product-slider">
           {showProductLeft && (
@@ -432,33 +553,39 @@ export default function HomePage() {
             className="product-track"
             ref={productTrackRef}
           >
-            {featuredProducts.map((product) => (
-              <div
-                className="product-card"
-                key={product.slug}
-              >
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  width={250}
-                  height={200}
-                  loading="lazy"
-                />
+            {featuredProducts.map(
+              (product) => (
+                <div
+                  className="product-card"
+                  key={product.slug}
+                >
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={250}
+                    height={200}
+                    loading="lazy"
+                  />
 
-                <h3>{product.name}</h3>
+                  <h3>
+                    {product.name}
+                  </h3>
 
-                <p>{product.description}</p>
+                  <p>
+                    {product.description}
+                  </p>
 
-                <div className="product-overlay">
-                  <Link
-                    href={`/products/${product.slug}`}
-                    className="btn-detail"
-                  >
-                    See Details
-                  </Link>
+                  <div className="product-overlay">
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="btn-detail"
+                    >
+                      See Details
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
 
           {showProductRight && (
@@ -480,48 +607,57 @@ export default function HomePage() {
         </div>
       </section>
 
+
       {/* =====================================================
           ARTICLES
           ===================================================== */}
 
       <section className="articles">
-        <h2>Articles</h2>
+        <h2>
+          Latest Insights
+        </h2>
 
         <div className="article-grid">
-          {articles.map((article, index) => (
-            <article
-              className="article-card"
-              key={index}
-            >
-              <Image
-                src={article.img}
-                alt={article.alt}
-                width={400}
-                height={260}
-                loading="lazy"
-              />
+          {articles.map(
+            (article, index) => (
+              <article
+                className="article-card"
+                key={index}
+              >
+                <Image
+                  src={article.img}
+                  alt={article.alt}
+                  width={400}
+                  height={260}
+                  loading="lazy"
+                />
 
-              <div className="article-content">
-                <h3>{article.title}</h3>
+                <div className="article-content">
+                  <h3>
+                    {article.title}
+                  </h3>
 
-                <time
-                  className="date"
-                  dateTime="2025-01"
-                >
-                  Published: {article.date}
-                </time>
+                  <time
+                    className="date"
+                    dateTime="2025-01"
+                  >
+                    Published: {article.date}
+                  </time>
 
-                <p>{article.desc}</p>
+                  <p>
+                    {article.desc}
+                  </p>
 
-                <Link
-                  href={article.link}
-                  className="btn btn-secondary"
-                >
-                  Read More
-                </Link>
-              </div>
-            </article>
-          ))}
+                  <Link
+                    href={article.link}
+                    className="btn btn-secondary"
+                  >
+                    Read Article
+                  </Link>
+                </div>
+              </article>
+            )
+          )}
         </div>
 
         <div className="see-more">
@@ -529,7 +665,7 @@ export default function HomePage() {
             href="/articles"
             className="btn btn-primary"
           >
-            See More Articles
+            View All Articles
           </Link>
         </div>
       </section>

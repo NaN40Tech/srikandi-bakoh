@@ -1,76 +1,181 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { articles } from "@/data/articles";
 import Link from "next/link";
+
+import { articles } from "@/data/articles";
 import "./article-detail.css";
 
-// Generate static params
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
 export async function generateStaticParams() {
   return articles.map((article) => ({
     slug: article.slug,
   }));
 }
 
-interface Props {
-  params: Promise<{ slug: string }>; // ✅ Changed to Promise
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { slug } = await params;
+
+  const article = articles.find((item) => item.slug === slug);
+
+  if (!article) {
+    return {
+      title: "Article Not Found",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  return {
+    title: article.title,
+    description: article.description,
+
+    alternates: {
+      canonical: `/articles/${article.slug}`,
+    },
+
+    openGraph: {
+      title: `${article.title} | PT Dwi Srikandi Bakoh`,
+      description: article.description,
+      url: `/articles/${article.slug}`,
+      type: "article",
+      images: [
+        {
+          url: article.heroImage || article.image,
+          alt: article.title,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: `${article.title} | PT Dwi Srikandi Bakoh`,
+      description: article.description,
+      images: [article.heroImage || article.image],
+    },
+  };
 }
 
 export default async function ArticlePage({ params }: Props) {
-  // ✅ Await the params
   const { slug } = await params;
-  const article = articles.find((a) => a.slug === slug);
-  
+
+  const article = articles.find((item) => item.slug === slug);
+
   if (!article) {
-    return notFound();
+    notFound();
   }
+
+  const relatedArticles = articles
+    .filter((item) => item.slug !== article.slug)
+    .slice(0, 4);
 
   return (
     <>
-      {/* Hero Section */}
+      {/* HERO */}
       <section
-        className="hero"
+        className="article-detail-hero"
         style={{
-          backgroundImage: `linear-gradient(rgba(26,98,50,0.6), rgba(26,98,50,0.6)), url(${
-            article.heroImage || article.image
-          })`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          minHeight: '400px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          backgroundImage: `linear-gradient(
+            rgba(17, 71, 34, 0.76),
+            rgba(17, 71, 34, 0.76)
+          ), url(${article.heroImage || article.image})`,
         }}
       >
-        <div style={{ textAlign: 'center', color: 'white', padding: '2rem' }}>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
-            {article.title}
-          </h1>
-          <p style={{ fontSize: '1rem', opacity: 0.9 }}>
+        <div className="article-detail-hero-inner">
+
+          <span className="article-detail-category">
+            Insights & Resources
+          </span>
+
+          <h1>{article.title}</h1>
+
+          <p className="article-detail-date">
             Published: {article.date}
           </p>
         </div>
       </section>
 
-      {/* Main Content */}
-      <main className="detail">
+      {/* MAIN CONTENT */}
+      <main className="article-detail-layout">
         <article
-          className="body"
-          dangerouslySetInnerHTML={{ __html: article.content || "" }}
+          className="article-detail-content"
+          dangerouslySetInnerHTML={{
+            __html: article.content || "",
+          }}
         />
-        
-        {/* Sidebar */}
-        <aside className="sidebar">
-          <h3>More Export Articles</h3>
-          <ul>
-            {articles
-              .filter((a) => a.slug !== article.slug)
-              .map((a) => (
-                <li key={a.slug}>
-                  <Link href={`/articles/${a.slug}`}>{a.title}</Link>
+
+        {/* SIDEBAR */}
+        <aside className="article-detail-sidebar">
+          <section className="article-detail-related">
+            <span className="article-detail-sidebar-label">
+              Explore More
+            </span>
+
+            <h2>Related Articles</h2>
+
+            <ul>
+              {relatedArticles.map((item) => (
+                <li key={item.slug}>
+                  <Link href={`/articles/${item.slug}`}>
+                    {item.title}
+                  </Link>
                 </li>
               ))}
-          </ul>
+            </ul>
+          </section>
+
+          <section className="article-detail-product-card">
+            <span className="article-detail-product-label">
+              Indonesian Spices
+            </span>
+
+            <h2>Explore Our Products</h2>
+
+            <p>
+              View available Indonesian spices, product specifications,
+              and packing information.
+            </p>
+
+            <Link
+              href="/products"
+              className="article-detail-product-link"
+            >
+              View Products
+            </Link>
+          </section>
         </aside>
       </main>
+
+      {/* CTA */}
+      <section className="article-detail-cta">
+        <div className="article-detail-cta-inner">
+          <span className="article-detail-cta-label">
+            Product Inquiry
+          </span>
+
+          <h2>
+            Looking for Indonesian Spices or Agricultural Products?
+          </h2>
+
+          <p>
+            Tell us the product, specification, quantity, and destination
+            you require.
+          </p>
+
+          <Link
+            href="/contact"
+            className="article-detail-cta-link"
+          >
+            Request a Quote
+          </Link>
+        </div>
+      </section>
     </>
   );
 }

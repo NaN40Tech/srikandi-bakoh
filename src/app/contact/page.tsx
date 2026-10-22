@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 
+import "./contact.css";
+
 interface ContactForm {
   name: string;
   phone: string;
@@ -24,16 +26,18 @@ export default function ContactPage() {
     if (product) {
       return `Hello,
 
-I am interested in ${product} and would like to request a quotation.
+I am interested in ${product}.
 
-Could you please provide more information about the product, packing options, availability, and shipping?
+Could you please provide information about availability, product specifications, packing options, and quotation?
 
 Thank you.`;
     }
 
     return `Hello,
 
-I would like to inquire about your products and request more information.
+I would like to inquire about your products.
+
+Could you please provide more information about availability, specifications, packing options, and quotation?
 
 Thank you.`;
   };
@@ -128,227 +132,262 @@ Thank you.`;
   return (
     <>
       {/* HERO */}
-      <section className="contact-hero">
-        <div className="hero-content">
+      <section className="contact-page-hero">
+        <div className="contact-page-hero-inner">
+          <span className="contact-page-hero-label">
+            Contact & Inquiry
+          </span>
+
           <h1>Contact PT Dwi Srikandi Bakoh</h1>
 
           <p>
-            Contact us for product inquiries, specifications, samples, and
-            quotations for domestic and international supply.
+            Get in touch for Indonesian spice and agricultural product
+            inquiries, specifications, samples, availability, and quotations.
           </p>
         </div>
       </section>
 
-      {/* CONTACT GRID */}
-      <section className="contact-section">
-        <div className="contact-grid">
-          {/* INFO */}
-          <div className="contact-info">
-            <h2>Get in Touch</h2>
+      {/* MAIN */}
+      <section className="contact-page-main">
+        <div className="contact-page-container">
+          <div className="contact-page-grid">
+            {/* LEFT */}
+            <div className="contact-page-info-card">
+              <div className="contact-page-heading">
+                <span>Product Inquiry</span>
 
-            <p>
-              Tell us the product, specification, quantity, and destination you
-              require. Our team will review your inquiry and provide the
-              relevant information.
-            </p>
+                <h2>Get in Touch</h2>
 
-            <p>
-              <strong>Email:</strong>
-              <br />
+                <p>
+                  Tell us the product you are looking for, your preferred
+                  specification, required quantity, packing needs, and delivery
+                  destination.
+                </p>
+              </div>
 
-              <a href="mailto:ptdwisrikandibakoh@gmail.com">
-                ptdwisrikandibakoh@gmail.com
-              </a>
-            </p>
+              <div className="contact-page-contact-list">
+                <div className="contact-page-contact-box">
+                  <div className="contact-page-contact-icon">
+                    <i className="fa-solid fa-envelope" />
+                  </div>
 
-            <p>
-              <strong>Phone / WhatsApp:</strong>
-              <br />
+                  <div className="contact-page-contact-content">
+                    <span className="contact-page-contact-label">
+                      Email
+                    </span>
 
-              <a
-                href="https://api.whatsapp.com/send?phone=6281232366354"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Admin 1: +62 812-3236-6354
-              </a>
-
-              <br />
-
-              <a
-                href="https://api.whatsapp.com/send?phone=6282232294053"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Admin 2: +62 822-3229-4053
-              </a>
-
-              <br />
-
-              <a
-                href="https://api.whatsapp.com/send?phone=6285159017001"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Admin 3: +62 851-5901-7001
-              </a>
-            </p>
-
-            <p>
-              <strong>Address:</strong>
-              <br />
-              Jl. Raya Jenangan No. 109, Krajan I, Desa Jenangan,
-              <br />
-              Kecamatan Jenangan, Kabupaten Ponorogo,
-              <br />
-              Jawa Timur 63492, Indonesia
-            </p>
-          </div>
-
-          {/* FORM */}
-          <div className="contact-form">
-            <h2>Request a Quote</h2>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleWhatsApp();
-              }}
-              noValidate
-            >
-              <label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  autoComplete="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  aria-invalid={Boolean(errors.name)}
-                  style={{
-                    width: "100%",
-                    padding: "10px",
-                    borderRadius: 6,
-                    border: errors.name
-                      ? "1px solid #e11"
-                      : "1px solid #ccc",
-                    marginBottom: 8,
-                  }}
-                />
-              </label>
-
-              {errors.name && (
-                <div
-                  role="alert"
-                  style={{
-                    color: "#b91c1c",
-                    fontSize: "0.9rem",
-                    marginBottom: 8,
-                  }}
-                >
-                  {errors.name}
+                    <a href="mailto:ptdwisrikandibakoh@gmail.com">
+                      ptdwisrikandibakoh@gmail.com
+                    </a>
+                  </div>
                 </div>
-              )}
 
-              <label>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Your Phone Number (e.g. +62 812 3456 7890)"
-                  autoComplete="tel"
-                  value={form.phone}
-                  onChange={handleChange}
-                  aria-invalid={Boolean(errors.phone)}
-                  style={{
-                    width: "100%",
-                    padding: "10px",
-                    borderRadius: 6,
-                    border: errors.phone
-                      ? "1px solid #e11"
-                      : "1px solid #ccc",
-                    marginBottom: 8,
-                  }}
-                />
-              </label>
+                <div className="contact-page-contact-box">
+                  <div className="contact-page-contact-icon">
+                    <i className="fa-brands fa-whatsapp" />
+                  </div>
 
-              {errors.phone && (
-                <div
-                  role="alert"
-                  style={{
-                    color: "#b91c1c",
-                    fontSize: "0.9rem",
-                    marginBottom: 8,
-                  }}
-                >
-                  {errors.phone}
+                  <div className="contact-page-contact-content">
+                    <span className="contact-page-contact-label">
+                      Phone / WhatsApp
+                    </span>
+
+                    <div className="contact-page-whatsapp-list">
+                      <a
+                        href="https://api.whatsapp.com/send?phone=6281232366354"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        +62 812-3236-6354
+                      </a>
+
+                      <a
+                        href="https://api.whatsapp.com/send?phone=6282232294053"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        +62 822-3229-4053
+                      </a>
+
+                      <a
+                        href="https://api.whatsapp.com/send?phone=6285159017001"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        +62 851-5901-7001
+                      </a>
+                    </div>
+                  </div>
                 </div>
-              )}
 
-              <label>
-                <textarea
-                  name="message"
-                  placeholder="Tell us the product, specification, quantity, and destination you require."
-                  rows={7}
-                  value={form.message}
-                  onChange={handleChange}
-                  aria-invalid={Boolean(errors.message)}
-                  style={{
-                    width: "100%",
-                    padding: "10px",
-                    borderRadius: 6,
-                    border: errors.message
-                      ? "1px solid #e11"
-                      : "1px solid #ccc",
-                    marginBottom: 8,
-                  }}
-                />
-              </label>
+                <div className="contact-page-contact-box">
+                  <div className="contact-page-contact-icon">
+                    <i className="fa-solid fa-location-dot" />
+                  </div>
 
-              {errors.message && (
-                <div
-                  role="alert"
-                  style={{
-                    color: "#b91c1c",
-                    fontSize: "0.9rem",
-                    marginBottom: 8,
-                  }}
-                >
-                  {errors.message}
+                  <div className="contact-page-contact-content">
+                    <span className="contact-page-contact-label">
+                      Address
+                    </span>
+
+                    <p>
+                      Jl. Raya Jenangan No. 109, Krajan I, Desa Jenangan,
+                      Kecamatan Jenangan, Kabupaten Ponorogo, Jawa Timur 63492,
+                      Indonesia
+                    </p>
+                  </div>
                 </div>
-              )}
+              </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn btn-primary"
-                style={{
-                  padding: "10px 14px",
-                  borderRadius: 8,
-                  border: "none",
-                  background: loading ? "#ece5dd" : "#25d366",
-                  color: "#fff",
-                  cursor: loading ? "not-allowed" : "pointer",
+            {/* RIGHT */}
+            <div className="contact-page-form-card">
+              <div className="contact-page-heading">
+                <span>Request Information</span>
+
+                <h2>Request a Quote</h2>
+
+                <p>
+                  Send your inquiry through WhatsApp and include as much detail
+                  as possible so we can review your requirement more accurately.
+                </p>
+              </div>
+
+              <form
+                className="contact-page-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleWhatsApp();
                 }}
+                noValidate
               >
-                {loading ? "Opening WhatsApp..." : "Send via WhatsApp"}
-              </button>
-            </form>
+                <div className="contact-page-field">
+                  <label htmlFor="name">
+                    Name
+                  </label>
+
+                  <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    placeholder="Your name"
+                    autoComplete="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    aria-invalid={Boolean(errors.name)}
+                    className={
+                      errors.name
+                        ? "contact-page-input contact-page-input-error"
+                        : "contact-page-input"
+                    }
+                  />
+
+                  {errors.name && (
+                    <span
+                      role="alert"
+                      className="contact-page-error"
+                    >
+                      {errors.name}
+                    </span>
+                  )}
+                </div>
+
+                <div className="contact-page-field">
+                  <label htmlFor="phone">
+                    Phone / WhatsApp
+                  </label>
+
+                  <input
+                    id="phone"
+                    type="tel"
+                    name="phone"
+                    placeholder="Example: +62 812 3456 7890"
+                    autoComplete="tel"
+                    value={form.phone}
+                    onChange={handleChange}
+                    aria-invalid={Boolean(errors.phone)}
+                    className={
+                      errors.phone
+                        ? "contact-page-input contact-page-input-error"
+                        : "contact-page-input"
+                    }
+                  />
+
+                  {errors.phone && (
+                    <span
+                      role="alert"
+                      className="contact-page-error"
+                    >
+                      {errors.phone}
+                    </span>
+                  )}
+                </div>
+
+                <div className="contact-page-field">
+                  <label htmlFor="message">
+                    Inquiry Details
+                  </label>
+
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Tell us the product, specification, quantity, packing, and destination you require."
+                    rows={8}
+                    value={form.message}
+                    onChange={handleChange}
+                    aria-invalid={Boolean(errors.message)}
+                    className={
+                      errors.message
+                        ? "contact-page-input contact-page-textarea contact-page-input-error"
+                        : "contact-page-input contact-page-textarea"
+                    }
+                  />
+
+                  {errors.message && (
+                    <span
+                      role="alert"
+                      className="contact-page-error"
+                    >
+                      {errors.message}
+                    </span>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="contact-page-submit"
+                >
+                  <i className="fa-brands fa-whatsapp" />
+
+                  {loading
+                    ? "Opening WhatsApp..."
+                    : "Send Inquiry via WhatsApp"}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
 
       {/* MAP */}
-      <section className="map" style={{ marginTop: 20 }}>
-        <iframe
-          title="PT Dwi Srikandi Bakoh Location"
-          src="https://www.google.com/maps?q=-7.8229422,111.542023&z=17&output=embed"
-          width="100%"
-          height="400"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+      <section className="contact-page-map-section">
+        <div className="contact-page-map-heading">
+          <span>Our Location</span>
+          <h2>PT Dwi Srikandi Bakoh</h2>
+        </div>
+
+        <div className="contact-page-map">
+          <iframe
+            title="PT Dwi Srikandi Bakoh Location"
+            src="https://www.google.com/maps?q=-7.8229422,111.542023&z=17&output=embed"
+            width="100%"
+            height="400"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
       </section>
     </>
   );

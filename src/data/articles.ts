@@ -10,451 +10,520 @@ export interface Article {
 
 export const articles: Article[] = [
   {
-    slug: "black-keluak",
-    title:
-      "Black Keluak: A Distinctive Indonesian Spice Gaining Global Attention",
-    date: "Jun 2026",
-    description:
-      "Black Keluak (Pangium edule) is one of Indonesia's most distinctive traditional ingredients, known for its deep color, earthy character, and rich umami flavor. Learn more about its culinary heritage and growing international interest.",
-    image: "/assets/article-keluak1.webp",
-    heroImage: "/assets/keluak-field.webp",
-    content: `
-      <h2>Black Keluak: A Distinctive Indonesian Spice</h2>
-
-      <img
-        src="/assets/article-keluak1.webp"
-        alt="Black Keluak seeds from East Java, Indonesia"
-      />
-
-      <p class="caption">
-        Fermented Black Keluak (Pangium edule) sourced from selected farmers in East Java.
-      </p>
-
-      <p>
-        In East Java, one traditional ingredient has been part of local cuisine for
-        generations. Known as <strong>Black Keluak</strong>, this distinctive ingredient
-        is valued for its deep color, earthy character, and rich umami flavor.
-        It is especially well known among buyers looking for unique Indonesian
-        ingredients with a strong culinary identity.
-      </p>
-
-      <h2>What Is Black Keluak?</h2>
-
-      <p>
-        Black Keluak (<em>Pangium edule</em>) is the fermented seed of a large tree
-        native to Southeast Asia. In its raw state, the seed contains hydrogen cyanide
-        and requires proper processing before consumption.
-      </p>
-
-      <p>
-        Traditionally, the seeds undergo a fermentation process that involves boiling
-        followed by storage in ash, banana leaves, and earth for an extended period.
-        This process develops the seed's characteristic dark color and deep,
-        earthy flavor.
-      </p>
-
-      <p>
-        The resulting ingredient has a distinctive flavor profile that is often
-        associated with earthy, savory, and fermented notes. Its unique character
-        makes keluak particularly interesting for culinary applications.
-      </p>
-
-      <h2>A Spice with Deep Roots in Indonesian Cuisine</h2>
-
-      <img
-        src="/assets/keluak-rawon.webp"
-        alt="Rawon, East Javanese black beef soup made with keluak"
-      />
-
-      <p class="caption">
-        Rawon, East Java's iconic black beef soup, is known for its distinctive dark color and rich flavor from keluak.
-      </p>
-
-      <p>
-        Keluak has an important place in several traditional dishes across Indonesia
-        and Southeast Asia. <em>Rawon</em>, the well-known black beef soup from
-        East Java, uses keluak as a key ingredient. It is also found in dishes such
-        as <em>Brongkos</em> from Yogyakarta, <em>Coto Makassar</em> from Sulawesi,
-        and <em>Ayam Buah Keluak</em> in Peranakan cuisine.
-      </p>
-
-      <p>
-        For generations, keluak has been harvested, processed, and traded by local
-        communities. Its traditional processing methods and distinctive flavor have
-        kept it closely connected to regional culinary traditions.
-      </p>
-
-      <h2>Why Are Buyers Taking Notice?</h2>
-
-      <p>
-        Interest in traditional and distinctive ingredients has created new
-        opportunities for products such as keluak. Its unique flavor, dark natural
-        color, and strong connection to Southeast Asian cuisine make it an
-        interesting ingredient for culinary and food applications.
-      </p>
-
-      <p>
-        For ingredient buyers, several characteristics make keluak particularly
-        interesting:
-      </p>
-
-      <h3>1. A Distinctive Ingredient</h3>
-
-      <p>
-        Keluak has a flavor and appearance that are difficult to replicate with
-        conventional spices. Its strong culinary identity gives it a clear place
-        in traditional dishes and specialty food applications.
-      </p>
-
-      <h3>2. Strong Indonesian Culinary Heritage</h3>
-
-      <p>
-        Indonesia has a long history of using keluak in traditional cuisine.
-        This heritage provides the ingredient with a strong story and a clear
-        connection to Southeast Asian food culture.
-      </p>
-
-      <h3>3. Growing Interest in Traditional Ingredients</h3>
-
-      <p>
-        As international food markets continue to explore regional ingredients,
-        traditional products with distinctive flavor profiles can create new
-        opportunities for importers, food manufacturers, and culinary businesses.
-      </p>
-
-      <h2>Our Quality and Traceability Standards</h2>
-
-      <p>
-        At <strong>PT Dwi Srikandi Bakoh</strong>, our Black Keluak is sourced
-        through our supplier network in East Java. We work with selected suppliers
-        to coordinate sourcing, processing, and product requirements according to
-        buyer specifications.
-      </p>
-
-      <p>
-        Product handling focuses on proper processing, quality control, and
-        traceability throughout the supply process. Specific documentation and
-        requirements can be discussed according to the destination market and
-        buyer needs.
-      </p>
-
-      <h2>Sourcing Information</h2>
-
-      <p>
-        For buyers interested in this traditional Indonesian ingredient, several
-        factors should be considered when discussing specifications:
-      </p>
-
-      <ul>
-        <li>
-          <strong>Product:</strong> Fermented Black Keluak (Pangium edule)
-        </li>
-        <li>
-          <strong>Form:</strong> Available according to buyer requirements
-        </li>
-        <li>
-          <strong>Origin:</strong> East Java, Indonesia
-        </li>
-        <li>
-          <strong>Packaging:</strong> Prepared according to buyer requirements
-        </li>
-        <li>
-          <strong>Specifications:</strong> Discussed based on application and destination market
-        </li>
-      </ul>
-
-      <p>
-        Black Keluak offers something different from conventional spices. Its
-        distinctive flavor, deep color, and long history in Indonesian cuisine
-        make it an interesting ingredient for buyers exploring unique products
-        from Indonesia.
-      </p>
-    `,
-  },
-
-  {
-    slug: "ginger-origin",
-    title: "Premium Ginger from Jenangan",
-    date: "Jan 2025",
-    description:
-      "Ginger from Jenangan, Ponorogo, East Java, is cultivated in a region known for its fertile volcanic soil and long-standing agricultural traditions.",
-    image: "/assets/article-ginger1.webp",
-    heroImage: "/assets/article-ginger1.webp",
-    content: `
-      <h2>Premium Ginger from Jenangan</h2>
-
-      <img
-        src="/assets/article-ginger1.webp"
-        alt="Ginger from Jenangan, Ponorogo"
-      />
-
-      <p class="caption">
-        Ginger from the agricultural region of Jenangan, Ponorogo.
-      </p>
-
-      <p>
-        Our ginger is sourced from <strong>Jenangan, Ponorogo, East Java</strong>,
-        an agricultural area with fertile soil and a long tradition of crop
-        cultivation. The region provides suitable conditions for growing ginger
-        with a distinctive aroma and flavor.
-      </p>
-
-
-      <h2>Why Jenangan Ginger?</h2>
-
-      <p>
-        The agricultural conditions in Jenangan provide a suitable environment
-        for ginger cultivation. Local farmers combine practical experience with
-        established cultivation methods to support consistent crop quality.
-      </p>
-
-      <p>
-        The area's agricultural traditions also provide a strong foundation for
-        developing a reliable supply of ginger and other agricultural commodities.
-      </p>
-
-      <h2>Export Forms Available</h2>
-
-      <p>
-        Ginger can be prepared in different forms depending on buyer requirements
-        and the intended application:
-      </p>
-
-      <ul>
-        <li>Fresh whole ginger</li>
-        <li>Dried ginger</li>
-        <li>Sliced ginger</li>
-        <li>Ginger powder</li>
-      </ul>
-
-      <h2>Quality and Distribution</h2>
-
-      <p>
-        Product handling is coordinated throughout the sourcing and supply process
-        to support consistent quality and proper packaging. Requirements can be
-        discussed according to the buyer's specifications and destination market.
-      </p>
-
-      <p>
-        At PT Dwi Srikandi Bakoh, we work with suppliers and sourcing partners
-        across East Java to connect buyers with suitable Indonesian agricultural
-        products.
-      </p>
-    `,
-  },
-
-  {
-    slug: "ginger-plantations",
-    title: "Sustainable Ginger Cultivation",
-    date: "Jan 2025",
-    description:
-      "Ginger cultivation in Jenangan, Ponorogo, is supported by local farmers and agricultural practices focused on maintaining soil quality and consistent crop production.",
-    image: "/assets/article-ginger2.webp",
-    heroImage: "/assets/article-ginger2.webp",
-    content: `
-      <h2>Sustainable Ginger Cultivation in Jenangan</h2>
-
-      <img
-        src="/assets/article-ginger2.webp"
-        alt="Ginger plantation in Jenangan"
-      />
-
-      <p class="caption">
-        Ginger cultivation in the agricultural lands of Jenangan, Ponorogo.
-      </p>
-
-      <p>
-        Ginger cultivation in Jenangan is supported by local farmers who have
-        practical experience in managing agricultural crops. Maintaining healthy
-        soil and consistent cultivation practices is important for supporting
-        reliable crop production.
-      </p>
-
-      <h2>Sustainable Farming Practices</h2>
-
-      <p>
-        Responsible agricultural practices can help maintain soil quality and
-        support long-term cultivation. Common practices include:
-      </p>
-
-      <ul>
-        <li>Organic composting to support soil fertility</li>
-        <li>Crop rotation to maintain soil condition</li>
-        <li>Integrated pest management</li>
-        <li>Efficient water management</li>
-      </ul>
-
-      <h2>Farmer Partnerships</h2>
-
-      <p>
-        A reliable agricultural supply chain depends on strong relationships with
-        local suppliers and farming communities. Building these relationships
-        helps improve communication, product planning, and supply coordination.
-      </p>
-
-      <p>
-        Through cooperation with local suppliers, we aim to support consistent
-        sourcing while responding to the specifications and requirements of buyers.
-      </p>
-
-      <h2>Quality Assurance</h2>
-
-      <p>
-        From cultivation and harvesting to post-harvest handling, each stage can
-        influence the final quality of the product. Proper harvesting, cleaning,
-        drying, sorting, and storage are important parts of maintaining product
-        quality.
-      </p>
-    `,
-  },
-
-  {
     slug: "turmeric-origin",
-    title: "Premium Turmeric from Jenangan",
+    title: "Dried Sliced Turmeric from Indonesia: What Buyers Should Know",
     date: "Jan 2025",
     description:
-      "Turmeric from Jenangan, Ponorogo, East Java, is sourced from an agricultural region known for fertile soil and long-standing farming traditions.",
+      "A practical overview of Indonesian dried sliced turmeric, including slicing methods, product evaluation, packing, and what buyers should discuss before sourcing.",
     image: "/assets/article-turmeric1.webp",
     heroImage: "/assets/article-turmeric1.webp",
     content: `
-      <h2>Premium Turmeric from Jenangan</h2>
+      <p>
+        Dried sliced turmeric is one of the common forms used by buyers who need
+        turmeric as a spice or ingredient before further processing.
+      </p>
+
+      <p>
+        In Indonesia, turmeric can be processed into dried slices using manual
+        or machine slicing. The choice usually depends on the appearance,
+        consistency, and specification required by the buyer.
+      </p>
 
       <img
         src="/assets/article-turmeric1.webp"
-        alt="Turmeric from Jenangan, Ponorogo"
+        alt="Dried sliced turmeric from Indonesia"
       />
 
-      <p class="caption">
-        Turmeric sourced from the agricultural region of Jenangan, Ponorogo.
+      <h2>What Is Dried Sliced Turmeric?</h2>
+
+      <p>
+        Dried sliced turmeric is produced by cleaning fresh turmeric rhizomes,
+        slicing them, and reducing their moisture through drying.
       </p>
 
       <p>
-        Our turmeric is sourced from <strong>Jenangan, Ponorogo</strong>,
-        an agricultural area in East Java with fertile soil and established
-        farming traditions. The region provides suitable conditions for turmeric
-        cultivation and supports a reliable supply of agricultural products.
+        The finished product can then be supplied as a raw material for spice
+        and ingredient applications.
       </p>
 
-      <h2>Why Jenangan Turmeric?</h2>
-
       <p>
-        Turmeric quality can be influenced by growing conditions, harvesting
-        practices, and post-harvest handling. Local suppliers in Jenangan have
-        experience in cultivating and handling turmeric for different market needs.
+        Buyers commonly evaluate dried turmeric based on factors such as slice
+        condition, cleanliness, moisture, color, aroma, and the specification
+        required for their own processing.
       </p>
 
-      <h2>Quality Characteristics</h2>
+      <h2>Manual and Machine-Sliced Turmeric</h2>
 
       <p>
-        Depending on the variety and specification, turmeric can be evaluated
-        based on characteristics such as:
+        One of the first things buyers may notice is the slicing method.
+        Manually sliced turmeric and machine-sliced turmeric can have different
+        visual characteristics.
+      </p>
+
+      <p>
+        Machine slicing generally produces more consistent slice dimensions,
+        while manual slicing can result in more natural variation between
+        pieces.
+      </p>
+
+      <p>
+        Neither option is automatically better for every buyer. The suitable
+        choice depends on the intended use and specification.
+      </p>
+
+      <h2>What Buyers Should Check</h2>
+
+      <p>
+        Before confirming an order, it is useful to discuss the product
+        specification clearly with the supplier.
       </p>
 
       <ul>
-        <li>Natural golden-yellow color</li>
-        <li>Curcumin content</li>
-        <li>Aroma</li>
-        <li>Flavor</li>
-        <li>Overall product quality</li>
+        <li>Required slicing method</li>
+        <li>Moisture requirement</li>
+        <li>Acceptable appearance and cleanliness</li>
+        <li>Packing requirement</li>
+        <li>Required quantity</li>
+        <li>Delivery destination</li>
       </ul>
 
-      <h2>Export Forms Available</h2>
-
       <p>
-        Turmeric can be prepared in several forms depending on buyer requirements
-        and the intended application:
+        These details can affect how the product is prepared and how a supplier
+        calculates the quotation.
       </p>
 
-      <ul>
-        <li>Fresh turmeric rhizomes</li>
-        <li>Dried whole turmeric</li>
-        <li>Turmeric slices</li>
-        <li>Turmeric powder</li>
-      </ul>
-
-      <h2>Applications and Markets</h2>
+      <h2>Turmeric Supply from Indonesia</h2>
 
       <p>
-        Turmeric is widely used as a culinary ingredient and as a raw material
-        for food, herbal, supplement, and other applications. Product
-        specifications can be discussed according to the buyer's intended use,
-        quality requirements, and destination market.
+        Indonesia has an established turmeric supply base, with production
+        available across several agricultural regions.
+      </p>
+
+      <p>
+        PT Dwi Srikandi Bakoh supplies dried sliced turmeric from Indonesia for
+        domestic and international buyers. Our current product is available in
+        manual and machine-sliced grades.
+      </p>
+
+      <p>
+        You can view the current specifications on our
+        <a href="/products/dried-sliced-turmeric">
+          dried sliced turmeric product page
+        </a>.
+      </p>
+
+      <h2>Before Requesting a Quotation</h2>
+
+      <p>
+        A useful inquiry should include the quantity you need, preferred
+        specification, packing requirement, and delivery destination.
+      </p>
+
+      <p>
+        Providing these details helps us review the requirement more accurately
+        before preparing a quotation.
       </p>
     `,
   },
 
   {
     slug: "turmeric-plantations",
-    title: "Sustainable Turmeric Cultivation",
+    title: "How Dried Sliced Turmeric Is Processed in Indonesia",
     date: "Jan 2025",
     description:
-      "Turmeric cultivation in Jenangan, Ponorogo, is supported by local farmers and agricultural practices focused on maintaining soil quality and consistent production.",
+      "See the basic steps involved in preparing dried sliced turmeric, from fresh raw material and washing to slicing, drying, sorting, and packing.",
     image: "/assets/article-turmeric2.webp",
     heroImage: "/assets/article-turmeric2.webp",
     content: `
-      <h2>Sustainable Turmeric Cultivation in Jenangan</h2>
+      <p>
+        The quality of dried sliced turmeric does not depend only on the fresh
+        turmeric itself. Post-harvest handling also plays an important role in
+        the condition of the finished product.
+      </p>
+
+      <p>
+        The exact process can vary between suppliers, but several basic stages
+        are commonly involved when preparing turmeric slices.
+      </p>
 
       <img
         src="/assets/article-turmeric2.webp"
-        alt="Turmeric plantation in Jenangan"
+        alt="Turmeric processing in Indonesia"
       />
 
-      <p class="caption">
-        Turmeric cultivation in partnership with local agricultural communities.
+      <h2>1. Raw Material Selection</h2>
+
+      <p>
+        Processing begins with fresh turmeric rhizomes. Raw material condition
+        can influence the appearance and quality of the dried slices produced
+        later.
       </p>
 
       <p>
-        Turmeric cultivation in Jenangan is supported by local farmers and
-        agricultural suppliers. Maintaining healthy soil, proper cultivation
-        practices, and careful post-harvest handling are important for achieving
-        consistent product quality.
+        At this stage, unsuitable material can be separated before further
+        processing.
       </p>
 
-      <h2>Cultivation Practices</h2>
+      <h2>2. Washing</h2>
 
       <p>
-        Turmeric cultivation requires careful attention throughout the growing
-        cycle. Selecting suitable planting material, managing the crop properly,
-        and harvesting at the right time can all contribute to product quality.
+        Fresh turmeric is washed before slicing to remove soil and surface
+        material remaining from harvesting and handling.
       </p>
 
-      <h2>Sustainable Practices</h2>
+      <p>
+        Washing is particularly important when the buyer requires cleaner dried
+        material for further processing.
+      </p>
+
+      <h2>3. Slicing</h2>
 
       <p>
-        Responsible agricultural practices can help maintain the productivity
-        of farmland over the long term. These may include:
+        After washing, turmeric can be sliced manually or by machine depending
+        on the required product grade.
+      </p>
+
+      <p>
+        Slice thickness and consistency matter because they can affect the
+        drying process and the final appearance of the product.
+      </p>
+
+      <h2>4. Drying</h2>
+
+      <p>
+        The sliced turmeric is then dried until it reaches the required
+        condition.
+      </p>
+
+      <p>
+        Drying needs to be controlled carefully because material that remains
+        too wet can create storage problems, while the buyer may also have a
+        specific moisture requirement.
+      </p>
+
+      <h2>5. Sorting and Preparation</h2>
+
+      <p>
+        After drying, the turmeric can be checked and prepared before packing.
+        This stage helps separate material that does not meet the required
+        condition.
+      </p>
+
+      <p>
+        Product requirements should be agreed before production whenever
+        possible so the supplier understands what the buyer expects.
+      </p>
+
+      <h2>6. Packing</h2>
+
+      <p>
+        Packing should protect dried turmeric during storage and transportation.
+        The packing format can depend on quantity, destination, and buyer
+        requirements.
+      </p>
+
+      <h2>Why Processing Details Matter</h2>
+
+      <p>
+        Two dried turmeric products may look similar at first glance but differ
+        in slicing consistency, cleanliness, moisture, packing, or other
+        characteristics.
+      </p>
+
+      <p>
+        This is why buyers should review specifications rather than relying only
+        on product photos.
+      </p>
+
+      <p>
+        For our current dried sliced turmeric specification, visit the
+        <a href="/products/dried-sliced-turmeric">
+          Dried Sliced Turmeric page
+        </a>.
+      </p>
+    `,
+  },
+
+  {
+    slug: "ginger-origin",
+    title: "Emprit Ginger from Indonesia: A Short Buyer Guide",
+    date: "Jan 2025",
+    description:
+      "An introduction to Indonesian emprit ginger and the key product details buyers should consider when sourcing dried sliced ginger.",
+    image: "/assets/article-ginger1.webp",
+    heroImage: "/assets/article-ginger1.webp",
+    content: `
+      <p>
+        Indonesia produces several types of ginger, including emprit ginger.
+        For buyers, identifying the ginger type and required product form is an
+        important first step before discussing supply.
+      </p>
+
+      <img
+        src="/assets/article-ginger1.webp"
+        alt="Emprit ginger from Indonesia"
+      />
+
+      <h2>What Is Emprit Ginger?</h2>
+
+      <p>
+        Emprit ginger is one of the ginger types commonly found in Indonesia.
+        It is generally smaller than the large ginger varieties and is used in
+        spice and ingredient applications.
+      </p>
+
+      <p>
+        For commercial sourcing, the important point is not only the variety,
+        but also the condition in which the material will be supplied.
+      </p>
+
+      <h2>Dried and Sliced Form</h2>
+
+      <p>
+        Ginger can be processed into dried slices to make it easier to store,
+        transport, and use as an ingredient or raw material for further
+        processing.
+      </p>
+
+      <p>
+        Buyers may request different slicing and quality specifications
+        depending on their application.
+      </p>
+
+      <h2>What Buyers Should Discuss with a Supplier</h2>
+
+      <ul>
+        <li>Ginger type</li>
+        <li>Product form</li>
+        <li>Moisture requirement</li>
+        <li>Slice condition</li>
+        <li>Packing</li>
+        <li>Required quantity</li>
+        <li>Delivery destination</li>
+      </ul>
+
+      <p>
+        Providing these details at the beginning of an inquiry helps avoid
+        misunderstandings during quotation and product preparation.
+      </p>
+
+      <h2>Indonesian Ginger Supply</h2>
+
+      <p>
+        Indonesia has a broad ginger supply network covering multiple producing
+        regions and ginger types.
+      </p>
+
+      <p>
+        For buyers looking for dried sliced material, specifications should be
+        discussed based on the intended use and required product condition.
+      </p>
+
+      <p>
+        View our current
+        <a href="/products/sliced-emprit-ginger">
+          dried sliced emprit ginger
+        </a>
+        specification for more information.
+      </p>
+    `,
+  },
+
+  {
+    slug: "ginger-plantations",
+    title: "What to Check When Sourcing Dried Ginger from Indonesia",
+    date: "Jan 2025",
+    description:
+      "A practical checklist for buyers sourcing dried ginger from Indonesia, covering product form, moisture, slicing, packing, quantity, and destination.",
+    image: "/assets/article-ginger2.webp",
+    heroImage: "/assets/article-ginger2.webp",
+    content: `
+      <p>
+        Asking only for a price is usually not enough when sourcing dried
+        ginger. Suppliers need to understand the required product condition
+        before they can evaluate the requirement properly.
+      </p>
+
+      <p>
+        A few details can make the sourcing process much clearer for both
+        parties.
+      </p>
+
+      <img
+        src="/assets/article-ginger2.webp"
+        alt="Indonesian ginger for dried ingredient supply"
+      />
+
+      <h2>1. Confirm the Ginger Type</h2>
+
+      <p>
+        Indonesia produces different ginger types. Buyers should specify the
+        variety they need because size, appearance, aroma, and availability can
+        differ.
+      </p>
+
+      <h2>2. Specify the Product Form</h2>
+
+      <p>
+        If the requirement is dried sliced ginger, say so clearly from the
+        beginning.
+      </p>
+
+      <p>
+        This helps avoid confusion with fresh ginger, whole dried ginger, or
+        other forms.
+      </p>
+
+      <h2>3. Discuss Moisture Requirements</h2>
+
+      <p>
+        Moisture is one of the common parameters discussed in dried agricultural
+        products.
+      </p>
+
+      <p>
+        A buyer with a specific maximum moisture requirement should communicate
+        it before the quotation and production stages.
+      </p>
+
+      <h2>4. Review Slice Condition</h2>
+
+      <p>
+        Buyers may have preferences regarding slice consistency, thickness, or
+        appearance.
+      </p>
+
+      <p>
+        Product photos and samples can help align expectations before a larger
+        order is confirmed.
+      </p>
+
+      <h2>5. Confirm Packing and Quantity</h2>
+
+      <p>
+        Packing requirements and total order quantity can affect handling,
+        logistics, and quotation.
+      </p>
+
+      <p>
+        These details should therefore be included when contacting a supplier.
+      </p>
+
+      <h2>6. Include the Delivery Destination</h2>
+
+      <p>
+        Domestic and international orders can involve different transportation
+        requirements.
+      </p>
+
+      <p>
+        Providing the destination allows the supplier to better understand the
+        requested supply arrangement.
+      </p>
+
+      <h2>A Better Sourcing Inquiry</h2>
+
+      <p>
+        Instead of asking only "How much is dried ginger?", a more useful
+        inquiry includes the product type, specification, volume, packing, and
+        destination.
+      </p>
+
+      <p>
+        This gives both buyer and supplier a clearer starting point for
+        discussing availability and quotation.
+      </p>
+    `,
+  },
+
+  {
+    slug: "black-keluak",
+    title: "Kluwek from Indonesia: A Traditional Ingredient with a Distinctive Character",
+    date: "Jun 2026",
+    description:
+      "Learn about Indonesian kluwek, its role in traditional cuisine, fermented preparation, and the product details buyers should consider when sourcing.",
+    image: "/assets/article-keluak1.webp",
+    heroImage: "/assets/keluak-field.webp",
+    content: `
+      <p>
+        Kluwek is an Indonesian ingredient best known for the dark color and
+        distinctive flavor it gives to traditional dishes such as rawon.
+      </p>
+
+      <p>
+        Outside Indonesia, it may also be known as keluak, kluwak, or by its
+        botanical name, Pangium edule.
+      </p>
+
+      <img
+        src="/assets/article-keluak1.webp"
+        alt="Indonesian kluwek"
+      />
+
+      <h2>What Is Kluwek?</h2>
+
+      <p>
+        Kluwek comes from the seed of Pangium edule. Before it is used as a
+        culinary ingredient, the seed goes through processing and fermentation.
+      </p>
+
+      <p>
+        The finished ingredient has a very dark interior and a distinctive
+        savory character associated with several Indonesian dishes.
+      </p>
+
+      <h2>Kluwek in Indonesian Cuisine</h2>
+
+      <p>
+        One of the best-known uses of kluwek is rawon, an East Javanese beef
+        soup recognized by its dark broth.
+      </p>
+
+      <img
+        src="/assets/keluak-rawon.webp"
+        alt="Rawon made with Indonesian kluwek"
+      />
+
+      <p>
+        Kluwek is not used in the same way as everyday spices such as turmeric,
+        ginger, or cloves. Its distinctive character makes it a more specialized
+        ingredient.
+      </p>
+
+      <h2>What Buyers Should Check</h2>
+
+      <p>
+        Buyers interested in kluwek should clearly discuss the form and
+        condition required before purchasing.
       </p>
 
       <ul>
-        <li>Use of organic compost where appropriate</li>
-        <li>Soil conservation practices</li>
-        <li>Responsible use of agricultural inputs</li>
-        <li>Efficient water management</li>
-        <li>Maintaining agricultural biodiversity</li>
+        <li>Product form</li>
+        <li>Fermentation condition</li>
+        <li>Appearance</li>
+        <li>Packing</li>
+        <li>Required quantity</li>
+        <li>Destination</li>
       </ul>
 
-      <h2>Farmer Partnerships</h2>
+      <h2>Kluwek Supply from Indonesia</h2>
 
       <p>
-        A dependable turmeric supply chain is built through communication and
-        long-term cooperation with local suppliers and farming communities.
-        Understanding harvest cycles and product requirements helps improve
-        supply planning and consistency.
-      </p>
-
-      <h2>From Farm to Export</h2>
-
-      <p>
-        After harvesting, turmeric goes through post-harvest handling such as
-        cleaning, drying, sorting, and packaging according to the required
-        product form. Quality parameters can be evaluated based on the buyer's
-        specification and intended application.
+        PT Dwi Srikandi Bakoh supplies Indonesian kluwek for culinary ingredient
+        requirements.
       </p>
 
       <p>
-        At PT Dwi Srikandi Bakoh, we coordinate with Indonesian suppliers and
-        sourcing partners to prepare agricultural products according to buyer
-        requirements and market specifications.
+        Specifications and packing should be discussed according to the intended
+        application and order requirement.
+      </p>
+
+      <p>
+        You can view the current
+        <a href="/products/shelled-kluwek">
+          shelled kluwek product information
+        </a>
+        on our product page.
       </p>
     `,
   },

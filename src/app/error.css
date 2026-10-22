@@ -1,44 +1,463 @@
+/* ========================================
+   ERROR PAGE
+======================================== */
+
 .error-page {
+  position: relative;
+
+  min-height: 100vh;
+
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 80vh;
+  justify-content: center;
+
+  padding:
+    8rem
+    1.5rem
+    5rem;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(212, 182, 115, 0.15),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 78%,
+      rgba(26, 98, 50, 0.1),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #fdf8f3 0%,
+      #f6f3eb 50%,
+      #eef5ef 100%
+    );
+
+  color: #333333;
+
   text-align: center;
-  background: #f7f7f5;
-  padding: 2rem;
 }
 
-.error-page .container {
-  max-width: 500px;
+
+/* ========================================
+   BACKGROUND DECORATION
+======================================== */
+
+.error-page::before {
+  content: "";
+
+  position: absolute;
+
+  top: -180px;
+  right: -180px;
+
+  width: 420px;
+  height: 420px;
+
+  border:
+    1px solid rgba(26, 98, 50, 0.08);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 0 55px rgba(26, 98, 50, 0.025),
+    0 0 0 110px rgba(212, 182, 115, 0.025);
+
+  pointer-events: none;
 }
+
+.error-page::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -190px;
+  left: -170px;
+
+  width: 390px;
+  height: 390px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212, 182, 115, 0.12),
+      rgba(212, 182, 115, 0.025) 55%,
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+
+/* ========================================
+   ERROR CARD
+======================================== */
+
+.error-page-container {
+  position: relative;
+
+  z-index: 10;
+
+  width: 100%;
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  padding:
+    3.5rem
+    3rem;
+
+  background:
+    rgba(255, 255, 255, 0.84);
+
+  border:
+    1px solid rgba(212, 182, 115, 0.24);
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 24px 70px rgba(15, 64, 32, 0.1);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+
+/* ========================================
+   LABEL
+======================================== */
+
+.error-page-label {
+  display: inline-block;
+
+  margin-bottom: 1rem;
+
+  color: #9a7939;
+
+  font-size: 0.76rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+
+/* ========================================
+   ERROR CODE
+======================================== */
 
 .error-page h1 {
-  font-size: 6rem;
+  margin:
+    0
+    0
+    0.8rem;
+
   color: #1a6232;
-  margin-bottom: 1rem;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size:
+    clamp(
+      5.5rem,
+      15vw,
+      9rem
+    );
+
+  font-weight: 900;
+
+  line-height: 0.9;
+
+  letter-spacing: -0.06em;
+
+  text-shadow:
+    0 6px 20px rgba(26, 98, 50, 0.08);
 }
+
+
+/* ========================================
+   DIVIDER
+======================================== */
+
+.error-page h1::after {
+  content: "";
+
+  display: block;
+
+  width: 64px;
+  height: 3px;
+
+  margin:
+    1.4rem
+    auto
+    0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #d4b673,
+      #1a6232
+    );
+
+  border-radius: 999px;
+}
+
+
+/* ========================================
+   TITLE
+======================================== */
 
 .error-page h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  margin:
+    0
+    0
+    0.9rem;
+
+  color: #26332b;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size:
+    clamp(
+      1.7rem,
+      4vw,
+      2.4rem
+    );
+
+  font-weight: 700;
+
+  line-height: 1.25;
 }
+
+
+/* ========================================
+   DESCRIPTION
+======================================== */
 
 .error-page p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  color: #555;
+  max-width: 520px;
+
+  margin:
+    0
+    auto
+    2rem;
+
+  color: #6b706c;
+
+  font-size: 1rem;
+
+  line-height: 1.75;
 }
 
-.error-page .btn {
-  display: inline-block;
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
-  background-color: #1a6232;
-  color: #fff;
+
+/* ========================================
+   ACTIONS
+======================================== */
+
+.error-page-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 0.5rem;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.error-page-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 48px;
+
+  padding:
+    0.82rem
+    1.7rem;
+
+  border-radius: 999px;
+
+  font-size: 0.94rem;
+  font-weight: 600;
+
+  line-height: 1.3;
+
   text-decoration: none;
-  transition: 0.3s;
+
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
-.error-page .btn:hover {
-  background-color: #e2b357;
+.error-page-btn-primary {
+  background:
+    linear-gradient(
+      135deg,
+      #1a6232,
+      #0f4020
+    );
+
+  color: #ffffff;
+
+  border:
+    1px solid #1a6232;
+
+  box-shadow:
+    0 6px 18px rgba(26, 98, 50, 0.2);
+}
+
+.error-page-btn-primary:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 10px 24px rgba(26, 98, 50, 0.28);
+}
+
+.error-page-btn-secondary {
+  background: #ffffff;
+
+  color: #1a6232;
+
+  border:
+    1px solid rgba(26, 98, 50, 0.35);
+}
+
+.error-page-btn-secondary:hover {
+  background: #f3f7f3;
+
+  border-color: #1a6232;
+
+  transform:
+    translateY(-2px);
+}
+
+.error-page-btn:focus-visible {
+  outline:
+    3px solid rgba(212, 182, 115, 0.55);
+
+  outline-offset: 4px;
+}
+
+
+/* ========================================
+   ERROR REFERENCE
+======================================== */
+
+.error-page-reference {
+  margin:
+    1.5rem
+    auto
+    0 !important;
+
+  color: #99958d !important;
+
+  font-size: 0.75rem !important;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 768px) {
+  .error-page {
+    padding:
+      7rem
+      1rem
+      4rem;
+  }
+
+  .error-page-container {
+    max-width: 580px;
+
+    padding:
+      3rem
+      2rem;
+
+    border-radius: 20px;
+  }
+
+  .error-page h1 {
+    font-size:
+      clamp(
+        5rem,
+        22vw,
+        7rem
+      );
+  }
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 480px) {
+  .error-page {
+    padding:
+      6.5rem
+      1rem
+      3rem;
+  }
+
+  .error-page-container {
+    padding:
+      2.5rem
+      1.25rem;
+
+    border-radius: 16px;
+  }
+
+  .error-page h1::after {
+    width: 52px;
+  }
+
+  .error-page h2 {
+    font-size: 1.65rem;
+  }
+
+  .error-page p {
+    font-size: 0.92rem;
+
+    line-height: 1.7;
+  }
+
+  .error-page-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .error-page-btn {
+    width: 100%;
+
+    max-width: 280px;
+
+    margin: 0 auto;
+  }
 }
