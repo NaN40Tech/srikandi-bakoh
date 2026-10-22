@@ -10,10 +10,11 @@ import {
 
 import { products } from "@/app/products/data";
 
+
 export default function HomePage() {
-  /* =====================================================
-     WHY CHOOSE US
-  ===================================================== */
+  /* ========================================
+     WHY SLIDER
+  ======================================== */
 
   const whyTrackRef =
     useRef<HTMLDivElement>(null);
@@ -29,9 +30,9 @@ export default function HomePage() {
   ] = useState(true);
 
 
-  /* =====================================================
-     FEATURED PRODUCTS
-  ===================================================== */
+  /* ========================================
+     PRODUCT SLIDER
+  ======================================== */
 
   const productTrackRef =
     useRef<HTMLDivElement>(null);
@@ -47,12 +48,13 @@ export default function HomePage() {
   ] = useState(true);
 
 
-  /* =====================================================
+  /* ========================================
      CHECK WHY SCROLL
-  ===================================================== */
+  ======================================== */
 
-  const checkScroll = () => {
-    const track = whyTrackRef.current;
+  const checkWhyScroll = () => {
+    const track =
+      whyTrackRef.current;
 
     if (!track) return;
 
@@ -68,14 +70,16 @@ export default function HomePage() {
     );
 
     setShowRightArrow(
-      maxScroll - currentScroll > 5
+      maxScroll -
+        currentScroll >
+        5
     );
   };
 
 
-  /* =====================================================
+  /* ========================================
      CHECK PRODUCT SCROLL
-  ===================================================== */
+  ======================================== */
 
   const checkProductScroll = () => {
     const track =
@@ -95,14 +99,16 @@ export default function HomePage() {
     );
 
     setShowProductRight(
-      maxScroll - currentScroll > 5
+      maxScroll -
+        currentScroll >
+        5
     );
   };
 
 
-  /* =====================================================
-     WHY SCROLL LISTENER
-  ===================================================== */
+  /* ========================================
+     WHY LISTENERS
+  ======================================== */
 
   useEffect(() => {
     const track =
@@ -111,18 +117,21 @@ export default function HomePage() {
     if (!track) return;
 
     const handleScroll = () => {
-      checkScroll();
+      checkWhyScroll();
     };
 
     const handleResize = () => {
-      checkScroll();
+      checkWhyScroll();
     };
 
-    handleScroll();
+    checkWhyScroll();
 
     track.addEventListener(
       "scroll",
-      handleScroll
+      handleScroll,
+      {
+        passive: true,
+      }
     );
 
     window.addEventListener(
@@ -144,9 +153,9 @@ export default function HomePage() {
   }, []);
 
 
-  /* =====================================================
-     PRODUCT SCROLL LISTENER
-  ===================================================== */
+  /* ========================================
+     PRODUCT LISTENERS
+  ======================================== */
 
   useEffect(() => {
     const track =
@@ -162,11 +171,14 @@ export default function HomePage() {
       checkProductScroll();
     };
 
-    handleScroll();
+    checkProductScroll();
 
     track.addEventListener(
       "scroll",
-      handleScroll
+      handleScroll,
+      {
+        passive: true,
+      }
     );
 
     window.addEventListener(
@@ -188,9 +200,9 @@ export default function HomePage() {
   }, []);
 
 
-  /* =====================================================
+  /* ========================================
      GET CARD DISTANCE
-  ===================================================== */
+  ======================================== */
 
   const getCardDistance = (
     track: HTMLDivElement,
@@ -201,38 +213,42 @@ export default function HomePage() {
         selector
       );
 
-    if (cards.length === 0) {
+    if (
+      cards.length === 0
+    ) {
       return track.clientWidth;
     }
 
-    if (cards.length === 1) {
+    if (
+      cards.length === 1
+    ) {
       return cards[0].offsetWidth;
     }
 
-    const firstCard = cards[0];
-    const secondCard = cards[1];
-
     return (
-      secondCard.offsetLeft -
-      firstCard.offsetLeft
+      cards[1].offsetLeft -
+      cards[0].offsetLeft
     );
   };
 
 
-  /* =====================================================
+  /* ========================================
      SCROLL SLIDER
-  ===================================================== */
+  ======================================== */
 
   const scrollSlider = (
     ref: {
       current:
-        | HTMLDivElement
-        | null;
+        HTMLDivElement |
+        null;
     },
-    direction: "left" | "right",
+    direction:
+      "left" |
+      "right",
     selector: string
   ) => {
-    const track = ref.current;
+    const track =
+      ref.current;
 
     if (!track) return;
 
@@ -243,65 +259,47 @@ export default function HomePage() {
     const currentScroll =
       track.scrollLeft;
 
-    const cardDistance =
+    const distance =
       getCardDistance(
         track,
         selector
       );
 
-    let targetScroll =
+    let target =
       currentScroll;
 
     if (
-      direction === "right"
+      direction ===
+      "right"
     ) {
-      targetScroll =
+      target =
         currentScroll +
-        cardDistance;
-
-      if (
-        maxScroll -
-          targetScroll <=
-        cardDistance
-      ) {
-        targetScroll =
-          maxScroll;
-      }
-    }
-
-    if (
-      direction === "left"
-    ) {
-      targetScroll =
+        distance;
+    } else {
+      target =
         currentScroll -
-        cardDistance;
-
-      if (
-        targetScroll <=
-        cardDistance
-      ) {
-        targetScroll = 0;
-      }
+        distance;
     }
 
-    targetScroll = Math.max(
-      0,
-      Math.min(
-        targetScroll,
-        maxScroll
-      )
-    );
+    target =
+      Math.max(
+        0,
+        Math.min(
+          target,
+          maxScroll
+        )
+      );
 
     track.scrollTo({
-      left: targetScroll,
+      left: target,
       behavior: "smooth",
     });
   };
 
 
-  /* =====================================================
-     WHY CHOOSE US DATA
-  ===================================================== */
+  /* ========================================
+     WHY DATA
+  ======================================== */
 
   const whyFeatures = [
     {
@@ -376,17 +374,9 @@ export default function HomePage() {
   ];
 
 
-  /* =====================================================
-     FEATURED PRODUCTS
-  ===================================================== */
-
-  const featuredProducts =
-    products;
-
-
-  /* =====================================================
+  /* ========================================
      ARTICLES
-  ===================================================== */
+  ======================================== */
 
   const articles = [
     {
@@ -453,9 +443,9 @@ export default function HomePage() {
 
   return (
     <>
-      {/* =====================================================
+      {/* ========================================
           HERO
-      ===================================================== */}
+      ======================================== */}
 
       <section className="home-hero">
         <Image
@@ -463,7 +453,8 @@ export default function HomePage() {
           alt=""
           fill
           priority
-          quality={72}
+          fetchPriority="high"
+          quality={70}
           sizes="100vw"
           className="home-hero-image"
           aria-hidden="true"
@@ -477,12 +468,14 @@ export default function HomePage() {
         <div className="hero-content">
           <h1>
             Trusted Indonesian Spices
-            & Agricultural Products Supplier
+            &amp; Agricultural Products
+            Supplier
           </h1>
 
           <p>
-            Reliable sourcing, flexible supply,
-            and clear communication for domestic
+            Reliable sourcing,
+            flexible supply, and clear
+            communication for domestic
             and international buyers.
           </p>
 
@@ -503,9 +496,9 @@ export default function HomePage() {
       </section>
 
 
-      {/* =====================================================
-          WHY CHOOSE US
-      ===================================================== */}
+      {/* ========================================
+          WHY WORK WITH US
+      ======================================== */}
 
       <section className="why">
         <h2>
@@ -517,6 +510,7 @@ export default function HomePage() {
             <button
               type="button"
               className="arrow left"
+              aria-label="Scroll left"
               onClick={() =>
                 scrollSlider(
                   whyTrackRef,
@@ -524,7 +518,6 @@ export default function HomePage() {
                   ".feature-box"
                 )
               }
-              aria-label="Scroll left"
             >
               &#10094;
             </button>
@@ -541,7 +534,9 @@ export default function HomePage() {
               ) => (
                 <div
                   className="feature-box"
-                  key={index}
+                  key={
+                    feature.title
+                  }
                 >
                   <Image
                     src={
@@ -552,7 +547,8 @@ export default function HomePage() {
                     }
                     width={60}
                     height={60}
-                    loading="lazy"
+                    sizes="60px"
+                    quality={70}
                   />
 
                   <h3>
@@ -575,6 +571,7 @@ export default function HomePage() {
             <button
               type="button"
               className="arrow right"
+              aria-label="Scroll right"
               onClick={() =>
                 scrollSlider(
                   whyTrackRef,
@@ -582,7 +579,6 @@ export default function HomePage() {
                   ".feature-box"
                 )
               }
-              aria-label="Scroll right"
             >
               &#10095;
             </button>
@@ -591,9 +587,9 @@ export default function HomePage() {
       </section>
 
 
-      {/* =====================================================
+      {/* ========================================
           FEATURED PRODUCTS
-      ===================================================== */}
+      ======================================== */}
 
       <section className="featured">
         <h2>
@@ -605,6 +601,7 @@ export default function HomePage() {
             <button
               type="button"
               className="arrow left"
+              aria-label="Scroll products left"
               onClick={() =>
                 scrollSlider(
                   productTrackRef,
@@ -612,7 +609,6 @@ export default function HomePage() {
                   ".product-card"
                 )
               }
-              aria-label="Scroll left"
             >
               &#10094;
             </button>
@@ -622,7 +618,7 @@ export default function HomePage() {
             className="product-track"
             ref={productTrackRef}
           >
-            {featuredProducts.map(
+            {products.map(
               (product) => (
                 <div
                   className="product-card"
@@ -637,10 +633,14 @@ export default function HomePage() {
                     alt={
                       product.name
                     }
-                    width={250}
-                    height={200}
-                    loading="lazy"
-                    quality={75}
+                    width={280}
+                    height={220}
+                    quality={62}
+                    sizes="
+                      (max-width: 480px) calc(100vw - 3rem),
+                      (max-width: 768px) 82vw,
+                      280px
+                    "
                   />
 
                   <h3>
@@ -672,6 +672,7 @@ export default function HomePage() {
             <button
               type="button"
               className="arrow right"
+              aria-label="Scroll products right"
               onClick={() =>
                 scrollSlider(
                   productTrackRef,
@@ -679,7 +680,6 @@ export default function HomePage() {
                   ".product-card"
                 )
               }
-              aria-label="Scroll right"
             >
               &#10095;
             </button>
@@ -688,9 +688,9 @@ export default function HomePage() {
       </section>
 
 
-      {/* =====================================================
+      {/* ========================================
           ARTICLES
-      ===================================================== */}
+      ======================================== */}
 
       <section className="articles">
         <h2>
@@ -699,13 +699,12 @@ export default function HomePage() {
 
         <div className="article-grid">
           {articles.map(
-            (
-              article,
-              index
-            ) => (
+            (article) => (
               <article
                 className="article-card"
-                key={index}
+                key={
+                  article.link
+                }
               >
                 <Image
                   src={
@@ -716,8 +715,12 @@ export default function HomePage() {
                   }
                   width={400}
                   height={260}
-                  loading="lazy"
-                  quality={75}
+                  quality={62}
+                  sizes="
+                    (max-width: 768px) calc(100vw - 2rem),
+                    (max-width: 1200px) 33vw,
+                    380px
+                  "
                 />
 
                 <div className="article-content">
