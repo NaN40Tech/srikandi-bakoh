@@ -313,7 +313,7 @@ export default async function ArticlesPage({
 
       <section className="articles-page-hero">
         <Image
-          src="/assets/Article/articles-hero.webp"
+          src="/assets/articles-hero.webp"
           alt=""
           fill
           priority
