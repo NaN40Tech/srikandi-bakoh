@@ -1,12 +1,28 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import type {
+  Metadata,
+} from "next";
 
-import { products } from "../data";
+import Link from "next/link";
+
+import {
+  notFound,
+} from "next/navigation";
+
+import {
+  products,
+  type Product,
+} from "../data";
+
+import ProductDetailGallery from "./ProductDetailGallery";
+
 import "./product-detail.css";
 
-interface Props {
+
+const SITE_URL =
+  "https://ptsrikandibakoh.com";
+
+
+interface ProductPageProps {
   params: Promise<{
     slug: string;
   }>;
@@ -14,71 +30,98 @@ interface Props {
 
 
 /* ========================================
-   GENERATE STATIC PRODUCT ROUTES
+   GET PRODUCT
 ======================================== */
 
-export async function generateStaticParams() {
-  return products.map((product) => ({
-    slug: product.slug,
-  }));
+function getProduct(
+  slug: string
+): Product | undefined {
+  return products.find(
+    (product) =>
+      product.slug === slug
+  );
 }
 
 
 /* ========================================
-   PRODUCT METADATA
+   STATIC PARAMS
+======================================== */
+
+export function generateStaticParams() {
+  return products.map(
+    (product) => ({
+      slug:
+        product.slug,
+    })
+  );
+}
+
+
+/* ========================================
+   METADATA
 ======================================== */
 
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata> {
-  const { slug } = await params;
+}: ProductPageProps): Promise<Metadata> {
+  const {
+    slug,
+  } = await params;
 
-  const product = products.find(
-    (product) =>
-      product.slug === slug
-  );
+
+  const product =
+    getProduct(slug);
+
 
   if (!product) {
     return {
-      title: "Product Not Found",
+      title:
+        "Product Not Found | PT Dwi Srikandi Bakoh",
 
-      robots: {
-        index: false,
-        follow: false,
-      },
+      description:
+        "The requested product could not be found.",
     };
   }
 
-  const productUrl =
-    `/products/${product.slug}`;
+
+  const canonical =
+    `${SITE_URL}/products/${product.slug}`;
+
 
   return {
-    title: product.name,
+    title:
+      `${product.name} Supplier from Indonesia | PT Dwi Srikandi Bakoh`,
 
     description:
       product.description,
 
     alternates: {
-      canonical: productUrl,
+      canonical,
     },
 
     openGraph: {
-      type: "website",
-
-      url: productUrl,
-
       title:
-        `${product.name} | PT Dwi Srikandi Bakoh`,
+        `${product.name} Supplier from Indonesia`,
 
       description:
         product.description,
 
+      url:
+        canonical,
+
+      siteName:
+        "PT Dwi Srikandi Bakoh",
+
+      type:
+        "website",
+
       images: [
         {
-          url: product.image,
+          url:
+            product.image,
 
           alt:
-            `${product.name} from Indonesia`,
+            product.name,
         },
       ],
     },
@@ -88,7 +131,7 @@ export async function generateMetadata({
         "summary_large_image",
 
       title:
-        `${product.name} | PT Dwi Srikandi Bakoh`,
+        `${product.name} Supplier from Indonesia`,
 
       description:
         product.description,
@@ -102,202 +145,593 @@ export async function generateMetadata({
 
 
 /* ========================================
-   PRODUCT PAGE
+   PRODUCT DETAIL
 ======================================== */
 
-export default async function ProductPage({
+export default async function ProductDetailPage({
   params,
-}: Props) {
-  const { slug } = await params;
+}: ProductPageProps) {
+  const {
+    slug,
+  } = await params;
 
-  const product = products.find(
-    (product) =>
-      product.slug === slug
-  );
+
+  const product =
+    getProduct(slug);
+
 
   if (!product) {
     notFound();
   }
 
+
+  /*
+   * IMPORTANT:
+   * Kalau product.images tersedia,
+   * semua gambar dipakai untuk slider.
+   *
+   * product.image hanya menjadi fallback
+   * kalau images belum tersedia.
+   */
+  const galleryImages =
+    product.images &&
+    product.images.length > 0
+      ? product.images
+      : [
+          product.image,
+        ];
+
+
+  const specifications = [
+    {
+      label:
+        "Origin",
+
+      value:
+        product.origin,
+    },
+
+    {
+      label:
+        "Product Form",
+
+      value:
+        product.type,
+    },
+
+    {
+      label:
+        "Grade / Slicing",
+
+      value:
+        product.grade,
+    },
+
+    {
+      label:
+        "Processing",
+
+      value:
+        product.processing,
+    },
+
+    {
+      label:
+        "Color",
+
+      value:
+        product.color,
+    },
+
+    {
+      label:
+        "Aroma",
+
+      value:
+        product.aroma,
+    },
+
+    {
+      label:
+        "Moisture",
+
+      value:
+        product.moisture,
+    },
+
+    {
+      label:
+        "Ash Content",
+
+      value:
+        product.ash,
+    },
+
+    {
+      label:
+        "Supply Capacity",
+
+      value:
+        product.supplyCapacity,
+    },
+
+    {
+      label:
+        "Packing",
+
+      value:
+        product.packing,
+    },
+  ].filter(
+    (
+      item
+    ): item is {
+      label: string;
+      value: string;
+    } =>
+      Boolean(
+        item.value
+      )
+  );
+
+
+  const quickInfo = [
+    {
+      label:
+        "Origin",
+
+      value:
+        product.origin,
+    },
+
+    {
+      label:
+        "Product Form",
+
+      value:
+        product.type,
+    },
+
+    {
+      label:
+        "Packing",
+
+      value:
+        product.packing,
+    },
+  ].filter(
+    (
+      item
+    ): item is {
+      label: string;
+      value: string;
+    } =>
+      Boolean(
+        item.value
+      )
+  );
+
+
+  const productSchema = {
+    "@context":
+      "https://schema.org",
+
+    "@type":
+      "Product",
+
+    name:
+      product.name,
+
+    description:
+      product.description,
+
+    image:
+      galleryImages.map(
+        (image) =>
+          `${SITE_URL}${image}`
+      ),
+
+    url:
+      `${SITE_URL}/products/${product.slug}`,
+
+    brand: {
+      "@type":
+        "Brand",
+
+      name:
+        "PT Dwi Srikandi Bakoh",
+    },
+
+    countryOfOrigin: {
+      "@type":
+        "Country",
+
+      name:
+        product.origin,
+    },
+
+    additionalProperty:
+      specifications.map(
+        (spec) => ({
+          "@type":
+            "PropertyValue",
+
+          name:
+            spec.label,
+
+          value:
+            spec.value,
+        })
+      ),
+  };
+
+
   return (
-    <section className="pn-hero">
-      <div className="pn-hero-content">
+    <main className="product-detail-page">
 
-        {/* ========================================
-            PAGE HEADING
-        ======================================== */}
+      {/* ========================================
+          STRUCTURED DATA
+      ======================================== */}
 
-        <div className="pn-hero-heading">
-          <span className="pn-eyebrow">
-            Indonesian Product
-          </span>
-
-          <h1>
-            {product.name}
-          </h1>
-
-          <p className="pn-subtitle">
-            {product.usage}
-          </p>
-        </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html:
+            JSON.stringify(
+              productSchema
+            ),
+        }}
+      />
 
 
-        {/* ========================================
-            PRODUCT DETAIL
-        ======================================== */}
+      {/* ========================================
+          PRODUCT INTRO
+      ======================================== */}
 
-        <div className="pn-detail">
+      <section className="product-detail-hero">
 
-          {/* PRODUCT IMAGE */}
+        <div className="product-detail-container">
 
-          <div className="pn-image-panel">
-            <Image
-              src={product.image}
-              alt={`${product.name} from Indonesia`}
-              width={600}
-              height={650}
-              priority
-              className="pn-image"
-            />
-          </div>
+          <div className="product-detail-hero-grid">
+
+            {/* ========================================
+                GALLERY
+            ======================================== */}
+
+            <div className="product-detail-gallery-column">
+
+              <ProductDetailGallery
+                images={
+                  galleryImages
+                }
+                productName={
+                  product.name
+                }
+                origin={
+                  product.origin
+                }
+              />
+
+            </div>
 
 
-          {/* PRODUCT INFORMATION */}
+            {/* ========================================
+                PRODUCT INFORMATION
+            ======================================== */}
 
-          <div className="pn-info">
-            <div className="pn-info-header">
-              <span className="pn-info-label">
-                Product Information
+            <div className="product-detail-info">
+
+              <span className="product-detail-label">
+                Indonesian Agricultural Product
               </span>
 
-              <h2>
-                Product Details
-              </h2>
-            </div>
+
+              <h1>
+                {product.name}
+              </h1>
 
 
-            {/* SPECIFICATIONS */}
-
-            <div className="pn-specs">
-              <div className="pn-spec-item">
-                <span className="pn-spec-label">
-                  Origin
-                </span>
-
-                <span className="pn-spec-value">
-                  {product.origin}
-                </span>
-              </div>
-
-
-              {product.type && (
-                <div className="pn-spec-item">
-                  <span className="pn-spec-label">
-                    Type
-                  </span>
-
-                  <span className="pn-spec-value">
-                    {product.type}
-                  </span>
-                </div>
-              )}
-
-
-              {product.grade && (
-                <div className="pn-spec-item">
-                  <span className="pn-spec-label">
-                    Grade
-                  </span>
-
-                  <span className="pn-spec-value">
-                    {product.grade}
-                  </span>
-                </div>
-              )}
-
-
-              <div className="pn-spec-item">
-                <span className="pn-spec-label">
-                  Usage
-                </span>
-
-                <span className="pn-spec-value">
-                  {product.usage}
-                </span>
-              </div>
-
-
-              {product.moisture && (
-                <div className="pn-spec-item">
-                  <span className="pn-spec-label">
-                    Moisture
-                  </span>
-
-                  <span className="pn-spec-value">
-                    {product.moisture}
-                  </span>
-                </div>
-              )}
-
-
-              {product.ash && (
-                <div className="pn-spec-item">
-                  <span className="pn-spec-label">
-                    Ash
-                  </span>
-
-                  <span className="pn-spec-value">
-                    {product.ash}
-                  </span>
-                </div>
-              )}
-
-
-              {product.packing && (
-                <div className="pn-spec-item">
-                  <span className="pn-spec-label">
-                    Packing
-                  </span>
-
-                  <span className="pn-spec-value">
-                    {product.packing}
-                  </span>
-                </div>
-              )}
-            </div>
-
-
-            {/* DESCRIPTION */}
-
-            <div className="pn-description-wrap">
-              <p className="pn-description">
-                {product.description}
+              <p className="product-detail-intro">
+                {
+                  product.description
+                }
               </p>
+
+
+              {/* ========================================
+                  QUICK INFORMATION
+              ======================================== */}
+
+              <div className="product-detail-quick-info">
+
+                {quickInfo.map(
+                  (item) => (
+                    <div
+                      className="product-detail-quick-item"
+                      key={
+                        item.label
+                      }
+                    >
+
+                      <span>
+                        {
+                          item.label
+                        }
+                      </span>
+
+
+                      <strong>
+                        {
+                          item.value
+                        }
+                      </strong>
+
+                    </div>
+                  )
+                )}
+
+              </div>
+
+
+              {/* ========================================
+                  USAGE
+              ======================================== */}
+
+              {product.usage && (
+                <div className="product-detail-usage">
+
+                  <span className="product-detail-usage-label">
+                    Suitable For
+                  </span>
+
+
+                  <p>
+                    {
+                      product.usage
+                    }
+                  </p>
+
+                </div>
+              )}
+
+
+              {/* ========================================
+                  CTA
+              ======================================== */}
+
+              <div className="product-detail-actions">
+
+                <Link
+                  href={`/contact?product=${encodeURIComponent(
+                    product.name
+                  )}`}
+                  className="product-detail-primary-btn"
+                >
+                  Request a Quote
+
+                  <span
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+
+
+                <Link
+                  href="/products"
+                  className="product-detail-secondary-btn"
+                >
+                  View All Products
+                </Link>
+
+              </div>
+
+
+              <p className="product-detail-note">
+                Product specifications,
+                quantity, packing, and
+                delivery requirements can
+                be discussed according to
+                buyer needs.
+              </p>
+
             </div>
 
-
-            {/* ACTIONS */}
-
-            <div className="pn-actions">
-              <Link
-                href={`/contact?product=${encodeURIComponent(
-                  product.name
-                )}`}
-                className="pn-btn primary"
-              >
-                Request Quote
-              </Link>
-
-              <Link
-                href="/products"
-                className="pn-btn secondary"
-              >
-                Back to Products
-              </Link>
-            </div>
           </div>
+
         </div>
-      </div>
-    </section>
+
+      </section>
+
+
+      {/* ========================================
+          PRODUCT SPECIFICATIONS
+      ======================================== */}
+
+      <section className="product-detail-spec-section">
+
+        <div className="product-detail-container">
+
+          <div className="product-detail-section-heading">
+
+            <span>
+              Product Information
+            </span>
+
+
+            <h2>
+              Product Specifications
+            </h2>
+
+
+            <p>
+              Key product information for
+              sourcing and buyer
+              evaluation.
+            </p>
+
+          </div>
+
+
+          <div className="product-detail-spec-card">
+
+            {specifications.map(
+              (
+                specification,
+                index
+              ) => (
+                <div
+                  className="product-detail-spec-item"
+                  key={
+                    specification.label
+                  }
+                >
+
+                  <span className="product-detail-spec-number">
+                    {String(
+                      index + 1
+                    ).padStart(
+                      2,
+                      "0"
+                    )}
+                  </span>
+
+
+                  <div className="product-detail-spec-content">
+
+                    <span className="product-detail-spec-label">
+                      {
+                        specification.label
+                      }
+                    </span>
+
+
+                    <strong>
+                      {
+                        specification.value
+                      }
+                    </strong>
+
+                  </div>
+
+                </div>
+              )
+            )}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* ========================================
+          ABOUT PRODUCT
+      ======================================== */}
+
+      <section className="product-detail-about">
+
+        <div className="product-detail-about-container">
+
+          <div className="product-detail-section-heading product-detail-about-heading">
+
+            <span>
+              Product Overview
+            </span>
+
+
+            <h2>
+              About {product.name}
+            </h2>
+
+          </div>
+
+
+          <div className="product-detail-description">
+
+            {product.longDescription.map(
+              (
+                paragraph,
+                index
+              ) => (
+                <p
+                  key={
+                    `${product.slug}-description-${index}`
+                  }
+                >
+                  {
+                    paragraph
+                  }
+                </p>
+              )
+            )}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* ========================================
+          INQUIRY CTA
+      ======================================== */}
+
+      <section className="product-detail-cta">
+
+        <div className="product-detail-cta-inner">
+
+          <span className="product-detail-cta-label">
+            Buyer Inquiry
+          </span>
+
+
+          <h2>
+            Looking for {product.name}?
+          </h2>
+
+
+          <p>
+            Send us your required
+            specification, quantity,
+            packing, and delivery
+            destination. Our team will
+            review your requirements
+            before preparing an offer.
+          </p>
+
+
+          <div className="product-detail-cta-actions">
+
+            <Link
+              href={`/contact?product=${encodeURIComponent(
+                product.name
+              )}`}
+              className="product-detail-cta-primary"
+            >
+              Request Product Information
+
+              <span
+                aria-hidden="true"
+              >
+                →
+              </span>
+            </Link>
+
+
+            <Link
+              href="/products"
+              className="product-detail-cta-secondary"
+            >
+              Explore Other Products
+            </Link>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
   );
 }

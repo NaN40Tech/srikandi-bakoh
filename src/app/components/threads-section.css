@@ -1,0 +1,860 @@
+/* ========================================
+   THREADS HOME SECTION
+======================================== */
+
+.threads-home-section {
+  padding:
+    5rem
+    1.5rem;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--cream) 0%,
+      #f9f3e9 100%
+    );
+
+  text-align:
+    center;
+
+  border-top:
+    1px solid
+    rgba(
+      212,
+      182,
+      115,
+      0.2
+    );
+}
+
+
+/* ========================================
+   HEADING
+======================================== */
+
+.threads-home-heading {
+  width:
+    100%;
+
+  max-width:
+    720px;
+
+  margin:
+    0 auto
+    2.7rem;
+}
+
+
+.threads-home-eyebrow {
+  display:
+    block;
+
+  margin-bottom:
+    0.55rem;
+
+  color:
+    #765d22;
+
+  font-size:
+    0.75rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.11em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.threads-home-title-row {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    0.7rem;
+
+  margin-bottom:
+    0.7rem;
+}
+
+
+.threads-home-icon {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    42px;
+
+  height:
+    42px;
+
+  flex:
+    0 0 42px;
+
+  background:
+    #ffffff;
+
+  color:
+    var(--green-800);
+
+  border:
+    1px solid
+    rgba(
+      212,
+      182,
+      115,
+      0.38
+    );
+
+  border-radius:
+    13px;
+
+  box-shadow:
+    0 5px 14px
+    rgba(
+      30,
+      57,
+      37,
+      0.05
+    );
+}
+
+
+.threads-home-icon svg {
+  width:
+    23px;
+
+  height:
+    23px;
+}
+
+
+.threads-home-title-row h2 {
+  margin:
+    0;
+
+  color:
+    var(--green-800);
+
+  font-family:
+    var(--font-playfair),
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(
+      2rem,
+      3.5vw,
+      2.7rem
+    );
+
+  line-height:
+    1.18;
+}
+
+
+.threads-home-heading p {
+  max-width:
+    610px;
+
+  margin:
+    0 auto;
+
+  color:
+    var(--muted);
+
+  font-size:
+    0.94rem;
+
+  line-height:
+    1.75;
+}
+
+
+/* ========================================
+   GRID
+======================================== */
+
+.threads-home-grid {
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(
+        0,
+        1fr
+      )
+    );
+
+  gap:
+    1.3rem;
+
+  width:
+    100%;
+
+  max-width:
+    1180px;
+
+  margin:
+    0 auto;
+}
+
+
+/* ========================================
+   CARD
+======================================== */
+
+.threads-home-card {
+  position:
+    relative;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  min-height:
+    245px;
+
+  padding:
+    1.5rem;
+
+  overflow:
+    hidden;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
+
+  color:
+    inherit;
+
+  border:
+    1px solid
+    rgba(
+      212,
+      182,
+      115,
+      0.26
+    );
+
+  border-radius:
+    18px;
+
+  box-shadow:
+    var(--card-shadow);
+
+  text-align:
+    left;
+
+  text-decoration:
+    none;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+
+.threads-home-card::before {
+  content:
+    "";
+
+  position:
+    absolute;
+
+  top:
+    -65px;
+
+  right:
+    -65px;
+
+  width:
+    145px;
+
+  height:
+    145px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(
+        212,
+        182,
+        115,
+        0.2
+      ),
+      transparent 67%
+    );
+
+  pointer-events:
+    none;
+}
+
+
+.threads-home-card:hover {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(
+      212,
+      182,
+      115,
+      0.58
+    );
+
+  box-shadow:
+    var(--card-hover-shadow);
+}
+
+
+/* ========================================
+   CARD TOP
+======================================== */
+
+.threads-home-card-top {
+  position:
+    relative;
+
+  z-index:
+    1;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    1rem;
+
+  margin-bottom:
+    1.25rem;
+}
+
+
+.threads-home-card-label {
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  width:
+    fit-content;
+
+  padding:
+    0.32rem
+    0.66rem;
+
+  background:
+    var(--cream-dark);
+
+  color:
+    #765d22;
+
+  border:
+    1px solid
+    rgba(
+      212,
+      182,
+      115,
+      0.2
+    );
+
+  border-radius:
+    999px;
+
+  font-size:
+    0.66rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.06em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.threads-home-card-arrow {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    33px;
+
+  height:
+    33px;
+
+  flex:
+    0 0 33px;
+
+  background:
+    #ffffff;
+
+  color:
+    var(--green-700);
+
+  border:
+    1px solid
+    rgba(
+      15,
+      64,
+      32,
+      0.14
+    );
+
+  border-radius:
+    50%;
+
+  font-size:
+    1rem;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
+}
+
+
+.threads-home-card:hover
+.threads-home-card-arrow {
+  background:
+    var(--green-700);
+
+  color:
+    #ffffff;
+
+  transform:
+    translate(
+      2px,
+      -2px
+    );
+}
+
+
+/* ========================================
+   CARD CONTENT
+======================================== */
+
+.threads-home-card h3 {
+  position:
+    relative;
+
+  z-index:
+    1;
+
+  margin:
+    0 0
+    0.7rem;
+
+  color:
+    var(--green-800);
+
+  font-family:
+    var(--font-playfair),
+    Georgia,
+    serif;
+
+  font-size:
+    1.25rem;
+
+  font-weight:
+    700;
+
+  line-height:
+    1.4;
+}
+
+
+.threads-home-card p {
+  position:
+    relative;
+
+  z-index:
+    1;
+
+  margin:
+    0 0
+    1.25rem;
+
+  color:
+    var(--muted);
+
+  font-size:
+    0.85rem;
+
+  line-height:
+    1.72;
+}
+
+
+/* ========================================
+   CARD FOOTER
+======================================== */
+
+.threads-home-card-footer {
+  position:
+    relative;
+
+  z-index:
+    1;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    0.48rem;
+
+  margin-top:
+    auto;
+
+  padding-top:
+    0.9rem;
+
+  color:
+    var(--green-700);
+
+  border-top:
+    1px solid
+    rgba(
+      212,
+      182,
+      115,
+      0.22
+    );
+
+  font-size:
+    0.78rem;
+
+  font-weight:
+    600;
+}
+
+
+.threads-home-mini-icon {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    25px;
+
+  height:
+    25px;
+}
+
+
+.threads-home-mini-icon svg {
+  width:
+    18px;
+
+  height:
+    18px;
+}
+
+
+/* ========================================
+   ACTION
+======================================== */
+
+.threads-home-action {
+  margin-top:
+    2rem;
+
+  text-align:
+    center;
+}
+
+
+.threads-home-button {
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    0.55rem;
+
+  min-height:
+    48px;
+
+  padding:
+    0.72rem
+    1.3rem;
+
+  background:
+    var(--green-800);
+
+  color:
+    #ffffff;
+
+  border:
+    1px solid
+    var(--green-800);
+
+  border-radius:
+    999px;
+
+  box-shadow:
+    0 8px 20px
+    rgba(
+      15,
+      64,
+      32,
+      0.15
+    );
+
+  font-size:
+    0.85rem;
+
+  font-weight:
+    700;
+
+  text-decoration:
+    none;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+
+.threads-home-button:hover {
+  background:
+    var(--green-700);
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 11px 24px
+    rgba(
+      15,
+      64,
+      32,
+      0.2
+    );
+}
+
+
+.threads-home-button-icon {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+}
+
+
+.threads-home-button-icon svg {
+  width:
+    19px;
+
+  height:
+    19px;
+}
+
+
+.threads-home-button-arrow {
+  margin-left:
+    0.1rem;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (
+  max-width: 900px
+) {
+  .threads-home-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+
+
+  .threads-home-card:last-child {
+    grid-column:
+      1 / -1;
+
+    max-width:
+      560px;
+
+    width:
+      100%;
+
+    margin:
+      0 auto;
+  }
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (
+  max-width: 620px
+) {
+  .threads-home-section {
+    padding:
+      3.8rem
+      1rem;
+  }
+
+
+  .threads-home-heading {
+    margin-bottom:
+      2rem;
+  }
+
+
+  .threads-home-title-row {
+    align-items:
+      center;
+
+    gap:
+      0.55rem;
+  }
+
+
+  .threads-home-icon {
+    width:
+      36px;
+
+    height:
+      36px;
+
+    flex-basis:
+      36px;
+
+    border-radius:
+      11px;
+  }
+
+
+  .threads-home-icon svg {
+    width:
+      20px;
+
+    height:
+      20px;
+  }
+
+
+  .threads-home-title-row h2 {
+    font-size:
+      2rem;
+  }
+
+
+  .threads-home-grid {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      1rem;
+  }
+
+
+  .threads-home-card,
+  .threads-home-card:last-child {
+    grid-column:
+      auto;
+
+    max-width:
+      none;
+
+    min-height:
+      220px;
+
+    padding:
+      1.3rem;
+  }
+
+
+  .threads-home-button {
+    width:
+      100%;
+
+    max-width:
+      320px;
+  }
+}
+
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  .threads-home-card,
+  .threads-home-card-arrow,
+  .threads-home-button {
+    transition:
+      none;
+  }
+}

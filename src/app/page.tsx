@@ -9,33 +9,27 @@ import {
 } from "react";
 
 import { products } from "@/app/products/data";
+import { articles as articleData } from "@/data/articles";
+import ThreadsSection from "@/app/components/ThreadsSection";
+import TikTokSection from "@/app/components/TikTokSection";
 
 
 export default function HomePage() {
-  /* ========================================
-     WHY SLIDER
-  ======================================== */
-
   const whyTrackRef =
     useRef<HTMLDivElement>(null);
 
+  const productTrackRef =
+    useRef<HTMLDivElement>(null);
+
   const [
-    showLeftArrow,
-    setShowLeftArrow,
+    showWhyLeft,
+    setShowWhyLeft,
   ] = useState(false);
 
   const [
-    showRightArrow,
-    setShowRightArrow,
+    showWhyRight,
+    setShowWhyRight,
   ] = useState(true);
-
-
-  /* ========================================
-     PRODUCT SLIDER
-  ======================================== */
-
-  const productTrackRef =
-    useRef<HTMLDivElement>(null);
 
   const [
     showProductLeft,
@@ -49,65 +43,58 @@ export default function HomePage() {
 
 
   /* ========================================
-     CHECK WHY SCROLL
+     SCROLL CHECK
   ======================================== */
 
-  const checkWhyScroll = () => {
-    const track =
-      whyTrackRef.current;
-
+  const checkScroll = (
+    track: HTMLDivElement | null,
+    setLeft: (
+      value: boolean
+    ) => void,
+    setRight: (
+      value: boolean
+    ) => void
+  ) => {
     if (!track) return;
 
     const maxScroll =
-      track.scrollWidth -
-      track.clientWidth;
+      Math.max(
+        0,
+        track.scrollWidth -
+          track.clientWidth
+      );
 
     const currentScroll =
-      track.scrollLeft;
+      Math.max(
+        0,
+        track.scrollLeft
+      );
 
-    setShowLeftArrow(
-      currentScroll > 5
+    /*
+      Browser kadang menghasilkan nilai scrollLeft
+      beberapa pixel walaupun secara visual sudah
+      mentok.
+
+      Tolerance ini mencegah arrow tetap muncul
+      karena rounding / subpixel.
+    */
+    const edgeTolerance = 12;
+
+    setLeft(
+      currentScroll >
+        edgeTolerance
     );
 
-    setShowRightArrow(
+    setRight(
       maxScroll -
         currentScroll >
-        5
+        edgeTolerance
     );
   };
 
 
   /* ========================================
-     CHECK PRODUCT SCROLL
-  ======================================== */
-
-  const checkProductScroll = () => {
-    const track =
-      productTrackRef.current;
-
-    if (!track) return;
-
-    const maxScroll =
-      track.scrollWidth -
-      track.clientWidth;
-
-    const currentScroll =
-      track.scrollLeft;
-
-    setShowProductLeft(
-      currentScroll > 5
-    );
-
-    setShowProductRight(
-      maxScroll -
-        currentScroll >
-        5
-    );
-  };
-
-
-  /* ========================================
-     WHY LISTENERS
+     WHY LISTENER
   ======================================== */
 
   useEffect(() => {
@@ -116,19 +103,31 @@ export default function HomePage() {
 
     if (!track) return;
 
-    const handleScroll = () => {
-      checkWhyScroll();
+    const update = () => {
+      checkScroll(
+        track,
+        setShowWhyLeft,
+        setShowWhyRight
+      );
     };
 
-    const handleResize = () => {
-      checkWhyScroll();
-    };
+    /*
+      Check langsung setelah render.
+    */
+    update();
 
-    checkWhyScroll();
+    /*
+      Check lagi setelah browser selesai
+      menghitung layout card/image.
+    */
+    const frame =
+      requestAnimationFrame(
+        update
+      );
 
     track.addEventListener(
       "scroll",
-      handleScroll,
+      update,
       {
         passive: true,
       }
@@ -136,25 +135,29 @@ export default function HomePage() {
 
     window.addEventListener(
       "resize",
-      handleResize
+      update
     );
 
     return () => {
+      cancelAnimationFrame(
+        frame
+      );
+
       track.removeEventListener(
         "scroll",
-        handleScroll
+        update
       );
 
       window.removeEventListener(
         "resize",
-        handleResize
+        update
       );
     };
   }, []);
 
 
   /* ========================================
-     PRODUCT LISTENERS
+     PRODUCT LISTENER
   ======================================== */
 
   useEffect(() => {
@@ -163,19 +166,24 @@ export default function HomePage() {
 
     if (!track) return;
 
-    const handleScroll = () => {
-      checkProductScroll();
+    const update = () => {
+      checkScroll(
+        track,
+        setShowProductLeft,
+        setShowProductRight
+      );
     };
 
-    const handleResize = () => {
-      checkProductScroll();
-    };
+    update();
 
-    checkProductScroll();
+    const frame =
+      requestAnimationFrame(
+        update
+      );
 
     track.addEventListener(
       "scroll",
-      handleScroll,
+      update,
       {
         passive: true,
       }
@@ -183,25 +191,29 @@ export default function HomePage() {
 
     window.addEventListener(
       "resize",
-      handleResize
+      update
     );
 
     return () => {
+      cancelAnimationFrame(
+        frame
+      );
+
       track.removeEventListener(
         "scroll",
-        handleScroll
+        update
       );
 
       window.removeEventListener(
         "resize",
-        handleResize
+        update
       );
     };
   }, []);
 
 
   /* ========================================
-     GET CARD DISTANCE
+     CARD DISTANCE
   ======================================== */
 
   const getCardDistance = (
@@ -233,7 +245,7 @@ export default function HomePage() {
 
 
   /* ========================================
-     SCROLL SLIDER
+     SLIDER
   ======================================== */
 
   const scrollSlider = (
@@ -252,17 +264,23 @@ export default function HomePage() {
 
     if (!track) return;
 
-    const maxScroll =
-      track.scrollWidth -
-      track.clientWidth;
-
-    const currentScroll =
-      track.scrollLeft;
-
     const distance =
       getCardDistance(
         track,
         selector
+      );
+
+    const maxScroll =
+      Math.max(
+        0,
+        track.scrollWidth -
+          track.clientWidth
+      );
+
+    const currentScroll =
+      Math.max(
+        0,
+        track.scrollLeft
       );
 
     let target =
@@ -272,13 +290,9 @@ export default function HomePage() {
       direction ===
       "right"
     ) {
-      target =
-        currentScroll +
-        distance;
+      target += distance;
     } else {
-      target =
-        currentScroll -
-        distance;
+      target -= distance;
     }
 
     target =
@@ -289,6 +303,30 @@ export default function HomePage() {
           maxScroll
         )
       );
+
+
+    /*
+      Kalau target sangat dekat ke ujung,
+      paksa jadi benar-benar 0 atau maxScroll.
+    */
+    const edgeTolerance = 12;
+
+    if (
+      target <
+      edgeTolerance
+    ) {
+      target = 0;
+    }
+
+    if (
+      maxScroll -
+        target <
+      edgeTolerance
+    ) {
+      target =
+        maxScroll;
+    }
+
 
     track.scrollTo({
       left: target,
@@ -378,67 +416,48 @@ export default function HomePage() {
      ARTICLES
   ======================================== */
 
-  const articles = [
+  const formatArticleDate = (
+  date: string
+) => {
+  const parsed =
+    new Date(
+      `${date}T00:00:00`
+    );
+
+  if (
+    Number.isNaN(
+      parsed.getTime()
+    )
+  ) {
+    return date;
+  }
+
+  return new Intl.DateTimeFormat(
+    "en-GB",
     {
-      img:
-        "/assets/article-turmeric1.webp",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }
+  ).format(parsed);
+};
 
-      alt:
-        "Dried sliced turmeric from Indonesia",
 
-      title:
-        "Dried Sliced Turmeric from Indonesia: What Buyers Should Know",
-
-      date:
-        "Jan 2025",
-
-      desc:
-        "A practical overview of dried sliced turmeric, product form, sourcing considerations, and what buyers should check before requesting a quotation.",
-
-      link:
-        "/articles/turmeric-origin",
-    },
-
-    {
-      img:
-        "/assets/article-turmeric2.webp",
-
-      alt:
-        "Dried sliced turmeric processing",
-
-      title:
-        "How Dried Sliced Turmeric Is Processed in Indonesia",
-
-      date:
-        "Jan 2025",
-
-      desc:
-        "Learn about the main stages involved in preparing dried sliced turmeric, from raw material handling to slicing, drying, and packing.",
-
-      link:
-        "/articles/turmeric-plantations",
-    },
-
-    {
-      img:
-        "/assets/article-ginger1.webp",
-
-      alt:
-        "Emprit ginger from Indonesia",
-
-      title:
-        "Emprit Ginger from Indonesia: A Short Buyer Guide",
-
-      date:
-        "Jan 2025",
-
-      desc:
-        "A short introduction to Indonesian emprit ginger and several points buyers may consider when sourcing dried ginger products.",
-
-      link:
-        "/articles/ginger-origin",
-    },
-  ];
+const latestArticles =
+  [...articleData]
+    .sort(
+      (a, b) =>
+        Date.parse(
+          b.date
+        ) -
+        Date.parse(
+          a.date
+        )
+    )
+    .slice(
+      0,
+      3
+    );
 
 
   return (
@@ -465,33 +484,41 @@ export default function HomePage() {
           aria-hidden="true"
         />
 
-        <div className="hero-content">
+        <div className="home-hero-content">
+          <span className="home-hero-label">
+            Indonesian Supplier
+          </span>
+
           <h1>
-            Trusted Indonesian Spices
-            &amp; Agricultural Products
+            Trusted Indonesian
+            Spices &amp;
+            Agricultural Products
             Supplier
           </h1>
 
           <p>
             Reliable sourcing,
-            flexible supply, and clear
-            communication for domestic
-            and international buyers.
+            flexible supply, and
+            clear communication for
+            domestic and
+            international buyers.
           </p>
 
-          <Link
-            href="/products"
-            className="btn btn-primary"
-          >
-            Explore Products
-          </Link>
+          <div className="home-hero-actions">
+            <Link
+              href="/products"
+              className="home-btn home-btn-primary"
+            >
+              Explore Products
+            </Link>
 
-          <Link
-            href="/contact"
-            className="btn btn-secondary"
-          >
-            Request a Quote
-          </Link>
+            <Link
+              href="/contact"
+              className="home-btn home-btn-secondary"
+            >
+              Request a Quote
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -501,12 +528,25 @@ export default function HomePage() {
       ======================================== */}
 
       <section className="why">
-        <h2>
-          Why Work With Us
-        </h2>
+        <div className="home-section-heading">
+          <span>
+            Our Approach
+          </span>
+
+          <h2>
+            Why Work With Us
+          </h2>
+
+          <p>
+            A practical approach to
+            product sourcing,
+            preparation, and buyer
+            communication.
+          </p>
+        </div>
 
         <div className="why-slider">
-          {showLeftArrow && (
+          {showWhyLeft && (
             <button
               type="button"
               className="arrow left"
@@ -528,28 +568,27 @@ export default function HomePage() {
             ref={whyTrackRef}
           >
             {whyFeatures.map(
-              (
-                feature,
-                index
-              ) => (
-                <div
+              (feature) => (
+                <article
                   className="feature-box"
                   key={
                     feature.title
                   }
                 >
-                  <Image
-                    src={
-                      feature.src
-                    }
-                    alt={
-                      feature.alt
-                    }
-                    width={60}
-                    height={60}
-                    sizes="60px"
-                    quality={70}
-                  />
+                  <div className="feature-icon-wrap">
+                    <Image
+                      src={
+                        feature.src
+                      }
+                      alt={
+                        feature.alt
+                      }
+                      width={60}
+                      height={60}
+                      sizes="60px"
+                      quality={70}
+                    />
+                  </div>
 
                   <h3>
                     {
@@ -562,12 +601,12 @@ export default function HomePage() {
                       feature.desc
                     }
                   </p>
-                </div>
+                </article>
               )
             )}
           </div>
 
-          {showRightArrow && (
+          {showWhyRight && (
             <button
               type="button"
               className="arrow right"
@@ -592,9 +631,22 @@ export default function HomePage() {
       ======================================== */}
 
       <section className="featured">
-        <h2>
-          Featured Products
-        </h2>
+        <div className="home-section-heading">
+          <span>
+            Product Selection
+          </span>
+
+          <h2>
+            Featured Products
+          </h2>
+
+          <p>
+            Selected Indonesian spices
+            and agricultural products
+            available for buyer
+            inquiries.
+          </p>
+        </div>
 
         <div className="product-slider">
           {showProductLeft && (
@@ -616,54 +668,69 @@ export default function HomePage() {
 
           <div
             className="product-track"
-            ref={productTrackRef}
+            ref={
+              productTrackRef
+            }
           >
             {products.map(
               (product) => (
-                <div
+                <article
                   className="product-card"
                   key={
                     product.slug
                   }
                 >
-                  <Image
-                    src={
-                      product.image
-                    }
-                    alt={
-                      product.name
-                    }
-                    width={280}
-                    height={220}
-                    quality={62}
-                    sizes="
-                      (max-width: 480px) calc(100vw - 3rem),
-                      (max-width: 768px) 82vw,
-                      280px
-                    "
-                  />
+                  <div className="product-card-image">
+                    <Image
+                      src={
+                        product.image
+                      }
+                      alt={
+                        product.name
+                      }
+                      width={300}
+                      height={220}
+                      quality={62}
+                      sizes="
+                        (max-width: 480px) calc(100vw - 3rem),
+                        (max-width: 768px) 82vw,
+                        (max-width: 1100px) 31vw,
+                        280px
+                      "
+                    />
 
-                  <h3>
-                    {
-                      product.name
-                    }
-                  </h3>
+                    <span className="product-card-tag">
+                      Indonesian Product
+                    </span>
+                  </div>
 
-                  <p>
-                    {
-                      product.description
-                    }
-                  </p>
+                  <div className="product-card-content">
+                    <h3>
+                      {
+                        product.name
+                      }
+                    </h3>
 
-                  <div className="product-overlay">
+                    <p>
+                      {
+                        product.description
+                      }
+                    </p>
+
                     <Link
                       href={`/products/${product.slug}`}
-                      className="btn-detail"
+                      className="product-card-link"
                     >
-                      See Details
+                      View Product
+
+                      <span
+                        aria-hidden="true"
+                      >
+                        →
+                      </span>
                     </Link>
                   </div>
-                </div>
+                </article>
               )
             )}
           </div>
@@ -685,90 +752,129 @@ export default function HomePage() {
             </button>
           )}
         </div>
+
+        <div className="home-section-action">
+          <Link
+            href="/products"
+            className="home-outline-link"
+          >
+            View All Products
+          </Link>
+        </div>
       </section>
 
 
-      {/* ========================================
+            {/* ========================================
           ARTICLES
       ======================================== */}
 
       <section className="articles">
-        <h2>
-          Latest Insights
-        </h2>
+        <div className="home-section-heading">
+          <span>
+            Buyer Resources
+          </span>
+
+          <h2>
+            Latest Insights
+          </h2>
+
+          <p>
+            Practical information
+            about Indonesian spices,
+            sourcing, and product
+            preparation.
+          </p>
+        </div>
+
 
         <div className="article-grid">
-          {articles.map(
+          {latestArticles.map(
             (article) => (
               <article
                 className="article-card"
-                key={
-                  article.link
-                }
+                key={article.slug}
               >
-                <Image
-                  src={
-                    article.img
-                  }
-                  alt={
-                    article.alt
-                  }
-                  width={400}
-                  height={260}
-                  quality={62}
-                  sizes="
-                    (max-width: 768px) calc(100vw - 2rem),
-                    (max-width: 1200px) 33vw,
-                    380px
-                  "
-                />
+                <div className="article-card-image">
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    width={400}
+                    height={260}
+                    quality={62}
+                    sizes="
+                      (max-width: 768px) calc(100vw - 2rem),
+                      (max-width: 1200px) 33vw,
+                      380px
+                    "
+                  />
+                </div>
+
 
                 <div className="article-content">
-                  <h3>
-                    {
-                      article.title
-                    }
-                  </h3>
 
                   <time
                     className="date"
-                    dateTime="2025-01"
+                    dateTime={article.date}
                   >
-                    Published:{" "}
-                    {
+                    {formatArticleDate(
                       article.date
-                    }
+                    )}
                   </time>
 
+
+                  <h3>
+                    {article.title}
+                  </h3>
+
+
                   <p>
-                    {
-                      article.desc
-                    }
+                    {article.description}
                   </p>
 
+
                   <Link
-                    href={
-                      article.link
-                    }
-                    className="btn btn-secondary"
+                    href={`/articles/${article.slug}`}
+                    className="article-link"
                   >
                     Read Article
+
+                    <span
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
                   </Link>
+
                 </div>
               </article>
             )
           )}
         </div>
 
-        <div className="see-more">
+
+        <div className="home-section-action">
           <Link
             href="/articles"
-            className="btn btn-primary"
+            className="home-outline-link"
           >
             View All Articles
           </Link>
         </div>
       </section>
+
+{/* ========================================
+    TIKTOK
+======================================== */}
+
+<TikTokSection />
+
+
+{/* ========================================
+    THREADS
+======================================== */}
+
+<ThreadsSection />
+
     </>
   );
 }

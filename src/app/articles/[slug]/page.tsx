@@ -62,6 +62,15 @@ export async function generateMetadata({
   };
 }
 
+function formatArticleDate(date: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${date}T00:00:00Z`));
+}
+
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
 
@@ -88,7 +97,6 @@ export default async function ArticlePage({ params }: Props) {
         }}
       >
         <div className="article-detail-hero-inner">
-
           <span className="article-detail-category">
             Insights & Resources
           </span>
@@ -96,7 +104,7 @@ export default async function ArticlePage({ params }: Props) {
           <h1>{article.title}</h1>
 
           <p className="article-detail-date">
-            Published: {article.date}
+            Published: {formatArticleDate(article.date)}
           </p>
         </div>
       </section>

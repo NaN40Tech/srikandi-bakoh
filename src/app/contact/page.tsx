@@ -1,6 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import type {
+  ChangeEvent,
+  FormEvent,
+} from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import "./contact.css";
 
@@ -11,18 +19,118 @@ interface ContactForm {
   product: string;
 }
 
+type FormErrors =
+  Partial<
+    Record<
+      keyof ContactForm,
+      string
+    >
+  >;
+
+
+/* ========================================
+   ICONS
+======================================== */
+
+function EmailIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M3 6h18v12H3V6Zm0 1 9 6 9-6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function WhatsAppIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        fill="currentColor"
+        d="M12.05 2A9.83 9.83 0 0 0 3.6 16.83L2 22l5.3-1.54A9.93 9.93 0 1 0 12.05 2Zm0 17.86a7.8 7.8 0 0 1-3.98-1.09l-.29-.17-3.14.91.94-3.06-.19-.31A7.76 7.76 0 1 1 12.05 19.86Zm4.27-5.82c-.23-.12-1.38-.68-1.6-.76-.21-.08-.37-.12-.52.12-.16.23-.6.76-.74.92-.14.15-.27.17-.5.05-.23-.12-.98-.36-1.87-1.15a7.04 7.04 0 0 1-1.29-1.6c-.14-.23-.01-.36.1-.48.1-.1.23-.27.35-.4.11-.14.15-.24.23-.4.08-.15.04-.29-.02-.4-.06-.12-.52-1.26-.72-1.73-.19-.45-.38-.39-.52-.4h-.45c-.16 0-.41.06-.62.29-.22.23-.82.8-.82 1.95 0 1.14.84 2.25.95 2.4.12.16 1.65 2.52 4 3.54.56.24 1 .39 1.34.5.56.18 1.07.15 1.47.09.45-.07 1.38-.57 1.58-1.11.19-.55.19-1.02.13-1.12-.05-.1-.21-.16-.44-.27Z"
+      />
+    </svg>
+  );
+}
+
+function LocationIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Zm-8 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="m9 18 6-6-6-6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+
+/* ========================================
+   CONTACT PAGE
+======================================== */
+
 export default function ContactPage() {
-  const [form, setForm] = useState<ContactForm>({
-    name: "",
-    phone: "",
-    message: "",
-    product: "",
-  });
+  const [form, setForm] =
+    useState<ContactForm>({
+      name: "",
+      phone: "",
+      message: "",
+      product: "",
+    });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] =
+    useState<FormErrors>({});
 
-  const getDefaultMessage = (product?: string) => {
+  const [loading, setLoading] =
+    useState(false);
+
+  const [showMap, setShowMap] =
+    useState(false);
+
+
+  const getDefaultMessage = (
+    product?: string
+  ) => {
     if (product) {
       return `Hello,
 
@@ -42,74 +150,128 @@ Could you please provide more information about availability, specifications, pa
 Thank you.`;
   };
 
+
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const product = params.get("product") || "";
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const product =
+      params.get("product") || "";
 
     setForm((prev) => ({
       ...prev,
       product,
-      message: getDefaultMessage(product),
+      message:
+        getDefaultMessage(
+          product
+        ),
     }));
   }, []);
 
-  const normalizePhone = (phone: string) => {
-    return phone.replace(/[\s\-()]/g, "");
+
+  const normalizePhone = (
+    phone: string
+  ) => {
+    return phone.replace(
+      /[\s\-()]/g,
+      ""
+    );
   };
 
-  const validatePhone = (phone: string) => {
-    const normalizedPhone = normalizePhone(phone);
 
-    return /^\+?[1-9]\d{6,14}$/.test(normalizedPhone);
+  const validatePhone = (
+    phone: string
+  ) => {
+    const normalizedPhone =
+      normalizePhone(phone);
+
+    return /^\+?[1-9]\d{6,14}$/.test(
+      normalizedPhone
+    );
   };
+
 
   const validateForm = () => {
-    const newErrors: Record<string, string> = {};
+    const newErrors:
+      FormErrors = {};
 
     if (!form.name.trim()) {
-      newErrors.name = "Name is required.";
+      newErrors.name =
+        "Name is required.";
     }
 
     if (!form.phone.trim()) {
-      newErrors.phone = "Phone number is required.";
-    } else if (!validatePhone(form.phone)) {
-      newErrors.phone = "Please enter a valid phone number.";
+      newErrors.phone =
+        "Phone number is required.";
+    } else if (
+      !validatePhone(
+        form.phone
+      )
+    ) {
+      newErrors.phone =
+        "Please enter a valid phone number.";
     }
 
     if (!form.message.trim()) {
-      newErrors.message = "Message is required.";
+      newErrors.message =
+        "Message is required.";
     }
 
     setErrors(newErrors);
 
-    return Object.keys(newErrors).length === 0;
+    return (
+      Object.keys(
+        newErrors
+      ).length === 0
+    );
   };
 
+
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e:
+      ChangeEvent<
+        HTMLInputElement |
+        HTMLTextAreaElement
+      >
   ) => {
-    const { name, value } = e.target;
+    const {
+      name,
+      value,
+    } = e.target;
 
     setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
 
-    if (errors[name]) {
+    const field =
+      name as keyof ContactForm;
+
+    if (errors[field]) {
       setErrors((prev) => {
-        const updatedErrors = { ...prev };
-        delete updatedErrors[name];
-        return updatedErrors;
+        const updated = {
+          ...prev,
+        };
+
+        delete updated[field];
+
+        return updated;
       });
     }
   };
 
+
   const handleWhatsApp = () => {
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      return;
+    }
 
     setLoading(true);
 
-    const waNumber = "6281232366354";
+    const waNumber =
+      "6281232366354";
 
     const waMessage = [
       "Hello PT Dwi Srikandi Bakoh Team,",
@@ -120,55 +282,112 @@ Thank you.`;
       form.message,
     ].join("\n");
 
-    const url = `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(
-      waMessage
-    )}`;
+    const url =
+      `https://wa.me/${waNumber}?text=${encodeURIComponent(
+        waMessage
+      )}`;
 
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer"
+    );
 
     setLoading(false);
   };
 
+
+  const handleSubmit = (
+    e:
+      FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    handleWhatsApp();
+  };
+
+
   return (
     <>
-      {/* HERO */}
+      {/* ========================================
+          HERO
+      ======================================== */}
+
       <section className="contact-page-hero">
+        <Image
+          src="/assets/articles-hero.webp"
+          alt=""
+          fill
+          priority
+          fetchPriority="high"
+          quality={68}
+          sizes="100vw"
+          className="contact-page-hero-image"
+          aria-hidden="true"
+        />
+
+        <div
+          className="contact-page-hero-overlay"
+          aria-hidden="true"
+        />
+
         <div className="contact-page-hero-inner">
           <span className="contact-page-hero-label">
-            Contact & Inquiry
+            Contact &amp; Inquiry
           </span>
 
-          <h1>Contact PT Dwi Srikandi Bakoh</h1>
+          <h1>
+            Contact PT Dwi
+            Srikandi Bakoh
+          </h1>
 
           <p>
-            Get in touch for Indonesian spice and agricultural product
-            inquiries, specifications, samples, availability, and quotations.
+            Get in touch for
+            Indonesian spice and
+            agricultural product
+            inquiries, specifications,
+            samples, availability,
+            and quotations.
           </p>
         </div>
       </section>
 
-      {/* MAIN */}
+
+      {/* ========================================
+          MAIN
+      ======================================== */}
+
       <section className="contact-page-main">
         <div className="contact-page-container">
           <div className="contact-page-grid">
-            {/* LEFT */}
+
             <div className="contact-page-info-card">
               <div className="contact-page-heading">
-                <span>Product Inquiry</span>
+                <span>
+                  Product Inquiry
+                </span>
 
-                <h2>Get in Touch</h2>
+                <h2>
+                  Get in Touch
+                </h2>
 
                 <p>
-                  Tell us the product you are looking for, your preferred
-                  specification, required quantity, packing needs, and delivery
-                  destination.
+                  Tell us the product
+                  you are looking for,
+                  your preferred
+                  specification,
+                  required quantity,
+                  packing needs, and
+                  delivery destination.
                 </p>
               </div>
 
+
               <div className="contact-page-contact-list">
+
                 <div className="contact-page-contact-box">
                   <div className="contact-page-contact-icon">
-                    <i className="fa-solid fa-envelope" />
+                    <EmailIcon />
                   </div>
 
                   <div className="contact-page-contact-content">
@@ -182,9 +401,10 @@ Thank you.`;
                   </div>
                 </div>
 
+
                 <div className="contact-page-contact-box">
                   <div className="contact-page-contact-icon">
-                    <i className="fa-brands fa-whatsapp" />
+                    <WhatsAppIcon />
                   </div>
 
                   <div className="contact-page-contact-content">
@@ -194,35 +414,51 @@ Thank you.`;
 
                     <div className="contact-page-whatsapp-list">
                       <a
-                        href="https://api.whatsapp.com/send?phone=6281232366354"
+                        href="https://wa.me/6281232366354"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        +62 812-3236-6354
+                        <span>
+                          +62 812-3236-6354
+                          (Admin 1)
+                        </span>
+
+                        <ArrowIcon />
                       </a>
 
                       <a
-                        href="https://api.whatsapp.com/send?phone=6282232294053"
+                        href="https://wa.me/6282232294053"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        +62 822-3229-4053
+                        <span>
+                          +62 822-3229-4053
+                          (Admin 2)
+                        </span>
+
+                        <ArrowIcon />
                       </a>
 
                       <a
-                        href="https://api.whatsapp.com/send?phone=6285159017001"
+                        href="https://wa.me/6285159017001"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        +62 851-5901-7001
+                        <span>
+                          +62 851-5901-7001
+                          (Admin 3)
+                        </span>
+
+                        <ArrowIcon />
                       </a>
                     </div>
                   </div>
                 </div>
 
+
                 <div className="contact-page-contact-box">
                   <div className="contact-page-contact-icon">
-                    <i className="fa-solid fa-location-dot" />
+                    <LocationIcon />
                   </div>
 
                   <div className="contact-page-contact-content">
@@ -231,36 +467,52 @@ Thank you.`;
                     </span>
 
                     <p>
-                      Jl. Raya Jenangan No. 109, Krajan I, Desa Jenangan,
-                      Kecamatan Jenangan, Kabupaten Ponorogo, Jawa Timur 63492,
+                      Jl. Raya Jenangan
+                      No. 109, Krajan I,
+                      Desa Jenangan,
+                      Kecamatan Jenangan,
+                      Kabupaten Ponorogo,
+                      Jawa Timur 63492,
                       Indonesia
                     </p>
                   </div>
                 </div>
+
               </div>
             </div>
 
-            {/* RIGHT */}
+
+            {/* FORM */}
+
             <div className="contact-page-form-card">
               <div className="contact-page-heading">
-                <span>Request Information</span>
+                <span>
+                  Request Information
+                </span>
 
-                <h2>Request a Quote</h2>
+                <h2>
+                  Request a Quote
+                </h2>
 
                 <p>
-                  Send your inquiry through WhatsApp and include as much detail
-                  as possible so we can review your requirement more accurately.
+                  Send your inquiry
+                  through WhatsApp and
+                  include as much detail
+                  as possible so we can
+                  review your requirement
+                  more accurately.
                 </p>
               </div>
 
+
               <form
                 className="contact-page-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleWhatsApp();
-                }}
+                onSubmit={
+                  handleSubmit
+                }
                 noValidate
               >
+
                 <div className="contact-page-field">
                   <label htmlFor="name">
                     Name
@@ -272,9 +524,22 @@ Thank you.`;
                     name="name"
                     placeholder="Your name"
                     autoComplete="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    aria-invalid={Boolean(errors.name)}
+                    value={
+                      form.name
+                    }
+                    onChange={
+                      handleChange
+                    }
+                    aria-invalid={
+                      Boolean(
+                        errors.name
+                      )
+                    }
+                    aria-describedby={
+                      errors.name
+                        ? "name-error"
+                        : undefined
+                    }
                     className={
                       errors.name
                         ? "contact-page-input contact-page-input-error"
@@ -284,6 +549,7 @@ Thank you.`;
 
                   {errors.name && (
                     <span
+                      id="name-error"
                       role="alert"
                       className="contact-page-error"
                     >
@@ -291,6 +557,7 @@ Thank you.`;
                     </span>
                   )}
                 </div>
+
 
                 <div className="contact-page-field">
                   <label htmlFor="phone">
@@ -301,11 +568,25 @@ Thank you.`;
                     id="phone"
                     type="tel"
                     name="phone"
+                    inputMode="tel"
                     placeholder="Example: +62 812 3456 7890"
                     autoComplete="tel"
-                    value={form.phone}
-                    onChange={handleChange}
-                    aria-invalid={Boolean(errors.phone)}
+                    value={
+                      form.phone
+                    }
+                    onChange={
+                      handleChange
+                    }
+                    aria-invalid={
+                      Boolean(
+                        errors.phone
+                      )
+                    }
+                    aria-describedby={
+                      errors.phone
+                        ? "phone-error"
+                        : undefined
+                    }
                     className={
                       errors.phone
                         ? "contact-page-input contact-page-input-error"
@@ -315,6 +596,7 @@ Thank you.`;
 
                   {errors.phone && (
                     <span
+                      id="phone-error"
                       role="alert"
                       className="contact-page-error"
                     >
@@ -322,6 +604,7 @@ Thank you.`;
                     </span>
                   )}
                 </div>
+
 
                 <div className="contact-page-field">
                   <label htmlFor="message">
@@ -333,9 +616,22 @@ Thank you.`;
                     name="message"
                     placeholder="Tell us the product, specification, quantity, packing, and destination you require."
                     rows={8}
-                    value={form.message}
-                    onChange={handleChange}
-                    aria-invalid={Boolean(errors.message)}
+                    value={
+                      form.message
+                    }
+                    onChange={
+                      handleChange
+                    }
+                    aria-invalid={
+                      Boolean(
+                        errors.message
+                      )
+                    }
+                    aria-describedby={
+                      errors.message
+                        ? "message-error"
+                        : undefined
+                    }
                     className={
                       errors.message
                         ? "contact-page-input contact-page-textarea contact-page-input-error"
@@ -345,6 +641,7 @@ Thank you.`;
 
                   {errors.message && (
                     <span
+                      id="message-error"
                       role="alert"
                       className="contact-page-error"
                     >
@@ -353,40 +650,110 @@ Thank you.`;
                   )}
                 </div>
 
+
                 <button
                   type="submit"
                   disabled={loading}
                   className="contact-page-submit"
                 >
-                  <i className="fa-brands fa-whatsapp" />
+                  <span
+                    className="contact-page-submit-icon"
+                    aria-hidden="true"
+                  >
+                    <WhatsAppIcon />
+                  </span>
 
-                  {loading
-                    ? "Opening WhatsApp..."
-                    : "Send Inquiry via WhatsApp"}
+                  <span>
+                    {loading
+                      ? "Opening WhatsApp..."
+                      : "Send Inquiry via WhatsApp"}
+                  </span>
                 </button>
+
               </form>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* MAP */}
+
+      {/* ========================================
+          MAP
+      ======================================== */}
+
       <section className="contact-page-map-section">
         <div className="contact-page-map-heading">
-          <span>Our Location</span>
-          <h2>PT Dwi Srikandi Bakoh</h2>
+          <span>
+            Our Location
+          </span>
+
+          <h2>
+            PT Dwi Srikandi Bakoh
+          </h2>
+
+          <p>
+            Jenangan, Ponorogo,
+            East Java, Indonesia
+          </p>
         </div>
 
+
         <div className="contact-page-map">
-          <iframe
-            title="PT Dwi Srikandi Bakoh Location"
-            src="https://www.google.com/maps?q=-7.8229422,111.542023&z=17&output=embed"
-            width="100%"
-            height="400"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+
+          {!showMap ? (
+            <div className="contact-page-map-placeholder">
+              <div className="contact-page-map-pin">
+                <LocationIcon />
+              </div>
+
+              <span className="contact-page-map-small">
+                Our Office
+              </span>
+
+              <h3>
+                PT Dwi Srikandi Bakoh
+              </h3>
+
+              <p>
+                Jl. Raya Jenangan
+                No. 109, Ponorogo,
+                Jawa Timur, Indonesia
+              </p>
+
+              <div className="contact-page-map-actions">
+                <button
+                  type="button"
+                  className="contact-page-map-load"
+                  onClick={() =>
+                    setShowMap(true)
+                  }
+                >
+                  Load Interactive Map
+                </button>
+
+                <a
+                  href="https://www.google.com/maps?q=-7.8229422,111.542023"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-page-map-link"
+                >
+                  Open in Google Maps
+                </a>
+              </div>
+            </div>
+          ) : (
+            <iframe
+              title="PT Dwi Srikandi Bakoh Location"
+              src="https://www.google.com/maps?q=-7.8229422,111.542023&z=17&output=embed"
+              width="100%"
+              height="400"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          )}
+
         </div>
       </section>
     </>

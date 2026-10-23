@@ -475,7 +475,7 @@ export default function RootLayout({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  +62 812-3236-6354
+                  +62 812-3236-6354 (Admin 1)
                 </a>
               </p>
 
@@ -492,7 +492,7 @@ export default function RootLayout({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  +62 822-3229-4053
+                  +62 822-3229-4053 (Admin 2)
                 </a>
               </p>
 
@@ -509,7 +509,7 @@ export default function RootLayout({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  +62 851-5901-7001
+                  +62 851-5901-7001 (Admin 3)
                 </a>
               </p>
 
