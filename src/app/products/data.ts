@@ -41,7 +41,7 @@ export const products: Product[] = [
       "Dried Sliced Turmeric",
 
     image:
-      "/assets/dried-turmeric.webp",
+      "/assets/Products/Kunyit/dried-turmeric.webp",
 
     images: [
       "/assets/Products/Kunyit/dried-turmeric.webp",
