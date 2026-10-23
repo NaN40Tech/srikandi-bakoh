@@ -11,9 +11,7 @@ import {
 
 interface ProductDetailGalleryProps {
   images: string[];
-
   productName: string;
-
   origin?: string;
 }
 
@@ -28,37 +26,30 @@ export default function ProductDetailGallery({
     setActiveIndex,
   ] = useState(0);
 
-
   const touchStartX =
-    useRef<number | null>(
-      null
-    );
-
+    useRef<number | null>(null);
 
   const touchEndX =
-    useRef<number | null>(
-      null
-    );
+    useRef<number | null>(null);
+
+  const thumbnailsRef =
+    useRef<HTMLDivElement | null>(null);
+
+  const thumbnailRefs =
+    useRef<Array<HTMLButtonElement | null>>([]);
 
 
   const safeImages =
-    images.filter(
-      Boolean
-    );
-
+    images.filter(Boolean);
 
   const imageCount =
     safeImages.length;
 
-
   const hasMultipleImages =
     imageCount > 1;
 
-
   const activeImage =
-    safeImages[
-      activeIndex
-    ];
+    safeImages[activeIndex];
 
 
   /* ========================================
@@ -70,14 +61,36 @@ export default function ProductDetailGallery({
       activeIndex >=
       imageCount
     ) {
-      setActiveIndex(
-        0
-      );
+      setActiveIndex(0);
     }
   }, [
     activeIndex,
     imageCount,
   ]);
+
+
+  /* ========================================
+     KEEP ACTIVE THUMBNAIL VISIBLE
+  ======================================== */
+
+  useEffect(() => {
+    const activeThumbnail =
+      thumbnailRefs.current[
+        activeIndex
+      ];
+
+    if (
+      !activeThumbnail
+    ) {
+      return;
+    }
+
+    activeThumbnail.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "nearest",
+    });
+  }, [activeIndex]);
 
 
   /* ========================================
@@ -91,11 +104,8 @@ export default function ProductDetailGallery({
       return;
     }
 
-
     setActiveIndex(
-      (
-        current
-      ) =>
+      (current) =>
         current === 0
           ? imageCount - 1
           : current - 1
@@ -114,16 +124,24 @@ export default function ProductDetailGallery({
       return;
     }
 
-
     setActiveIndex(
-      (
-        current
-      ) =>
+      (current) =>
         current ===
         imageCount - 1
           ? 0
           : current + 1
     );
+  };
+
+
+  /* ========================================
+     SELECT IMAGE
+  ======================================== */
+
+  const selectImage = (
+    index: number
+  ) => {
+    setActiveIndex(index);
   };
 
 
@@ -141,26 +159,26 @@ export default function ProductDetailGallery({
       return;
     }
 
-
     if (
       event.key ===
       "ArrowLeft"
     ) {
+      event.preventDefault();
       previousImage();
     }
-
 
     if (
       event.key ===
       "ArrowRight"
     ) {
+      event.preventDefault();
       nextImage();
     }
   };
 
 
   /* ========================================
-     TOUCH
+     TOUCH / SWIPE
   ======================================== */
 
   const handleTouchStart = (
@@ -169,7 +187,6 @@ export default function ProductDetailGallery({
   ) => {
     touchEndX.current =
       null;
-
 
     touchStartX.current =
       event.targetTouches[
@@ -196,18 +213,21 @@ export default function ProductDetailGallery({
       touchEndX.current ===
         null
     ) {
+      touchStartX.current =
+        null;
+
+      touchEndX.current =
+        null;
+
       return;
     }
-
 
     const distance =
       touchStartX.current -
       touchEndX.current;
 
-
     const minimumSwipeDistance =
       45;
-
 
     if (
       distance >
@@ -216,14 +236,12 @@ export default function ProductDetailGallery({
       nextImage();
     }
 
-
     if (
       distance <
       -minimumSwipeDistance
     ) {
       previousImage();
     }
-
 
     touchStartX.current =
       null;
@@ -291,9 +309,12 @@ export default function ProductDetailGallery({
           alt={`${productName} from ${origin}`}
           fill
           priority
-          quality={78}
+          quality={82}
           sizes="
-            (max-width: 960px) calc(100vw - 2rem),
+            (max-width: 480px) calc(100vw - 2rem),
+            (max-width: 768px) calc(100vw - 2rem),
+            (max-width: 960px) calc(100vw - 3rem),
+            (max-width: 1180px) 50vw,
             560px
           "
           className="product-gallery-main-image"
@@ -308,7 +329,9 @@ export default function ProductDetailGallery({
         </span>
 
 
-        {/* ARROWS */}
+        {/* ========================================
+            ARROWS
+        ======================================== */}
 
         {hasMultipleImages && (
           <>
@@ -349,10 +372,7 @@ export default function ProductDetailGallery({
               aria-live="polite"
             >
               <span>
-                {
-                  activeIndex +
-                  1
-                }
+                {activeIndex + 1}
               </span>
 
               <span className="product-gallery-counter-divider">
@@ -360,9 +380,7 @@ export default function ProductDetailGallery({
               </span>
 
               <span>
-                {
-                  imageCount
-                }
+                {imageCount}
               </span>
             </div>
           </>
@@ -372,11 +390,14 @@ export default function ProductDetailGallery({
 
 
       {/* ========================================
-          THUMBNAILS
+          THUMBNAIL PREVIEW
       ======================================== */}
 
       {hasMultipleImages && (
         <div
+          ref={
+            thumbnailsRef
+          }
           className="product-gallery-thumbnails"
           aria-label="Product image thumbnails"
         >
@@ -390,9 +411,13 @@ export default function ProductDetailGallery({
                 activeIndex ===
                 index;
 
-
               return (
                 <button
+                  ref={(element) => {
+                    thumbnailRefs.current[
+                      index
+                    ] = element;
+                  }}
                   type="button"
                   key={`${image}-${index}`}
                   className={`product-gallery-thumbnail ${
@@ -401,7 +426,7 @@ export default function ProductDetailGallery({
                       : ""
                   }`}
                   onClick={() =>
-                    setActiveIndex(
+                    selectImage(
                       index
                     )
                   }
@@ -419,8 +444,14 @@ export default function ProductDetailGallery({
                     }
                     alt=""
                     fill
-                    quality={55}
-                    sizes="82px"
+                    quality={60}
+                    sizes="
+                      (max-width: 480px) 64px,
+                      (max-width: 768px) 70px,
+                      (max-width: 960px) 76px,
+                      82px
+                    "
+                    className="product-gallery-thumbnail-image"
                   />
 
 
@@ -441,8 +472,7 @@ export default function ProductDetailGallery({
 
       {hasMultipleImages && (
         <p className="product-gallery-swipe-hint">
-          Swipe or select an image
-          to view more
+          Swipe or select an image to view more
         </p>
       )}
 

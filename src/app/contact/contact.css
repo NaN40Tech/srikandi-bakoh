@@ -385,12 +385,12 @@
   display: grid;
 
   grid-template-columns:
-    48px
+    44px
     minmax(0, 1fr);
 
-  gap: 1rem;
+  gap: 0.9rem;
 
-  align-items: flex-start;
+  align-items: start;
 
   padding: 1.15rem;
 
@@ -431,12 +431,10 @@
   align-items: center;
   justify-content: center;
 
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
 
-  flex:
-    0 0
-    48px;
+  margin-top: 2px;
 
   background:
     linear-gradient(
@@ -447,7 +445,7 @@
 
   color: #ffffff;
 
-  border-radius: 12px;
+  border-radius: 11px;
 
   box-shadow:
     0 6px 16px
@@ -457,8 +455,8 @@
 .contact-page-contact-icon svg {
   display: block;
 
-  width: 21px;
-  height: 21px;
+  width: 19px;
+  height: 19px;
 }
 
 

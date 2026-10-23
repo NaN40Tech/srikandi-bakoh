@@ -16,7 +16,7 @@ const threadsItems = [
       "One of our most viewed updates on Threads. See the full post and join the conversation.",
 
     url:
-      "https://www.threads.com/share/D_Al1u8UF/",
+      "https://www.threads.com/@ptdwisrikandi/post/Ddn4E2pEm_r?xmt=AQG0bZ5LFt5otHdQbyEujQ3lkSMA25ptNaBxZquggpa4rotwDiepG6XXmaA6E-CMXcptTgo",
   },
 
   {
@@ -112,15 +112,13 @@ export default function ThreadsSection() {
       <div className="threads-home-grid">
 
         {threadsItems.map(
-          (
-            item
-          ) => (
+          (item) => (
             <a
               key={
                 item.title
               }
               href={
-                THREADS_URL
+                item.url
               }
               target="_blank"
               rel="noopener noreferrer"

@@ -12,12 +12,14 @@ import {
 
 import "./contact.css";
 
+
 interface ContactForm {
   name: string;
   phone: string;
   message: string;
   product: string;
 }
+
 
 type FormErrors =
   Partial<
@@ -26,6 +28,18 @@ type FormErrors =
       string
     >
   >;
+
+
+/* ========================================
+   GOOGLE MAPS
+======================================== */
+
+const GOOGLE_MAPS_PLACE_URL =
+  "https://www.google.com/maps/place/Dwi+Srikandi+Bakoh/@-7.8229213,111.5419881,21z/data=!4m6!3m5!1s0x2e79a1c9554d3ad1:0x8f7965c46a8c415b!8m2!3d-7.8229422!4d111.542023!16s%2Fg%2F11zd56yvhr";
+
+
+const GOOGLE_MAPS_EMBED_URL =
+  "https://www.google.com/maps?q=Dwi%20Srikandi%20Bakoh%2C%20-7.8229422%2C111.542023&ll=-7.8229422,111.542023&z=19&output=embed";
 
 
 /* ========================================
@@ -51,6 +65,7 @@ function EmailIcon() {
   );
 }
 
+
 function WhatsAppIcon() {
   return (
     <svg
@@ -65,6 +80,7 @@ function WhatsAppIcon() {
     </svg>
   );
 }
+
 
 function LocationIcon() {
   return (
@@ -84,6 +100,7 @@ function LocationIcon() {
     </svg>
   );
 }
+
 
 function ArrowIcon() {
   return (
@@ -118,15 +135,22 @@ export default function ContactPage() {
       product: "",
     });
 
+
   const [errors, setErrors] =
     useState<FormErrors>({});
+
 
   const [loading, setLoading] =
     useState(false);
 
+
   const [showMap, setShowMap] =
     useState(false);
 
+
+  /* ========================================
+     DEFAULT MESSAGE
+  ======================================== */
 
   const getDefaultMessage = (
     product?: string
@@ -141,6 +165,7 @@ Could you please provide information about availability, product specifications,
 Thank you.`;
     }
 
+
     return `Hello,
 
 I would like to inquire about your products.
@@ -151,18 +176,26 @@ Thank you.`;
   };
 
 
+  /* ========================================
+     READ PRODUCT FROM URL
+  ======================================== */
+
   useEffect(() => {
     const params =
       new URLSearchParams(
         window.location.search
       );
 
+
     const product =
       params.get("product") || "";
 
+
     setForm((prev) => ({
       ...prev,
+
       product,
+
       message:
         getDefaultMessage(
           product
@@ -170,6 +203,10 @@ Thank you.`;
     }));
   }, []);
 
+
+  /* ========================================
+     PHONE VALIDATION
+  ======================================== */
 
   const normalizePhone = (
     phone: string
@@ -187,20 +224,27 @@ Thank you.`;
     const normalizedPhone =
       normalizePhone(phone);
 
+
     return /^\+?[1-9]\d{6,14}$/.test(
       normalizedPhone
     );
   };
 
 
+  /* ========================================
+     FORM VALIDATION
+  ======================================== */
+
   const validateForm = () => {
     const newErrors:
       FormErrors = {};
+
 
     if (!form.name.trim()) {
       newErrors.name =
         "Name is required.";
     }
+
 
     if (!form.phone.trim()) {
       newErrors.phone =
@@ -214,12 +258,17 @@ Thank you.`;
         "Please enter a valid phone number.";
     }
 
+
     if (!form.message.trim()) {
       newErrors.message =
         "Message is required.";
     }
 
-    setErrors(newErrors);
+
+    setErrors(
+      newErrors
+    );
+
 
     return (
       Object.keys(
@@ -228,6 +277,10 @@ Thank you.`;
     );
   };
 
+
+  /* ========================================
+     HANDLE CHANGE
+  ======================================== */
 
   const handleChange = (
     e:
@@ -241,13 +294,16 @@ Thank you.`;
       value,
     } = e.target;
 
+
     setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
 
+
     const field =
       name as keyof ContactForm;
+
 
     if (errors[field]) {
       setErrors((prev) => {
@@ -255,7 +311,9 @@ Thank you.`;
           ...prev,
         };
 
+
         delete updated[field];
+
 
         return updated;
       });
@@ -263,15 +321,22 @@ Thank you.`;
   };
 
 
+  /* ========================================
+     WHATSAPP
+  ======================================== */
+
   const handleWhatsApp = () => {
     if (!validateForm()) {
       return;
     }
 
+
     setLoading(true);
+
 
     const waNumber =
       "6281232366354";
+
 
     const waMessage = [
       "Hello PT Dwi Srikandi Bakoh Team,",
@@ -282,10 +347,12 @@ Thank you.`;
       form.message,
     ].join("\n");
 
+
     const url =
       `https://wa.me/${waNumber}?text=${encodeURIComponent(
         waMessage
       )}`;
+
 
     window.open(
       url,
@@ -293,15 +360,21 @@ Thank you.`;
       "noopener,noreferrer"
     );
 
+
     setLoading(false);
   };
 
+
+  /* ========================================
+     SUBMIT
+  ======================================== */
 
   const handleSubmit = (
     e:
       FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
+
 
     handleWhatsApp();
   };
@@ -314,6 +387,7 @@ Thank you.`;
       ======================================== */}
 
       <section className="contact-page-hero">
+
         <Image
           src="/assets/articles-hero.webp"
           alt=""
@@ -326,20 +400,25 @@ Thank you.`;
           aria-hidden="true"
         />
 
+
         <div
           className="contact-page-hero-overlay"
           aria-hidden="true"
         />
 
+
         <div className="contact-page-hero-inner">
+
           <span className="contact-page-hero-label">
             Contact &amp; Inquiry
           </span>
+
 
           <h1>
             Contact PT Dwi
             Srikandi Bakoh
           </h1>
+
 
           <p>
             Get in touch for
@@ -349,7 +428,9 @@ Thank you.`;
             samples, availability,
             and quotations.
           </p>
+
         </div>
+
       </section>
 
 
@@ -358,18 +439,28 @@ Thank you.`;
       ======================================== */}
 
       <section className="contact-page-main">
+
         <div className="contact-page-container">
+
           <div className="contact-page-grid">
 
+            {/* ========================================
+                CONTACT INFORMATION
+            ======================================== */}
+
             <div className="contact-page-info-card">
+
               <div className="contact-page-heading">
+
                 <span>
                   Product Inquiry
                 </span>
 
+
                 <h2>
                   Get in Touch
                 </h2>
+
 
                 <p>
                   Tell us the product
@@ -380,39 +471,55 @@ Thank you.`;
                   packing needs, and
                   delivery destination.
                 </p>
+
               </div>
 
 
               <div className="contact-page-contact-list">
 
+                {/* EMAIL */}
+
                 <div className="contact-page-contact-box">
+
                   <div className="contact-page-contact-icon">
                     <EmailIcon />
                   </div>
 
+
                   <div className="contact-page-contact-content">
+
                     <span className="contact-page-contact-label">
                       Email
                     </span>
 
+
                     <a href="mailto:ptdwisrikandibakoh@gmail.com">
                       ptdwisrikandibakoh@gmail.com
                     </a>
+
                   </div>
+
                 </div>
 
 
+                {/* WHATSAPP */}
+
                 <div className="contact-page-contact-box">
+
                   <div className="contact-page-contact-icon">
                     <WhatsAppIcon />
                   </div>
 
+
                   <div className="contact-page-contact-content">
+
                     <span className="contact-page-contact-label">
                       Phone / WhatsApp
                     </span>
 
+
                     <div className="contact-page-whatsapp-list">
+
                       <a
                         href="https://wa.me/6281232366354"
                         target="_blank"
@@ -425,6 +532,7 @@ Thank you.`;
 
                         <ArrowIcon />
                       </a>
+
 
                       <a
                         href="https://wa.me/6282232294053"
@@ -439,6 +547,7 @@ Thank you.`;
                         <ArrowIcon />
                       </a>
 
+
                       <a
                         href="https://wa.me/6285159017001"
                         target="_blank"
@@ -451,20 +560,29 @@ Thank you.`;
 
                         <ArrowIcon />
                       </a>
+
                     </div>
+
                   </div>
+
                 </div>
 
 
+                {/* ADDRESS */}
+
                 <div className="contact-page-contact-box">
+
                   <div className="contact-page-contact-icon">
                     <LocationIcon />
                   </div>
 
+
                   <div className="contact-page-contact-content">
+
                     <span className="contact-page-contact-label">
                       Address
                     </span>
+
 
                     <p>
                       Jl. Raya Jenangan
@@ -475,24 +593,45 @@ Thank you.`;
                       Jawa Timur 63492,
                       Indonesia
                     </p>
+
+
+                    <a
+                      href={
+                        GOOGLE_MAPS_PLACE_URL
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="contact-page-address-map-link"
+                    >
+                      View on Google Maps
+                    </a>
+
                   </div>
+
                 </div>
 
               </div>
+
             </div>
 
 
-            {/* FORM */}
+            {/* ========================================
+                FORM
+            ======================================== */}
 
             <div className="contact-page-form-card">
+
               <div className="contact-page-heading">
+
                 <span>
                   Request Information
                 </span>
 
+
                 <h2>
                   Request a Quote
                 </h2>
+
 
                 <p>
                   Send your inquiry
@@ -502,6 +641,7 @@ Thank you.`;
                   review your requirement
                   more accurately.
                 </p>
+
               </div>
 
 
@@ -513,10 +653,14 @@ Thank you.`;
                 noValidate
               >
 
+                {/* NAME */}
+
                 <div className="contact-page-field">
+
                   <label htmlFor="name">
                     Name
                   </label>
+
 
                   <input
                     id="name"
@@ -547,6 +691,7 @@ Thank you.`;
                     }
                   />
 
+
                   {errors.name && (
                     <span
                       id="name-error"
@@ -556,13 +701,18 @@ Thank you.`;
                       {errors.name}
                     </span>
                   )}
+
                 </div>
 
 
+                {/* PHONE */}
+
                 <div className="contact-page-field">
+
                   <label htmlFor="phone">
                     Phone / WhatsApp
                   </label>
+
 
                   <input
                     id="phone"
@@ -594,6 +744,7 @@ Thank you.`;
                     }
                   />
 
+
                   {errors.phone && (
                     <span
                       id="phone-error"
@@ -603,13 +754,18 @@ Thank you.`;
                       {errors.phone}
                     </span>
                   )}
+
                 </div>
 
 
+                {/* MESSAGE */}
+
                 <div className="contact-page-field">
+
                   <label htmlFor="message">
                     Inquiry Details
                   </label>
+
 
                   <textarea
                     id="message"
@@ -639,6 +795,7 @@ Thank you.`;
                     }
                   />
 
+
                   {errors.message && (
                     <span
                       id="message-error"
@@ -648,14 +805,20 @@ Thank you.`;
                       {errors.message}
                     </span>
                   )}
+
                 </div>
 
 
+                {/* SUBMIT */}
+
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={
+                    loading
+                  }
                   className="contact-page-submit"
                 >
+
                   <span
                     className="contact-page-submit-icon"
                     aria-hidden="true"
@@ -663,18 +826,23 @@ Thank you.`;
                     <WhatsAppIcon />
                   </span>
 
+
                   <span>
                     {loading
                       ? "Opening WhatsApp..."
                       : "Send Inquiry via WhatsApp"}
                   </span>
+
                 </button>
 
               </form>
+
             </div>
 
           </div>
+
         </div>
+
       </section>
 
 
@@ -683,19 +851,24 @@ Thank you.`;
       ======================================== */}
 
       <section className="contact-page-map-section">
+
         <div className="contact-page-map-heading">
+
           <span>
             Our Location
           </span>
+
 
           <h2>
             PT Dwi Srikandi Bakoh
           </h2>
 
+
           <p>
             Jenangan, Ponorogo,
             East Java, Indonesia
           </p>
+
         </div>
 
 
@@ -703,51 +876,73 @@ Thank you.`;
 
           {!showMap ? (
             <div className="contact-page-map-placeholder">
+
               <div className="contact-page-map-pin">
                 <LocationIcon />
               </div>
+
 
               <span className="contact-page-map-small">
                 Our Office
               </span>
 
+
               <h3>
                 PT Dwi Srikandi Bakoh
               </h3>
 
+
               <p>
                 Jl. Raya Jenangan
-                No. 109, Ponorogo,
-                Jawa Timur, Indonesia
+                No. 109, Krajan I,
+                Desa Jenangan,
+                Kecamatan Jenangan,
+                Kabupaten Ponorogo,
+                Jawa Timur 63492,
+                Indonesia
               </p>
 
+
               <div className="contact-page-map-actions">
+
                 <button
                   type="button"
                   className="contact-page-map-load"
                   onClick={() =>
-                    setShowMap(true)
+                    setShowMap(
+                      true
+                    )
                   }
                 >
                   Load Interactive Map
                 </button>
 
+
                 <a
-                  href="https://www.google.com/maps?q=-7.8229422,111.542023"
+                  href={
+                    GOOGLE_MAPS_PLACE_URL
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="contact-page-map-link"
                 >
                   Open in Google Maps
                 </a>
+
               </div>
+
             </div>
           ) : (
             <iframe
-              title="PT Dwi Srikandi Bakoh Location"
-              src="https://www.google.com/maps?q=-7.8229422,111.542023&z=17&output=embed"
+              title="PT Dwi Srikandi Bakoh on Google Maps"
+              src={
+                GOOGLE_MAPS_EMBED_URL
+              }
               width="100%"
-              height="400"
+              height="450"
+              style={{
+                border: 0,
+              }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -755,6 +950,7 @@ Thank you.`;
           )}
 
         </div>
+
       </section>
     </>
   );
