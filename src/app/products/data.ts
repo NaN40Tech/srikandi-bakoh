@@ -3,8 +3,10 @@ export interface Product {
   name: string;
 
   image: string;
+  imageAlt: string;
 
   images: string[];
+  imageAlts?: string[];
 
   origin: string;
 
@@ -43,10 +45,19 @@ export const products: Product[] = [
     image:
       "/assets/Products/Kunyit/dried-turmeric.webp",
 
+    imageAlt:
+      "Dried sliced turmeric from Indonesia",
+
     images: [
       "/assets/Products/Kunyit/dried-turmeric.webp",
       "/assets/Products/Kunyit/dried-turmeric-2.webp",
-      "/assets/Products/Kunyit/dried-turmeric-3.webp"
+      "/assets/Products/Kunyit/dried-turmeric-3.webp",
+    ],
+
+    imageAlts: [
+      "Dried sliced turmeric from Indonesia",
+      "Indonesian dried turmeric slices",
+      "Dried sliced turmeric product",
     ],
 
     origin:
@@ -113,8 +124,15 @@ export const products: Product[] = [
     image:
       "/assets/Products/Temulawak/temulawak.webp",
 
+    imageAlt:
+      "Dried sliced Java turmeric temulawak from Indonesia",
+
     images: [
       "/assets/Products/Temulawak/temulawak.webp",
+    ],
+
+    imageAlts: [
+      "Dried sliced Java turmeric temulawak from Indonesia",
     ],
 
     origin:
@@ -181,8 +199,15 @@ export const products: Product[] = [
     image:
       "/assets/Products/Jahe/emprit-ginger.webp",
 
+    imageAlt:
+      "Dried sliced emprit ginger from Indonesia",
+
     images: [
       "/assets/Products/Jahe/emprit-ginger.webp",
+    ],
+
+    imageAlts: [
+      "Dried sliced emprit ginger from Indonesia",
     ],
 
     origin:
@@ -249,9 +274,17 @@ export const products: Product[] = [
     image:
       "/assets/Products/Kluwek/kluwek.webp",
 
+    imageAlt:
+      "Shelled kluwek from Indonesia",
+
     images: [
       "/assets/Products/Kluwek/kluwek.webp",
       "/assets/Products/Kluwek/kluwek-2.webp",
+    ],
+
+    imageAlts: [
+      "Shelled kluwek from Indonesia",
+      "Indonesian fermented shelled kluwek",
     ],
 
     origin:
@@ -312,9 +345,17 @@ export const products: Product[] = [
     image:
       "/assets/Products/Cengkeh/Cengkeh.webp",
 
+    imageAlt:
+      "Dried whole cloves from Indonesia",
+
     images: [
       "/assets/Products/Cengkeh/Cengkeh.webp",
-      "/assets/Products/Cengkeh/Cengkeh-2.webp"
+      "/assets/Products/Cengkeh/Cengkeh-2.webp",
+    ],
+
+    imageAlts: [
+      "Dried whole cloves from Indonesia",
+      "Indonesian dried cloves",
     ],
 
     origin:

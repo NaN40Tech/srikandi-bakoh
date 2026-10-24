@@ -11,6 +11,7 @@ import {
 
 interface ProductDetailGalleryProps {
   images: string[];
+  imageAlts?: string[];
   productName: string;
   origin?: string;
 }
@@ -18,6 +19,7 @@ interface ProductDetailGalleryProps {
 
 export default function ProductDetailGallery({
   images,
+  imageAlts = [],
   productName,
   origin = "Indonesia",
 }: ProductDetailGalleryProps) {
@@ -73,6 +75,33 @@ export default function ProductDetailGallery({
 
 
   /* ========================================
+     IMAGE ALT
+  ======================================== */
+
+  const getImageAlt = (
+    index: number
+  ) => {
+    const customAlt =
+      imageAlts[index]?.trim();
+
+
+    if (customAlt) {
+      return customAlt;
+    }
+
+
+    if (index === 0) {
+      return `${productName} from ${origin}`;
+    }
+
+
+    return `${productName} image ${
+      index + 1
+    } from ${origin}`;
+  };
+
+
+  /* ========================================
      KEEP INDEX SAFE
   ======================================== */
 
@@ -101,8 +130,7 @@ export default function ProductDetailGallery({
   /* ========================================
      KEEP THUMBNAIL VISIBLE
 
-     Important:
-     jangan pakai scrollIntoView()
+     Jangan pakai scrollIntoView()
      karena bisa menggeser page / ancestor
      ketika responsive layout berubah.
   ======================================== */
@@ -403,7 +431,11 @@ export default function ProductDetailGallery({
           src={
             activeImage
           }
-          alt={`${productName} from ${origin}`}
+          alt={
+            getImageAlt(
+              activeIndex
+            )
+          }
           fill
           priority
           quality={82}
@@ -540,10 +572,9 @@ export default function ProductDetailGallery({
                       index
                     )
                   }
-                  aria-label={`View ${productName} image ${
-                    index +
-                    1
-                  }`}
+                  aria-label={`View ${getImageAlt(
+                    index
+                  )}`}
                   aria-pressed={
                     isActive
                   }

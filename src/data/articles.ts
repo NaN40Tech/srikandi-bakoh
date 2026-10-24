@@ -7,8 +7,10 @@ export interface Article {
   description: string;
 
   image: string;
+  imageAlt: string;
 
   heroImage?: string;
+  heroImageAlt?: string;
 
   content?: string;
 }
@@ -31,8 +33,14 @@ export const articles: Article[] = [
   image:
     "/assets/Article/article-turmeric1.webp",
 
+  imageAlt:
+    "Dried sliced turmeric from Indonesia",
+
   heroImage:
     "/assets/Article/article-turmeric1.webp",
+
+  heroImageAlt:
+    "Dried sliced turmeric from Indonesia",
 
   content: `
     <p>
@@ -335,8 +343,14 @@ export const articles: Article[] = [
   image:
     "/assets/Article/turmeric2.webp",
 
+  imageAlt:
+    "Fresh turmeric for dried sliced turmeric production in Indonesia",
+
   heroImage:
     "/assets/Article/turmeric2.webp",
+
+  heroImageAlt:
+    "Fresh turmeric for dried sliced turmeric production in Indonesia",
 
   content: `
     <p>
@@ -676,8 +690,14 @@ export const articles: Article[] = [
   image:
     "/assets/Article/article-ginger1.webp",
 
+  imageAlt:
+    "Dried sliced emprit ginger from Indonesia",
+
   heroImage:
     "/assets/Article/article-ginger1.webp",
+
+  heroImageAlt:
+    "Dried sliced emprit ginger from Indonesia",
 
   content: `
     <p>
@@ -940,8 +960,14 @@ export const articles: Article[] = [
   image:
     "/assets/Article/article-ginger2.webp",
 
+  imageAlt:
+    "Dried sliced ginger from Indonesia for bulk sourcing",
+
   heroImage:
     "/assets/Article/article-ginger2.webp",
+
+  heroImageAlt:
+    "Dried sliced ginger from Indonesia for bulk sourcing",
 
   content: `
     <p>
@@ -1272,8 +1298,14 @@ export const articles: Article[] = [
   image:
     "/assets/Article/article-keluak1.webp",
 
+  imageAlt:
+    "Indonesian kluwek Pangium edule",
+
   heroImage:
     "/assets/Article/keluak-field.webp",
+
+  heroImageAlt:
+    "Kluwek raw material in Indonesia",
 
   content: `
     <p>
@@ -1587,8 +1619,14 @@ export const articles: Article[] = [
   image:
     "/assets/Article/Turmeric-Processing.webp",
 
+  imageAlt:
+    "Dried sliced turmeric processing in Indonesia",
+
   heroImage:
     "/assets/Article/turmeric-drying.webp",
+
+  heroImageAlt:
+    "Drying sliced turmeric in Ponorogo Indonesia",
 
   content: `
     <p>
@@ -1859,8 +1897,14 @@ export const articles: Article[] = [
   image:
     "/assets/Article/turmeric-manual-machine.webp",
 
+  imageAlt:
+    "Manual and machine-sliced turmeric comparison",
+
   heroImage:
     "/assets/Article/turmeric-manual-machine-hero.webp",
+
+  heroImageAlt:
+    "Manual and machine-sliced turmeric from Indonesia",
 
   content: `
     <p>
@@ -1931,6 +1975,7 @@ export const articles: Article[] = [
       muted
       playsinline
       preload="metadata"
+      style="width: 100%; max-width: 700px; height: auto; display: block; margin: 24px auto; border-radius: 12px;"
     >
       <source
         src="/assets/Article/turmeric-machine-slicing.webm"
@@ -2126,8 +2171,14 @@ export const articles: Article[] = [
   image:
     "/assets/Article/turmeric-sourcing-guide.webp",
 
+  imageAlt:
+    "Dried sliced turmeric sourcing guide from Indonesia",
+
   heroImage:
     "/assets/Article/turmeric-drying.webp",
+
+  heroImageAlt:
+    "Drying sliced turmeric in Ponorogo Indonesia",
 
   content: `
     <p>

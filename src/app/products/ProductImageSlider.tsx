@@ -10,12 +10,14 @@ import {
 
 type ProductImageSliderProps = {
   images: string[];
+  imageAlts?: string[];
   productName: string;
 };
 
 
 export default function ProductImageSlider({
   images,
+  imageAlts = [],
   productName,
 }: ProductImageSliderProps) {
   const safeImages =
@@ -217,6 +219,33 @@ export default function ProductImageSlider({
 
 
   /* ========================================
+     IMAGE ALT
+  ======================================== */
+
+  const getImageAlt = (
+    index: number
+  ) => {
+    const customAlt =
+      imageAlts[index]?.trim();
+
+
+    if (customAlt) {
+      return customAlt;
+    }
+
+
+    if (index === 0) {
+      return productName;
+    }
+
+
+    return `${productName} image ${
+      index + 1
+    }`;
+  };
+
+
+  /* ========================================
      EMPTY
   ======================================== */
 
@@ -284,12 +313,9 @@ export default function ProductImageSlider({
                     image
                   }
                   alt={
-                    index === 0
-                      ? productName
-                      : `${productName} image ${
-                          index +
-                          1
-                        }`
+                    getImageAlt(
+                      index
+                    )
                   }
                   fill
                   quality={66}

@@ -390,7 +390,7 @@ Thank you.`;
 
         <Image
           src="/assets/articles-hero.webp"
-          alt=""
+          alt="PT Dwi Srikandi Bakoh contact page"
           fill
           priority
           fetchPriority="high"

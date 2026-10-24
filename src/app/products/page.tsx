@@ -57,7 +57,7 @@ export default function ProductsPage() {
       <section className="products-page-hero">
         <Image
           src="/assets/product-detail.webp"
-          alt=""
+          alt="Indonesian spices and agricultural products"
           fill
           priority
           fetchPriority="high"
