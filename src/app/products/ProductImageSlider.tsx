@@ -24,18 +24,23 @@ export default function ProductImageSlider({
   const total =
     safeImages.length;
 
+
   const [
     current,
     setCurrent,
   ] = useState(0);
+
 
   const [
     paused,
     setPaused,
   ] = useState(false);
 
+
   const touchStartX =
-    useRef<number | null>(null);
+    useRef<number | null>(
+      null
+    );
 
 
   /* ========================================
@@ -45,19 +50,25 @@ export default function ProductImageSlider({
   const goTo = (
     index: number
   ) => {
-    if (total <= 1) return;
+    if (total <= 1) {
+      return;
+    }
+
 
     let next =
       index;
+
 
     if (next < 0) {
       next =
         total - 1;
     }
 
+
     if (next >= total) {
       next = 0;
     }
+
 
     setCurrent(next);
   };
@@ -75,6 +86,7 @@ export default function ProductImageSlider({
       return;
     }
 
+
     const timer =
       window.setInterval(
         () => {
@@ -89,6 +101,7 @@ export default function ProductImageSlider({
         4500
       );
 
+
     return () => {
       window.clearInterval(
         timer
@@ -101,10 +114,17 @@ export default function ProductImageSlider({
 
 
   /* ========================================
-     RESET IF IMAGE COUNT CHANGES
+     RESET INDEX
   ======================================== */
 
   useEffect(() => {
+    if (
+      total === 0
+    ) {
+      return;
+    }
+
+
     if (
       current >= total
     ) {
@@ -117,22 +137,26 @@ export default function ProductImageSlider({
 
 
   /* ========================================
-     SWIPE
+     TOUCH
   ======================================== */
 
   const handleTouchStart = (
-    event: React.TouchEvent
+    event:
+      React.TouchEvent<HTMLDivElement>
   ) => {
     touchStartX.current =
       event.touches[0]
-        .clientX;
+        ?.clientX ??
+      null;
+
 
     setPaused(true);
   };
 
 
   const handleTouchEnd = (
-    event: React.TouchEvent
+    event:
+      React.TouchEvent<HTMLDivElement>
   ) => {
     if (
       touchStartX.current ===
@@ -143,16 +167,21 @@ export default function ProductImageSlider({
       return;
     }
 
+
     const endX =
       event.changedTouches[0]
-        .clientX;
+        ?.clientX ??
+      touchStartX.current;
+
 
     const difference =
       touchStartX.current -
       endX;
 
+
     const swipeThreshold =
       40;
+
 
     if (
       Math.abs(
@@ -173,8 +202,10 @@ export default function ProductImageSlider({
       }
     }
 
+
     touchStartX.current =
       null;
+
 
     window.setTimeout(
       () => {
@@ -186,12 +217,12 @@ export default function ProductImageSlider({
 
 
   /* ========================================
-     FALLBACK
+     EMPTY
   ======================================== */
 
   if (total === 0) {
     return (
-      <div className="product-gallery-empty">
+      <div className="catalog-gallery-empty">
         No image available
       </div>
     );
@@ -200,7 +231,7 @@ export default function ProductImageSlider({
 
   return (
     <div
-      className="product-gallery"
+      className="catalog-gallery"
       onMouseEnter={() =>
         setPaused(true)
       }
@@ -220,35 +251,44 @@ export default function ProductImageSlider({
         handleTouchEnd
       }
     >
+
       {/* ========================================
-          IMAGE TRACK
+          VIEWPORT
       ======================================== */}
 
-      <div className="product-gallery-viewport">
+      <div className="catalog-gallery-viewport">
+
         <div
-          className="product-gallery-track"
+          className="catalog-gallery-track"
           style={{
-            transform: `translate3d(-${
-              current * 100
-            }%, 0, 0)`,
+            transform:
+              `translate3d(-${
+                current *
+                100
+              }%, 0, 0)`,
           }}
         >
+
           {safeImages.map(
             (
               image,
               index
             ) => (
               <div
-                className="product-gallery-slide"
+                className="catalog-gallery-slide"
                 key={`${image}-${index}`}
               >
+
                 <Image
-                  src={image}
+                  src={
+                    image
+                  }
                   alt={
                     index === 0
                       ? productName
                       : `${productName} image ${
-                          index + 1
+                          index +
+                          1
                         }`
                   }
                   fill
@@ -259,22 +299,31 @@ export default function ProductImageSlider({
                     390px
                   "
                 />
+
               </div>
             )
           )}
+
         </div>
+
       </div>
 
 
       {/* ========================================
-          IMAGE COUNT
+          COUNT
       ======================================== */}
 
       {total > 1 && (
-        <span className="product-gallery-count">
+        <span className="catalog-gallery-count">
+
           {current + 1}
-          <span>/</span>
+
+          <span>
+            /
+          </span>
+
           {total}
+
         </span>
       )}
 
@@ -285,9 +334,10 @@ export default function ProductImageSlider({
 
       {total > 1 && (
         <>
+
           <button
             type="button"
-            className="product-gallery-arrow product-gallery-arrow-left"
+            className="catalog-gallery-arrow catalog-gallery-arrow-left"
             aria-label={`Previous image of ${productName}`}
             onClick={() =>
               goTo(
@@ -298,9 +348,10 @@ export default function ProductImageSlider({
             ‹
           </button>
 
+
           <button
             type="button"
-            className="product-gallery-arrow product-gallery-arrow-right"
+            className="catalog-gallery-arrow catalog-gallery-arrow-right"
             aria-label={`Next image of ${productName}`}
             onClick={() =>
               goTo(
@@ -310,6 +361,7 @@ export default function ProductImageSlider({
           >
             ›
           </button>
+
         </>
       )}
 
@@ -319,23 +371,27 @@ export default function ProductImageSlider({
       ======================================== */}
 
       {total > 1 && (
-        <div className="product-gallery-dots">
+        <div className="catalog-gallery-dots">
+
           {safeImages.map(
             (
               _,
               index
             ) => (
               <button
-                key={index}
+                key={
+                  index
+                }
                 type="button"
-                className={`product-gallery-dot ${
+                className={`catalog-gallery-dot ${
                   index ===
                   current
                     ? "active"
                     : ""
                 }`}
                 aria-label={`View image ${
-                  index + 1
+                  index +
+                  1
                 } of ${productName}`}
                 aria-current={
                   index ===
@@ -344,13 +400,17 @@ export default function ProductImageSlider({
                     : undefined
                 }
                 onClick={() =>
-                  goTo(index)
+                  goTo(
+                    index
+                  )
                 }
               />
             )
           )}
+
         </div>
       )}
+
     </div>
   );
 }

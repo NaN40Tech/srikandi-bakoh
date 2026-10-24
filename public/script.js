@@ -1,151 +1,432 @@
-// === MOBILE MENU TOGGLE ===
+(() => {
+  "use strict";
 
-const menuToggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector("nav");
 
-if (menuToggle && nav) {
-  menuToggle.addEventListener("click", () => {
-    nav.classList.toggle("active");
+  /* ========================================
+     STATE
+  ======================================== */
 
-    const isOpen = nav.classList.contains("active");
+  const observedAnimations =
+    new WeakSet();
 
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-  });
+  let animationObserver =
+    null;
 
-  // Close mobile menu after clicking a navigation link
-  const navLinks = nav.querySelectorAll("a");
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      nav.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", "false");
-    });
-  });
+  /* ========================================
+     FIND ELEMENTS
+  ======================================== */
 
-  // Close mobile menu when clicking outside the header
-  document.addEventListener("click", (event) => {
-    const target = event.target;
+  function findElements(
+    root,
+    selector
+  ) {
+    const elements = [];
 
-    if (!(target instanceof Node)) {
+
+    if (
+      root instanceof Element &&
+      root.matches(selector)
+    ) {
+      elements.push(root);
+    }
+
+
+    if (
+      root.querySelectorAll
+    ) {
+      elements.push(
+        ...root.querySelectorAll(
+          selector
+        )
+      );
+    }
+
+
+    return elements;
+  }
+
+
+  /* ========================================
+     MOBILE MENU
+  ======================================== */
+
+  function getNavForToggle(
+    toggle
+  ) {
+    const header =
+      toggle.closest(
+        "header"
+      );
+
+
+    return (
+      header?.querySelector(
+        "nav"
+      ) ||
+      document.querySelector(
+        "nav"
+      )
+    );
+  }
+
+
+  function setMenuState(
+    toggle,
+    nav,
+    isOpen
+  ) {
+    nav.classList.toggle(
+      "active",
+      isOpen
+    );
+
+
+    toggle.setAttribute(
+      "aria-expanded",
+      String(
+        isOpen
+      )
+    );
+  }
+
+
+  function closeAllMenus() {
+    document
+      .querySelectorAll(
+        ".menu-toggle"
+      )
+      .forEach(
+        (
+          toggle
+        ) => {
+          const nav =
+            getNavForToggle(
+              toggle
+            );
+
+
+          if (
+            nav
+          ) {
+            setMenuState(
+              toggle,
+              nav,
+              false
+            );
+          }
+        }
+      );
+  }
+
+
+  /* ========================================
+     MENU CLICK
+  ======================================== */
+
+  document.addEventListener(
+    "click",
+    (
+      event
+    ) => {
+      const target =
+        event.target;
+
+
+      if (
+        !(
+          target instanceof
+          Element
+        )
+      ) {
+        return;
+      }
+
+
+      /* TOGGLE */
+
+      const toggle =
+        target.closest(
+          ".menu-toggle"
+        );
+
+
+      if (
+        toggle
+      ) {
+        const nav =
+          getNavForToggle(
+            toggle
+          );
+
+
+        if (
+          !nav
+        ) {
+          return;
+        }
+
+
+        event.preventDefault();
+
+
+        const isOpen =
+          nav.classList.contains(
+            "active"
+          );
+
+
+        setMenuState(
+          toggle,
+          nav,
+          !isOpen
+        );
+
+
+        return;
+      }
+
+
+      /* NAVIGATION LINK */
+
+      const navLink =
+        target.closest(
+          "nav a"
+        );
+
+
+      if (
+        navLink
+      ) {
+        closeAllMenus();
+
+        return;
+      }
+
+
+      /* OUTSIDE CLICK */
+
+      document
+        .querySelectorAll(
+          ".menu-toggle"
+        )
+        .forEach(
+          (
+            menuToggle
+          ) => {
+            const nav =
+              getNavForToggle(
+                menuToggle
+              );
+
+
+            if (
+              !nav ||
+              !nav.classList.contains(
+                "active"
+              )
+            ) {
+              return;
+            }
+
+
+            if (
+              !nav.contains(
+                target
+              ) &&
+              !menuToggle.contains(
+                target
+              )
+            ) {
+              setMenuState(
+                menuToggle,
+                nav,
+                false
+              );
+            }
+          }
+        );
+    }
+  );
+
+
+  /* ========================================
+     RESIZE
+  ======================================== */
+
+  window.addEventListener(
+    "resize",
+    () => {
+      if (
+        window.innerWidth >
+        768
+      ) {
+        closeAllMenus();
+      }
+    },
+    {
+      passive:
+        true,
+    }
+  );
+
+
+  /* ========================================
+     SCROLL ANIMATIONS
+  ======================================== */
+
+  function initScrollAnimations(
+    root
+  ) {
+    const elements =
+      findElements(
+        root,
+        ".animate"
+      );
+
+
+    if (
+      !(
+        "IntersectionObserver"
+        in window
+      )
+    ) {
+      elements.forEach(
+        (
+          element
+        ) => {
+          element.classList.add(
+            "show"
+          );
+        }
+      );
+
+
       return;
     }
 
-    if (!nav.contains(target) && !menuToggle.contains(target)) {
-      nav.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", "false");
+
+    if (
+      !animationObserver
+    ) {
+      animationObserver =
+        new IntersectionObserver(
+          (
+            entries,
+            observer
+          ) => {
+            entries.forEach(
+              (
+                entry
+              ) => {
+                if (
+                  entry.isIntersecting
+                ) {
+                  entry.target.classList.add(
+                    "show"
+                  );
+
+
+                  observer.unobserve(
+                    entry.target
+                  );
+                }
+              }
+            );
+          },
+          {
+            root:
+              null,
+
+            rootMargin:
+              "0px 0px -80px 0px",
+
+            threshold:
+              0,
+          }
+        );
     }
-  });
-
-  // Reset mobile menu when switching to desktop
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 768) {
-      nav.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", "false");
-    }
-  });
-}
 
 
-// === SLIDER HANDLER ===
-
-// Generic function for sliders (Why Choose Us & Products)
-function initSlider(trackSelector, leftBtnSelector, rightBtnSelector) {
-  const track = document.querySelector(trackSelector);
-  const btnLeft = document.querySelector(leftBtnSelector);
-  const btnRight = document.querySelector(rightBtnSelector);
-
-  if (!track || !btnLeft || !btnRight) return;
-
-  function updateArrows() {
-    const maxScroll = track.scrollWidth - track.clientWidth;
-
-    btnLeft.style.display =
-      track.scrollLeft <= 0 ? "none" : "block";
-
-    btnRight.style.display =
-      track.scrollLeft >= maxScroll - 1 ? "none" : "block";
-  }
-
-  btnLeft.addEventListener("click", () => {
-    track.scrollBy({
-      left: -300,
-      behavior: "smooth",
-    });
-  });
-
-  btnRight.addEventListener("click", () => {
-    track.scrollBy({
-      left: 300,
-      behavior: "smooth",
-    });
-  });
-
-  // Update arrows on scroll
-  track.addEventListener("scroll", updateArrows);
-
-  window.addEventListener("resize", updateArrows);
-
-  // Initial state
-  updateArrows();
-}
+    elements.forEach(
+      (
+        element
+      ) => {
+        if (
+          observedAnimations.has(
+            element
+          ) ||
+          element.classList.contains(
+            "show"
+          )
+        ) {
+          return;
+        }
 
 
-// === Scroll Animation ===
-
-const animatedElements = document.querySelectorAll(".animate");
-
-function animateOnScroll() {
-  animatedElements.forEach((el) => {
-    const rect = el.getBoundingClientRect();
-
-    if (rect.top < window.innerHeight - 80) {
-      el.classList.add("show");
-    }
-  });
-}
-
-window.addEventListener("scroll", animateOnScroll);
-window.addEventListener("load", animateOnScroll);
+        observedAnimations.add(
+          element
+        );
 
 
-// === CONTACT FORM PREFILL ===
-
-document.addEventListener("DOMContentLoaded", function () {
-  const params = new URLSearchParams(window.location.search);
-  const product = params.get("product");
-
-  if (product) {
-    const textarea = document.querySelector(
-      'textarea[name="message"]'
+        animationObserver.observe(
+          element
+        );
+      }
     );
-
-    if (textarea) {
-      textarea.value = `Dear Sales Team,
-
-I am interested in requesting a quotation for your product: ${product}.
-
-Could you kindly provide the pricing details, packaging options, and shipping information?
-
-Thank you in advance for your assistance.
-
-Best regards,
-
-[Your Name]`;
-    }
   }
-});
 
 
-// === INIT SLIDERS ===
+  /* ========================================
+     INITIALIZE
+  ======================================== */
 
-initSlider(
-  ".why-track",
-  ".why-slider .arrow.left",
-  ".why-slider .arrow.right"
-);
+  function initialize() {
+    document
+      .querySelectorAll(
+        ".menu-toggle"
+      )
+      .forEach(
+        (
+          toggle
+        ) => {
+          if (
+            !toggle.hasAttribute(
+              "aria-expanded"
+            )
+          ) {
+            toggle.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+          }
+        }
+      );
 
-initSlider(
-  ".product-track",
-  ".product-slider .arrow.left",
-  ".product-slider .arrow.right"
-);
+
+    initScrollAnimations(
+      document
+    );
+  }
+
+
+  /* ========================================
+     START
+  ======================================== */
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initialize,
+      {
+        once:
+          true,
+      }
+    );
+  } else {
+    initialize();
+  }
+})();
