@@ -27,6 +27,7 @@ const DEFAULT_MAX_SUBMISSIONS = 2;
 const DEFAULT_MAX_COMMODITIES = 1;
 const MIN_SPECIFICATION_WORDS = 2;
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_VIDEO_FILE_SIZE = 30 * 1024 * 1024;
 
 const ALLOWED_SUPPLIER_TYPES = new Set([
   "petani",
@@ -80,6 +81,12 @@ const ALLOWED_IMAGE_TYPES = new Set([
   "image/webp",
 ]);
 
+const ALLOWED_VIDEO_TYPES = new Set([
+  "video/mp4",
+  "video/quicktime",
+  "video/webm",
+]);
+
 /* ========================================
    TYPES
 ======================================== */
@@ -109,6 +116,7 @@ type ProductInput = {
     | "tidak";
   productPhoto: File;
   stockPhoto: File;
+  productVideo: File;
 };
 
 type ExistingSupplier = {
@@ -687,6 +695,38 @@ function validateImageFile(
   }
 }
 
+function validateVideoFile(
+  file: File,
+  label: string
+) {
+  if (
+    file.size <= 0
+  ) {
+    throw new Error(
+      `${label} belum tersedia.`
+    );
+  }
+
+  if (
+    file.size >
+    MAX_VIDEO_FILE_SIZE
+  ) {
+    throw new Error(
+      `${label} maksimal 30 MB.`
+    );
+  }
+
+  if (
+    !ALLOWED_VIDEO_TYPES.has(
+      file.type
+    )
+  ) {
+    throw new Error(
+      `${label} harus menggunakan format MP4, MOV, atau WEBM.`
+    );
+  }
+}
+
 /* ========================================
    PRODUCT PARSER
 ======================================== */
@@ -950,13 +990,18 @@ function parseProducts(
     }
 
     const productPhoto =
-      formData.get(
-        `${prefix}[productPhoto]`
-      );
+    formData.get(
+      `${prefix}[productPhoto]`
+    );
 
     const stockPhoto =
       formData.get(
         `${prefix}[stockPhoto]`
+      );
+
+    const productVideo =
+      formData.get(
+        `${prefix}[productVideo]`
       );
 
     if (
@@ -981,6 +1026,17 @@ function parseProducts(
       );
     }
 
+    if (
+    !(
+      productVideo instanceof
+      File
+    )
+  ) {
+    throw new Error(
+      `Video detail Produk ${productNumber} belum tersedia.`
+    );
+  }
+
     validateImageFile(
       productPhoto,
       `Foto produk ${productNumber}`
@@ -989,6 +1045,11 @@ function parseProducts(
     validateImageFile(
       stockPhoto,
       `Foto stok Produk ${productNumber}`
+    );
+
+    validateVideoFile(
+    productVideo,
+    `Video detail Produk ${productNumber}`
     );
 
     products.push({
@@ -1008,6 +1069,7 @@ function parseProducts(
           | "tidak",
       productPhoto,
       stockPhoto,
+      productVideo,
     });
   }
 
@@ -1489,6 +1551,7 @@ export async function POST(
         "Sample Available",
         "Product Photo",
         "Stock Photo",
+        "Product Video",
       ],
       "Products"
     );
@@ -1509,10 +1572,11 @@ export async function POST(
       );
 
     const uploadedProducts: {
-      product: ProductInput;
-      productPhotoId: string;
-      stockPhotoId: string;
-    }[] = [];
+    product: ProductInput;
+    productPhotoId: string;
+    stockPhotoId: string;
+    productVideoId: string;
+  }[] = [];
 
     for (
       let index = 0;
@@ -1562,13 +1626,41 @@ export async function POST(
             productFolderId,
         });
 
+        const productVideoBuffer =
+        Buffer.from(
+          await product.productVideo.arrayBuffer()
+        );
+
+      const videoExtension =
+        product.productVideo.type ===
+        "video/quicktime"
+          ? "mov"
+          : product.productVideo.type ===
+              "video/webm"
+            ? "webm"
+            : "mp4";
+
+      const uploadedProductVideo =
+        await uploadDriveFile({
+          buffer:
+            productVideoBuffer,
+          fileName:
+            `video-produk.${videoExtension}`,
+          mimeType:
+            product.productVideo.type,
+          folderId:
+            productFolderId,
+        });
+
       uploadedProducts.push({
-        product,
-        productPhotoId:
-          uploadedProductPhoto.id,
-        stockPhotoId:
-          uploadedStockPhoto.id,
-      });
+      product,
+      productPhotoId:
+        uploadedProductPhoto.id,
+      stockPhotoId:
+        uploadedStockPhoto.id,
+      productVideoId:
+        uploadedProductVideo.id,
+    });
     }
 
     /* ========================================
@@ -1652,6 +1744,7 @@ export async function POST(
             product,
             productPhotoId,
             stockPhotoId,
+            productVideoId,
           },
           index
         ) =>
@@ -1715,6 +1808,11 @@ export async function POST(
               "Stock Photo":
                 getDriveViewUrl(
                   stockPhotoId
+                ),
+
+              "Product Video":
+                getDriveViewUrl(
+                  productVideoId
                 ),
             }
           )

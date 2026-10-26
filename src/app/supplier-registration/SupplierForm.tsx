@@ -62,6 +62,9 @@ type SupplierFormProps = {
 const MAX_FILE_SIZE =
   5 * 1024 * 1024;
 
+const MAX_VIDEO_FILE_SIZE =
+  30 * 1024 * 1024;
+
 const MIN_SPECIFICATION_WORDS = 2;
 
 const productFormOptions: Partial<
@@ -981,6 +984,90 @@ export default function SupplierForm({
     }
   };
 
+  const handleVideoChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    const input =
+      event.target;
+
+    const file =
+      input.files?.[0];
+
+    setFileErrors(
+      (current) => {
+        const next = {
+          ...current,
+        };
+
+        delete next[
+          input.id
+        ];
+
+        return next;
+      }
+    );
+
+    if (!file) {
+      return;
+    }
+
+    const allowedTypes =
+      new Set([
+        "video/mp4",
+        "video/quicktime",
+        "video/webm",
+      ]);
+
+    if (
+      !allowedTypes.has(
+        file.type
+      )
+    ) {
+      input.value = "";
+
+      setFileErrors(
+        (current) => ({
+          ...current,
+          [input.id]:
+            "Format video harus MP4, MOV, atau WEBM.",
+        })
+      );
+
+      return;
+    }
+
+    if (
+      file.size <= 0
+    ) {
+      input.value = "";
+
+      setFileErrors(
+        (current) => ({
+          ...current,
+          [input.id]:
+            "File video tidak valid atau kosong.",
+        })
+      );
+
+      return;
+    }
+
+    if (
+      file.size >
+      MAX_VIDEO_FILE_SIZE
+    ) {
+      input.value = "";
+
+      setFileErrors(
+        (current) => ({
+          ...current,
+          [input.id]:
+            "Ukuran video maksimal 30 MB.",
+        })
+      );
+    }
+  };
+
   /* ========================================
      LOCATION VALIDATION
   ======================================== */
@@ -1119,15 +1206,16 @@ const validateProduct = (
   }
 
   const requiredNames = [
-    `products[${index}][commodity]`,
-    `products[${index}][productForm]`,
-    `products[${index}][stock]`,
-    `products[${index}][monthlyCapacity]`,
-    `products[${index}][price]`,
-    `products[${index}][specification]`,
-    `products[${index}][productPhoto]`,
-    `products[${index}][stockPhoto]`,
-  ];
+  `products[${index}][commodity]`,
+  `products[${index}][productForm]`,
+  `products[${index}][stock]`,
+  `products[${index}][monthlyCapacity]`,
+  `products[${index}][price]`,
+  `products[${index}][specification]`,
+  `products[${index}][productPhoto]`,
+  `products[${index}][stockPhoto]`,
+  `products[${index}][productVideo]`,
+];
 
   for (
     const name of
@@ -1531,6 +1619,10 @@ const validateProduct = (
           `stockPhoto-${id}`
         ];
 
+        delete next[
+          `productVideo-${id}`
+        ];
+
         return next;
       }
     );
@@ -1924,6 +2016,11 @@ const validateProduct = (
               `${prefix}[stockPhoto]`
             );
 
+          const productVideoField =
+            form.elements.namedItem(
+              `${prefix}[productVideo]`
+            );
+
           const sampleField =
             form.querySelector<HTMLInputElement>(
               `input[name="${prefix}[sampleAvailable]"]:checked`
@@ -1957,6 +2054,10 @@ const validateProduct = (
             !(
               stockPhotoField instanceof
               HTMLInputElement
+            ) ||
+            !(
+              productVideoField instanceof
+              HTMLInputElement
             )
           ) {
             throw new Error(
@@ -1974,6 +2075,10 @@ const validateProduct = (
             stockPhotoField
               .files?.[0];
 
+          const productVideo =
+            productVideoField
+              .files?.[0];
+
           if (
             !productPhoto ||
             !stockPhoto
@@ -1982,6 +2087,14 @@ const validateProduct = (
               `Foto Produk ${
                 index + 1
               } belum lengkap.`
+            );
+          }
+
+          if (!productVideo) {
+            throw new Error(
+              `Video detail Produk ${
+                index + 1
+              } belum tersedia.`
             );
           }
 
@@ -2070,6 +2183,12 @@ const validateProduct = (
             `${prefix}[stockPhoto]`,
             stockPhoto,
             stockPhoto.name
+          );
+
+          payload.append(
+            `${prefix}[productVideo]`,
+            productVideo,
+            productVideo.name
           );
         }
 
@@ -3066,6 +3185,49 @@ const validateProduct = (
                               </small>
                             )}
                           </div>
+
+                          <div className="supplier-field supplier-field-full">
+                          <label
+                            htmlFor={`productVideo-${item.id}`}
+                          >
+                            Video Detail Produk
+                            <span className="required">
+                              *
+                            </span>
+                          </label>
+
+                          <input
+                            type="file"
+                            id={`productVideo-${item.id}`}
+                            name={`products[${index}][productVideo]`}
+                            accept="video/mp4,video/quicktime,video/webm"
+                            onChange={
+                              handleVideoChange
+                            }
+                            required
+                          />
+
+                          <small>
+                          Rekam produk yang ditawarkan dari jarak dekat
+                          dengan pencahayaan yang cukup. Pastikan bentuk,
+                          warna, tekstur, dan kondisi produk terlihat jelas
+                          dari beberapa sisi. Gunakan video asli tanpa
+                          filter, durasi 10–30 detik. Format MP4, MOV,
+                          atau WEBM. Maksimal 30 MB.
+                        </small>
+
+                          {fileErrors[
+                            `productVideo-${item.id}`
+                          ] && (
+                            <small className="supplier-field-error">
+                              {
+                                fileErrors[
+                                  `productVideo-${item.id}`
+                                ]
+                              }
+                            </small>
+                          )}
+                        </div>
 
                           <div className="supplier-field supplier-field-full">
                           <fieldset
