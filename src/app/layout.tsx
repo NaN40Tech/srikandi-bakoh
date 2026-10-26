@@ -5,6 +5,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { Playfair_Display, Poppins } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "./globals.css";
 import "./styles.css";
@@ -560,6 +561,7 @@ export default function RootLayout({
         />
 
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
