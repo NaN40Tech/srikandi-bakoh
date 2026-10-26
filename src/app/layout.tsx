@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { Playfair_Display, Poppins } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 import "./globals.css";
 import "./styles.css";
@@ -31,19 +32,26 @@ const playfair = Playfair_Display({
 ======================================== */
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ptsrikandibakoh.com"),
+  metadataBase: new URL(
+    "https://ptsrikandibakoh.com"
+  ),
 
   title: {
-    default: "Indonesian Spices Supplier | PT Dwi Srikandi Bakoh",
-    template: "%s | PT Dwi Srikandi Bakoh",
+    default:
+      "Indonesian Spices Supplier | PT Dwi Srikandi Bakoh",
+    template:
+      "%s | PT Dwi Srikandi Bakoh",
   },
 
   description:
     "PT Dwi Srikandi Bakoh is an Indonesian supplier of spices and agricultural products, serving domestic and international buyers with reliable sourcing and clear communication.",
 
-  applicationName: "PT Dwi Srikandi Bakoh",
-  creator: "PT Dwi Srikandi Bakoh",
-  publisher: "PT Dwi Srikandi Bakoh",
+  applicationName:
+    "PT Dwi Srikandi Bakoh",
+  creator:
+    "PT Dwi Srikandi Bakoh",
+  publisher:
+    "PT Dwi Srikandi Bakoh",
 
   robots: {
     index: true,
@@ -59,7 +67,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "PT Dwi Srikandi Bakoh",
+    siteName:
+      "PT Dwi Srikandi Bakoh",
 
     title:
       "Indonesian Spices Supplier | PT Dwi Srikandi Bakoh",
@@ -549,6 +558,8 @@ export default function RootLayout({
           src="/script.js"
           strategy="afterInteractive"
         />
+
+        <Analytics />
       </body>
     </html>
   );
