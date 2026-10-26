@@ -1,0 +1,2421 @@
+/* ========================================
+   SUPPLIER REGISTRATION
+======================================== */
+
+.supplier-page {
+  min-height: 100vh;
+
+  background:
+    var(--cream);
+}
+
+
+/* ========================================
+   SUPPLIER HERO
+======================================== */
+
+.supplier-hero {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 390px;
+
+  padding:
+    9rem
+    1.5rem
+    5rem;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green-900) 0%,
+      var(--green-800) 55%,
+      var(--green-700) 100%
+    );
+
+  color: #ffffff;
+
+  text-align: center;
+
+  isolation: isolate;
+}
+
+.supplier-hero::before {
+  content: "";
+
+  position: absolute;
+
+  top: -160px;
+  right: -120px;
+
+  width: 420px;
+  height: 420px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212, 182, 115, 0.17),
+      transparent 68%
+    );
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.supplier-hero::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -180px;
+  left: -120px;
+
+  width: 430px;
+  height: 430px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(232, 212, 160, 0.1),
+      transparent 68%
+    );
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+/* ========================================
+   SUPPLIER HERO CONTENT
+======================================== */
+
+.supplier-hero-inner {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  max-width: 800px;
+
+  margin: 0 auto;
+}
+
+.supplier-eyebrow {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 1rem;
+
+  padding:
+    0.42rem
+    0.9rem;
+
+  background:
+    rgba(255, 255, 255, 0.06);
+
+  color:
+    var(--accent-light);
+
+  border:
+    1px solid
+    rgba(232, 212, 160, 0.38);
+
+  border-radius: 999px;
+
+  font-size: 0.74rem;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.11em;
+
+  text-transform: uppercase;
+}
+
+.supplier-hero h1 {
+  margin:
+    0
+    0
+    1rem;
+
+  color: #ffffff;
+
+  font-family:
+    var(--font-playfair),
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(
+      2.3rem,
+      5vw,
+      3.6rem
+    );
+
+  font-weight: 900;
+
+  line-height: 1.15;
+
+  letter-spacing:
+    -0.025em;
+}
+
+.supplier-hero p {
+  max-width: 680px;
+
+  margin:
+    0
+    auto;
+
+  color:
+    rgba(255, 255, 255, 0.82);
+
+  font-size: 0.98rem;
+
+  line-height: 1.8;
+}
+
+
+/* ========================================
+   SUPPLIER CONTENT
+======================================== */
+
+.supplier-content {
+  position: relative;
+
+  padding:
+    4.5rem
+    1.5rem
+    6rem;
+
+  background:
+    var(--cream);
+}
+
+.supplier-form-container {
+  width: 100%;
+
+  max-width: 920px;
+
+  margin: 0 auto;
+}
+
+
+/* ========================================
+   SUPPLIER INTRODUCTION
+======================================== */
+
+.supplier-intro {
+  max-width: 700px;
+
+  margin:
+    0
+    auto
+    2.5rem;
+
+  text-align: center;
+}
+
+.supplier-intro > span {
+  display: block;
+
+  margin-bottom: 0.45rem;
+
+  color:
+    #765d22;
+
+  font-size: 0.73rem;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.1em;
+
+  text-transform: uppercase;
+}
+
+.supplier-intro h2 {
+  margin:
+    0
+    0
+    0.7rem;
+
+  color:
+    var(--green-800);
+
+  font-family:
+    var(--font-playfair),
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(
+      1.9rem,
+      4vw,
+      2.5rem
+    );
+
+  line-height: 1.2;
+}
+
+.supplier-intro p {
+  max-width: 600px;
+
+  margin: 0 auto;
+
+  color:
+    var(--muted);
+
+  font-size: 0.91rem;
+
+  line-height: 1.75;
+}
+
+
+/* ========================================
+   SUPPLIER FORM
+======================================== */
+
+.supplier-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.5rem;
+}
+
+
+/* ========================================
+   SUPPLIER FORM SECTION
+======================================== */
+
+.supplier-form-section {
+  padding:
+    2rem;
+
+  background:
+    var(--surface);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius: 18px;
+
+  box-shadow:
+    var(--card-shadow);
+}
+
+
+/* ========================================
+   SUPPLIER SECTION HEADING
+======================================== */
+
+.supplier-section-heading {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 1rem;
+
+  margin-bottom: 1.8rem;
+
+  padding-bottom: 1.35rem;
+
+  border-bottom:
+    1px solid
+    rgba(212, 182, 115, 0.22);
+}
+
+.supplier-section-heading > span {
+  display: flex;
+
+  flex:
+    0
+    0
+    42px;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green-700),
+      var(--green-800)
+    );
+
+  color:
+    var(--accent-light);
+
+  border-radius: 12px;
+
+  font-size: 0.78rem;
+
+  font-weight: 700;
+}
+
+.supplier-section-heading h3 {
+  margin:
+    0
+    0
+    0.25rem;
+
+  color:
+    var(--green-800);
+
+  font-size: 1.08rem;
+
+  font-weight: 600;
+
+  line-height: 1.4;
+}
+
+.supplier-section-heading p {
+  margin: 0;
+
+  color:
+    var(--muted);
+
+  font-size: 0.82rem;
+
+  line-height: 1.6;
+}
+
+
+/* ========================================
+   SUPPLIER FIELD GRID
+======================================== */
+
+.supplier-fields {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap:
+    1.35rem
+    1.5rem;
+}
+
+.supplier-field {
+  min-width: 0;
+}
+
+.supplier-field-full {
+  grid-column:
+    1 / -1;
+}
+
+
+/* ========================================
+   SUPPLIER LABELS
+======================================== */
+
+.supplier-field label {
+  display: block;
+
+  margin-bottom: 0.45rem;
+
+  color:
+    var(--text);
+
+  font-size: 0.84rem;
+
+  font-weight: 600;
+
+  line-height: 1.5;
+}
+
+.required {
+  margin-left: 3px;
+
+  color:
+    #a64035;
+}
+
+
+/* ========================================
+   SUPPLIER INPUTS
+======================================== */
+
+.supplier-field input,
+.supplier-field select,
+.supplier-field textarea {
+  width: 100%;
+
+  padding:
+    0.78rem
+    0.9rem;
+
+  background:
+    #ffffff;
+
+  color:
+    var(--text);
+
+  border:
+    1px solid
+    rgba(15, 64, 32, 0.17);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  font-size: 0.88rem;
+
+  line-height: 1.5;
+
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.supplier-field input {
+  min-height: 47px;
+}
+
+.supplier-field select {
+  min-height: 47px;
+
+  cursor: pointer;
+}
+
+.supplier-field textarea {
+  min-height: 115px;
+
+  resize: vertical;
+}
+
+
+/* ========================================
+   SUPPLIER PLACEHOLDER
+======================================== */
+
+.supplier-field input::placeholder,
+.supplier-field textarea::placeholder {
+  color:
+    #969c96;
+
+  opacity: 1;
+}
+
+
+/* ========================================
+   SUPPLIER INPUT HOVER
+======================================== */
+
+.supplier-field input:hover,
+.supplier-field select:hover,
+.supplier-field textarea:hover {
+  border-color:
+    rgba(15, 64, 32, 0.32);
+}
+
+
+/* ========================================
+   SUPPLIER INPUT FOCUS
+======================================== */
+
+.supplier-field input:focus,
+.supplier-field select:focus,
+.supplier-field textarea:focus {
+  border-color:
+    var(--green-700);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(26, 98, 50, 0.09);
+}
+
+
+/* ========================================
+   SUPPLIER READ ONLY
+======================================== */
+
+.supplier-field input[readonly] {
+  background:
+    var(--cream-dark);
+
+  color:
+    var(--muted);
+
+  cursor:
+    not-allowed;
+}
+
+
+/* ========================================
+   SUPPLIER HELP TEXT
+======================================== */
+
+.supplier-field small {
+  display: block;
+
+  margin-top: 0.4rem;
+
+  color:
+    var(--muted);
+
+  font-size: 0.73rem;
+
+  line-height: 1.55;
+}
+
+
+/* ========================================
+   SUPPLIER SELECT
+======================================== */
+
+.supplier-field select {
+  appearance: none;
+
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent 50%,
+      var(--green-700) 50%
+    ),
+    linear-gradient(
+      135deg,
+      var(--green-700) 50%,
+      transparent 50%
+    );
+
+  background-position:
+    calc(100% - 18px)
+    calc(50% - 2px),
+    calc(100% - 13px)
+    calc(50% - 2px);
+
+  background-size:
+    5px 5px,
+    5px 5px;
+
+  background-repeat:
+    no-repeat;
+
+  padding-right:
+    2.5rem;
+}
+
+
+/* ========================================
+   SUPPLIER SUBMIT BUTTON
+======================================== */
+
+.supplier-submit {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 50px;
+
+  padding:
+    0.8rem
+    1.7rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green-700),
+      var(--green-800)
+    );
+
+  color:
+    #ffffff;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  box-shadow:
+    0 8px 20px
+    rgba(15, 64, 32, 0.16);
+
+  font-size: 0.88rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.supplier-submit:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 11px 24px
+    rgba(15, 64, 32, 0.2);
+}
+
+
+/* ========================================
+   SUPPLIER TABLET / MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+  .supplier-hero {
+    min-height: 350px;
+
+    padding:
+      7.5rem
+      1rem
+      4rem;
+  }
+
+  .supplier-hero h1 {
+    font-size:
+      clamp(
+        2rem,
+        8vw,
+        2.8rem
+      );
+  }
+
+  .supplier-hero p {
+    font-size: 0.91rem;
+  }
+
+  .supplier-content {
+    padding:
+      3.5rem
+      1rem
+      4.5rem;
+  }
+
+  .supplier-form-section {
+    padding:
+      1.5rem;
+  }
+
+  .supplier-fields {
+    grid-template-columns:
+      1fr;
+
+    gap: 1.2rem;
+  }
+
+  .supplier-field-full {
+    grid-column: auto;
+  }
+}
+
+
+/* ========================================
+   SUPPLIER SMALL MOBILE
+======================================== */
+
+@media (max-width: 480px) {
+  .supplier-hero {
+    min-height: 330px;
+
+    padding:
+      7rem
+      1rem
+      3.5rem;
+  }
+
+  .supplier-eyebrow {
+    font-size: 0.67rem;
+  }
+
+  .supplier-hero h1 {
+    font-size: 2rem;
+  }
+
+  .supplier-form-section {
+    padding:
+      1.3rem
+      1.1rem;
+
+    border-radius: 15px;
+  }
+
+  .supplier-section-heading {
+    gap: 0.8rem;
+  }
+
+  .supplier-section-heading > span {
+    flex-basis: 38px;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 10px;
+  }
+
+  .supplier-field input,
+  .supplier-field select,
+  .supplier-field textarea {
+    font-size: 0.84rem;
+  }
+}
+
+/* ========================================
+   SUPPLIER PRODUCTS
+======================================== */
+
+.supplier-products {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.5rem;
+}
+
+.supplier-product-card {
+  padding:
+    1.5rem;
+
+  background:
+    var(--cream);
+
+  border:
+    1px solid
+    rgba(212, 182, 115, 0.3);
+
+  border-radius: 15px;
+}
+
+
+/* ========================================
+   PRODUCT HEADER
+======================================== */
+
+.supplier-product-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin-bottom: 1.5rem;
+
+  padding-bottom: 1rem;
+
+  border-bottom:
+    1px solid
+    rgba(212, 182, 115, 0.22);
+}
+
+.supplier-product-number {
+  display: block;
+
+  margin-bottom: 0.15rem;
+
+  color:
+    #765d22;
+
+  font-size: 0.7rem;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.08em;
+
+  text-transform: uppercase;
+}
+
+.supplier-product-header h4 {
+  margin: 0;
+
+  color:
+    var(--green-800);
+
+  font-size: 1rem;
+
+  font-weight: 600;
+}
+
+
+/* ========================================
+   REMOVE PRODUCT
+======================================== */
+
+.supplier-remove-product {
+  flex-shrink: 0;
+
+  padding:
+    0.45rem
+    0.8rem;
+
+  background:
+    #ffffff;
+
+  color:
+    #9b3e35;
+
+  border:
+    1px solid
+    rgba(155, 62, 53, 0.2);
+
+  border-radius: 999px;
+
+  font-size: 0.74rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.supplier-remove-product:hover {
+  background:
+    #fff5f3;
+
+  border-color:
+    rgba(155, 62, 53, 0.4);
+}
+
+
+/* ========================================
+   INPUT WITH UNIT
+======================================== */
+
+.supplier-input-unit {
+  display: flex;
+
+  align-items: stretch;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  background:
+    #ffffff;
+
+  border:
+    1px solid
+    rgba(15, 64, 32, 0.17);
+
+  border-radius: 10px;
+
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.supplier-input-unit:focus-within {
+  border-color:
+    var(--green-700);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(26, 98, 50, 0.09);
+}
+
+.supplier-input-unit input {
+  flex: 1;
+
+  min-width: 0;
+
+  border: 0 !important;
+
+  border-radius: 0 !important;
+
+  box-shadow:
+    none !important;
+}
+
+.supplier-input-unit > span {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  padding:
+    0
+    0.85rem;
+
+  background:
+    var(--cream-dark);
+
+  color:
+    var(--muted);
+
+  border-left:
+    1px solid
+    rgba(15, 64, 32, 0.1);
+
+  font-size: 0.75rem;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+/* ========================================
+   PRICE INPUT
+======================================== */
+
+.supplier-price-input > span:first-child {
+  border-right:
+    1px solid
+    rgba(15, 64, 32, 0.1);
+
+  border-left: 0;
+}
+
+.supplier-price-input > span:last-child {
+  border-left:
+    1px solid
+    rgba(15, 64, 32, 0.1);
+}
+
+
+/* ========================================
+   FILE INPUT
+======================================== */
+
+.supplier-field input[type="file"] {
+  min-height: 47px;
+
+  padding:
+    0.55rem;
+
+  background:
+    #ffffff;
+
+  cursor: pointer;
+}
+
+.supplier-field input[type="file"]::file-selector-button {
+  margin-right: 0.8rem;
+
+  padding:
+    0.5rem
+    0.75rem;
+
+  background:
+    var(--cream-dark);
+
+  color:
+    var(--green-800);
+
+  border:
+    1px solid
+    rgba(15, 64, 32, 0.12);
+
+  border-radius: 7px;
+
+  font-size: 0.76rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+/* ========================================
+   DISABLED SELECT
+======================================== */
+
+.supplier-field select:disabled {
+  background-color:
+    var(--cream-dark);
+
+  color:
+    #8c918c;
+
+  cursor:
+    not-allowed;
+
+  opacity: 0.8;
+}
+
+
+/* ========================================
+   SAMPLE FIELD
+======================================== */
+
+.supplier-sample-field {
+  margin: 0;
+
+  padding: 0;
+
+  border: 0;
+}
+
+.supplier-sample-field legend {
+  margin-bottom: 0.75rem;
+
+  color:
+    var(--text);
+
+  font-size: 0.84rem;
+
+  font-weight: 600;
+
+  line-height: 1.6;
+}
+
+.supplier-radio-group {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 0.75rem;
+}
+
+.supplier-radio-option {
+  display: flex !important;
+
+  align-items: center;
+
+  gap: 0.55rem;
+
+  min-width: 150px;
+
+  margin: 0 !important;
+
+  padding:
+    0.75rem
+    1rem;
+
+  background:
+    #ffffff;
+
+  border:
+    1px solid
+    rgba(15, 64, 32, 0.14);
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.supplier-radio-option:hover {
+  border-color:
+    rgba(15, 64, 32, 0.3);
+}
+
+.supplier-radio-option input {
+  width: 17px !important;
+  height: 17px !important;
+
+  min-height: 0 !important;
+
+  margin: 0;
+
+  padding: 0;
+
+  accent-color:
+    var(--green-700);
+}
+
+.supplier-radio-option span {
+  color:
+    var(--text);
+
+  font-size: 0.82rem;
+
+  font-weight: 500;
+}
+
+
+/* ========================================
+   ADD PRODUCT
+======================================== */
+
+.supplier-add-product-wrap {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 0.6rem;
+
+  margin-top: 1.5rem;
+}
+
+.supplier-add-product {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.55rem;
+
+  min-height: 45px;
+
+  padding:
+    0.65rem
+    1.25rem;
+
+  background:
+    #ffffff;
+
+  color:
+    var(--green-800);
+
+  border:
+    1px solid
+    rgba(15, 64, 32, 0.24);
+
+  border-radius: 999px;
+
+  font-size: 0.82rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.supplier-add-product > span {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  background:
+    var(--green-700);
+
+  color:
+    #ffffff;
+
+  border-radius: 50%;
+
+  font-size: 1rem;
+
+  line-height: 1;
+}
+
+.supplier-add-product:hover:not(:disabled) {
+  background:
+    var(--cream-dark);
+
+  border-color:
+    var(--green-700);
+
+  transform:
+    translateY(-1px);
+}
+
+.supplier-add-product:disabled {
+  cursor:
+    not-allowed;
+
+  opacity: 0.5;
+}
+
+.supplier-add-product-wrap small {
+  color:
+    var(--muted);
+
+  font-size: 0.72rem;
+}
+
+
+/* ========================================
+   CONFIRMATION
+======================================== */
+
+.supplier-confirmation {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.4rem;
+}
+
+.supplier-checkbox-option {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 0.7rem;
+
+  margin: 0 !important;
+
+  color:
+    var(--text);
+
+  font-size: 0.82rem;
+
+  font-weight: 500;
+
+  line-height: 1.65;
+
+  cursor: pointer;
+}
+
+.supplier-checkbox-option input {
+  flex:
+    0
+    0
+    18px;
+
+  width: 18px !important;
+  height: 18px !important;
+
+  min-height: 0 !important;
+
+  margin-top: 0.2rem;
+
+  padding: 0;
+
+  accent-color:
+    var(--green-700);
+}
+
+
+/* ========================================
+   REVIEW NOTICE
+======================================== */
+
+.supplier-review-notice {
+  padding:
+    1.15rem
+    1.25rem;
+
+  background:
+    var(--cream-dark);
+
+  border:
+    1px solid
+    rgba(212, 182, 115, 0.3);
+
+  border-left:
+    4px solid
+    var(--accent);
+
+  border-radius: 10px;
+}
+
+.supplier-review-notice strong {
+  display: block;
+
+  margin-bottom: 0.35rem;
+
+  color:
+    var(--green-800);
+
+  font-size: 0.85rem;
+}
+
+.supplier-review-notice p {
+  margin: 0;
+
+  color:
+    var(--muted);
+
+  font-size: 0.78rem;
+
+  line-height: 1.7;
+}
+
+
+/* ========================================
+   SUBMIT BUTTON UPDATE
+======================================== */
+
+.supplier-confirmation
+.supplier-submit {
+  align-self: flex-start;
+
+  min-width: 230px;
+}
+
+
+/* ========================================
+   SUPPLIER PRODUCT MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+  .supplier-product-card {
+    padding:
+      1.25rem;
+  }
+
+  .supplier-product-header {
+    align-items:
+      flex-start;
+  }
+
+  .supplier-input-unit > span {
+    padding:
+      0
+      0.65rem;
+
+    font-size: 0.7rem;
+  }
+
+  .supplier-radio-group {
+    flex-direction:
+      column;
+  }
+
+  .supplier-radio-option {
+    width: 100%;
+  }
+
+  .supplier-confirmation
+  .supplier-submit {
+    align-self: stretch;
+
+    width: 100%;
+  }
+}
+
+
+/* ========================================
+   SUPPLIER PRODUCT SMALL MOBILE
+======================================== */
+
+@media (max-width: 480px) {
+  .supplier-product-card {
+    padding:
+      1rem;
+
+    border-radius: 12px;
+  }
+
+  .supplier-product-header {
+    gap: 0.7rem;
+  }
+
+  .supplier-remove-product {
+    padding:
+      0.4rem
+      0.65rem;
+  }
+}
+
+/* ========================================
+   SUPPLIER STEP ACTIONS
+======================================== */
+
+.supplier-step-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  margin-top: 1.7rem;
+}
+
+
+/* ========================================
+   SUPPLIER FORM MESSAGES
+======================================== */
+
+.supplier-form-message {
+  margin-top: 1.25rem;
+
+  padding:
+    0.9rem
+    1rem;
+
+  border-radius: 10px;
+
+  font-size: 0.8rem;
+
+  line-height: 1.65;
+}
+
+.supplier-form-message-error {
+  background:
+    #fff5f3;
+
+  color:
+    #8a342c;
+
+  border:
+    1px solid
+    rgba(155, 62, 53, 0.2);
+}
+
+.supplier-form-message-success {
+  margin-top: 0;
+
+  background:
+    #f1f8f3;
+
+  color:
+    var(--green-800);
+
+  border:
+    1px solid
+    rgba(26, 98, 50, 0.16);
+}
+
+
+/* ========================================
+   FIELD ERROR
+======================================== */
+
+.supplier-field-error {
+  color:
+    #9b3e35 !important;
+
+  font-weight: 600;
+}
+
+
+/* ========================================
+   DISABLED INPUTS
+======================================== */
+
+.supplier-field input:disabled,
+.supplier-field select:disabled,
+.supplier-field textarea:disabled {
+  background-color:
+    var(--cream-dark);
+
+  color:
+    #7f857f;
+
+  cursor:
+    not-allowed;
+
+  opacity: 0.82;
+}
+
+
+/* ========================================
+   SECONDARY BUTTON
+======================================== */
+
+.supplier-secondary-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 46px;
+
+  padding:
+    0.7rem
+    1.25rem;
+
+  background:
+    #ffffff;
+
+  color:
+    var(--green-800);
+
+  border:
+    1px solid
+    rgba(15, 64, 32, 0.24);
+
+  border-radius: 999px;
+
+  font-size: 0.82rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.supplier-secondary-button:hover:not(:disabled) {
+  background:
+    var(--cream-dark);
+
+  border-color:
+    var(--green-700);
+
+  transform:
+    translateY(-1px);
+}
+
+.supplier-secondary-button:disabled {
+  cursor:
+    not-allowed;
+
+  opacity: 0.55;
+}
+
+
+/* ========================================
+   CERTIFICATION
+======================================== */
+
+.supplier-certification-field {
+  margin: 0;
+
+  padding: 0;
+
+  border: 0;
+}
+
+.supplier-certification-field legend {
+  margin-bottom: 0.3rem;
+
+  color:
+    var(--text);
+
+  font-size: 0.84rem;
+
+  font-weight: 600;
+
+  line-height: 1.5;
+}
+
+.supplier-field-description {
+  margin:
+    0
+    0
+    0.8rem;
+
+  color:
+    var(--muted);
+
+  font-size: 0.76rem;
+
+  line-height: 1.6;
+}
+
+.supplier-checkbox-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 0.7rem;
+}
+
+.supplier-checkbox-card {
+  display: flex !important;
+
+  align-items: center;
+
+  gap: 0.55rem;
+
+  min-height: 45px;
+
+  margin: 0 !important;
+
+  padding:
+    0.7rem
+    0.85rem;
+
+  background:
+    #ffffff;
+
+  border:
+    1px solid
+    rgba(15, 64, 32, 0.14);
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.supplier-checkbox-card:hover {
+  background:
+    #fdfbf7;
+
+  border-color:
+    rgba(15, 64, 32, 0.3);
+}
+
+.supplier-checkbox-card:has(input:checked) {
+  background:
+    #f1f8f3;
+
+  border-color:
+    rgba(26, 98, 50, 0.38);
+}
+
+.supplier-checkbox-card:has(input:disabled) {
+  opacity: 0.48;
+
+  cursor:
+    not-allowed;
+}
+
+.supplier-checkbox-card input {
+  flex:
+    0
+    0
+    17px;
+
+  width: 17px !important;
+  height: 17px !important;
+
+  min-height: 0 !important;
+
+  margin: 0;
+
+  padding: 0;
+
+  accent-color:
+    var(--green-700);
+}
+
+.supplier-checkbox-card span {
+  color:
+    var(--text);
+
+  font-size: 0.78rem;
+
+  font-weight: 500;
+
+  line-height: 1.45;
+}
+
+
+/* ========================================
+   OTHER CERTIFICATION
+======================================== */
+
+.supplier-other-certification {
+  max-width: 520px;
+
+  margin-top: 1rem;
+}
+
+.supplier-other-certification label {
+  display: block;
+
+  margin-bottom: 0.45rem;
+
+  color:
+    var(--text);
+
+  font-size: 0.82rem;
+
+  font-weight: 600;
+}
+
+.supplier-other-certification input {
+  width: 100%;
+
+  min-height: 47px;
+
+  padding:
+    0.78rem
+    0.9rem;
+
+  background:
+    #ffffff;
+
+  color:
+    var(--text);
+
+  border:
+    1px solid
+    rgba(15, 64, 32, 0.17);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  font-size: 0.86rem;
+}
+
+.supplier-other-certification input:focus {
+  border-color:
+    var(--green-700);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(26, 98, 50, 0.09);
+}
+
+
+/* ========================================
+   CONFIRMATION MODAL
+======================================== */
+
+.supplier-modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 3000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
+
+  background:
+    rgba(5, 28, 14, 0.68);
+
+  backdrop-filter:
+    blur(4px);
+}
+
+.supplier-modal {
+  width: 100%;
+
+  max-width: 520px;
+
+  padding:
+    2rem;
+
+  background:
+    #ffffff;
+
+  border:
+    1px solid
+    rgba(212, 182, 115, 0.35);
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 24px 70px
+    rgba(0, 0, 0, 0.24);
+}
+
+.supplier-modal-label {
+  display: inline-block;
+
+  margin-bottom: 0.5rem;
+
+  color:
+    #765d22;
+
+  font-size: 0.7rem;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.1em;
+
+  text-transform: uppercase;
+}
+
+.supplier-modal h3 {
+  margin:
+    0
+    0
+    0.75rem;
+
+  color:
+    var(--green-800);
+
+  font-family:
+    var(--font-playfair),
+    Georgia,
+    serif;
+
+  font-size: 1.65rem;
+
+  line-height: 1.25;
+}
+
+.supplier-modal p {
+  margin:
+    0
+    0
+    1.5rem;
+
+  color:
+    var(--muted);
+
+  font-size: 0.86rem;
+
+  line-height: 1.75;
+}
+
+.supplier-modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  flex-wrap: wrap;
+
+  gap: 0.75rem;
+}
+
+
+/* ========================================
+   BUTTON DISABLED
+======================================== */
+
+.supplier-submit:disabled {
+  cursor:
+    not-allowed;
+
+  opacity: 0.58;
+
+  transform: none;
+}
+
+
+/* ========================================
+   SUPPLIER NEW MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+  .supplier-checkbox-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+  .supplier-step-actions {
+    align-items:
+      stretch;
+
+    flex-direction:
+      column;
+  }
+
+  .supplier-step-actions
+  .supplier-submit,
+  .supplier-step-actions
+  .supplier-secondary-button {
+    width: 100%;
+  }
+
+  .supplier-modal {
+    padding:
+      1.5rem;
+  }
+
+  .supplier-modal-actions {
+    flex-direction:
+      column-reverse;
+  }
+
+  .supplier-modal-actions
+  .supplier-submit,
+  .supplier-modal-actions
+  .supplier-secondary-button {
+    width: 100%;
+  }
+}
+
+
+/* ========================================
+   SUPPLIER NEW SMALL MOBILE
+======================================== */
+
+@media (max-width: 480px) {
+  .supplier-checkbox-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  .supplier-modal {
+    padding:
+      1.35rem;
+
+    border-radius: 15px;
+  }
+
+  .supplier-modal h3 {
+    font-size: 1.45rem;
+  }
+}
+
+/* ========================================
+   THANK YOU PAGE
+======================================== */
+
+.supplier-thank-you {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 7rem 1.5rem 4rem;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(212, 182, 115, 0.1),
+      transparent 32%
+    ),
+    linear-gradient(
+      145deg,
+      var(--green-900) 0%,
+      var(--green-800) 100%
+    );
+}
+
+/* ========================================
+   CONTAINER
+======================================== */
+
+.supplier-thank-you-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 650px;
+}
+
+/* ========================================
+   CARD
+======================================== */
+
+.supplier-thank-you-card {
+  position: relative;
+  width: 100%;
+  padding: 2.75rem 3.25rem 2rem;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid rgba(212, 182, 115, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transform: translateY(14px);
+  animation:
+    supplierThankYouEnter 500ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
+}
+
+.supplier-thank-you-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 72px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 0 0 8px 8px;
+  transform: translateX(-50%);
+}
+
+/* ========================================
+   SUCCESS ICON
+======================================== */
+
+.supplier-success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 1.1rem;
+  color: var(--green-700);
+  background: rgba(26, 98, 50, 0.07);
+  border: 1px solid rgba(26, 98, 50, 0.15);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.8);
+  animation:
+    supplierSuccessEnter 420ms
+    cubic-bezier(0.34, 1.56, 0.64, 1)
+    180ms forwards;
+}
+
+.supplier-success-icon svg {
+  display: block;
+  width: 27px;
+  height: 27px;
+}
+
+.supplier-success-check {
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+  animation:
+    supplierCheckDraw 420ms
+    ease-out
+    470ms forwards;
+}
+
+/* ========================================
+   CONTENT
+======================================== */
+
+.supplier-thank-you-content {
+  width: 100%;
+  text-align: center;
+}
+
+.supplier-thank-you-label {
+  display: block;
+  margin: 0 0 0.45rem;
+  color: #806728;
+  font-size: 0.67rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ========================================
+   TITLE
+======================================== */
+
+.supplier-thank-you-card h1 {
+  margin: 0;
+  color: var(--green-800);
+  font-family:
+    var(--font-playfair),
+    Georgia,
+    serif;
+  font-size: clamp(2.15rem, 5vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* ========================================
+   LEAD
+======================================== */
+
+.supplier-thank-you-lead {
+  max-width: 475px;
+  margin: 0.8rem auto 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+/* ========================================
+   DIVIDER
+======================================== */
+
+.supplier-thank-you-divider {
+  width: 100%;
+  height: 1px;
+  margin: 1.6rem 0;
+  background: rgba(15, 64, 32, 0.1);
+}
+
+/* ========================================
+   NEXT STEP
+======================================== */
+
+.supplier-thank-you-info {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.supplier-thank-you-info h2 {
+  margin: 0 0 0.65rem;
+  color: var(--green-800);
+  font-family:
+    var(--font-playfair),
+    Georgia,
+    serif;
+  font-size: 1.18rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.supplier-thank-you-info > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.75;
+}
+
+/* ========================================
+   NOTE
+======================================== */
+
+.supplier-thank-you-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8rem 0.9rem;
+  color: var(--green-800);
+  background: rgba(26, 98, 50, 0.045);
+  border: 1px solid rgba(26, 98, 50, 0.1);
+  border-radius: 10px;
+}
+
+.supplier-thank-you-note svg {
+  flex: 0 0 auto;
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin-top: 0.08rem;
+}
+
+.supplier-thank-you-note p {
+  margin: 0;
+  color: var(--green-800);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+/* ========================================
+   BUTTON
+======================================== */
+
+.supplier-thank-you-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 46px;
+  margin-top: 1.6rem;
+  padding: 0.75rem 1.4rem;
+  color: #ffffff;
+  background: var(--green-700);
+  border: 1px solid var(--green-700);
+  border-radius: 999px;
+  box-shadow: 0 7px 18px rgba(26, 98, 50, 0.14);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.supplier-thank-you-button svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  transition: transform 160ms ease;
+}
+
+.supplier-thank-you-button:hover {
+  background: var(--green-800);
+  border-color: var(--green-800);
+  box-shadow: 0 9px 20px rgba(26, 98, 50, 0.18);
+  transform: translateY(-1px);
+}
+
+.supplier-thank-you-button:hover svg {
+  transform: translateX(2px);
+}
+
+/* ========================================
+   COMPANY
+======================================== */
+
+.supplier-thank-you-company {
+  margin: 1.45rem 0 0;
+  padding-top: 1.15rem;
+  color: #949994;
+  border-top: 1px solid rgba(15, 64, 32, 0.07);
+  font-size: 0.64rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ========================================
+   ANIMATION
+======================================== */
+
+@keyframes supplierThankYouEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes supplierSuccessEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes supplierCheckDraw {
+  from {
+    stroke-dashoffset: 26;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .supplier-thank-you-card,
+  .supplier-success-icon,
+  .supplier-success-check {
+    animation: none;
+  }
+
+  .supplier-thank-you-card,
+  .supplier-success-icon {
+    opacity: 1;
+    transform: none;
+  }
+
+  .supplier-success-check {
+    stroke-dashoffset: 0;
+  }
+
+  .supplier-thank-you-button,
+  .supplier-thank-you-button svg {
+    transition: none;
+  }
+}
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 768px) {
+  .supplier-thank-you {
+    padding: 6.5rem 1.25rem 3rem;
+  }
+
+  .supplier-thank-you-container {
+    max-width: 600px;
+  }
+
+  .supplier-thank-you-card {
+    padding: 2.5rem 2.25rem 1.8rem;
+    border-radius: 17px;
+  }
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 480px) {
+  .supplier-thank-you {
+    min-height: 100svh;
+    padding: 6rem 1rem 2rem;
+  }
+
+  .supplier-thank-you-card {
+    padding: 2.1rem 1.25rem 1.5rem;
+    border-radius: 15px;
+  }
+
+  .supplier-success-icon {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 1rem;
+  }
+
+  .supplier-success-icon svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .supplier-thank-you-label {
+    margin-bottom: 0.4rem;
+    font-size: 0.62rem;
+  }
+
+  .supplier-thank-you-card h1 {
+    font-size: 2.05rem;
+  }
+
+  .supplier-thank-you-lead {
+    margin-top: 0.7rem;
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+
+  .supplier-thank-you-divider {
+    margin: 1.35rem 0;
+  }
+
+  .supplier-thank-you-info h2 {
+    margin-bottom: 0.55rem;
+    font-size: 1.08rem;
+  }
+
+  .supplier-thank-you-info > p {
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+
+  .supplier-thank-you-note {
+    gap: 0.55rem;
+    margin-top: 0.85rem;
+    padding: 0.75rem 0.8rem;
+  }
+
+  .supplier-thank-you-note svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .supplier-thank-you-note p {
+    font-size: 0.76rem;
+    line-height: 1.55;
+  }
+
+  .supplier-thank-you-button {
+    width: 100%;
+    margin-top: 1.4rem;
+  }
+
+  .supplier-thank-you-company {
+    margin-top: 1.3rem;
+    padding-top: 1.05rem;
+  }
+}

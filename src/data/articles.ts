@@ -2157,7 +2157,7 @@ export const articles: Article[] = [
 
 {
   slug:
-    "how-to-source-dried-sliced-turmeric-indonesia",
+     "dried-sliced-turmeric-buyer-checklist-indonesia",
 
   title:
     "How to Source Dried Sliced Turmeric from Indonesia: A Buyer’s Guide",
@@ -2550,4 +2550,713 @@ export const articles: Article[] = [
     </p>
   `,
 },
+
+{
+  slug:
+    "how-to-source-dried-sliced-turmeric-indonesia",
+
+  title:
+    "How to Source Dried Sliced Turmeric from Indonesia: 12 Things Buyers Should Check",
+
+  date:
+    "2026-10-24",
+
+  description:
+    "Learn how to source dried sliced turmeric from Indonesia, including specifications, moisture, slicing methods, samples, quantity, packing, documentation, and key points buyers should check before ordering.",
+
+  image:
+    "/assets/Article/dried-sliced-turmeric-sourcing.webp",
+
+  imageAlt:
+    "Dried sliced turmeric from Indonesia for bulk sourcing",
+
+  heroImage:
+    "/assets/Article/dried-sliced-turmeric-sourcing-hero.webp",
+
+  heroImageAlt:
+    "Indonesian dried sliced turmeric for commercial buyers",
+
+  content: `
+    <p>
+      Sourcing <strong>dried sliced turmeric from Indonesia</strong> involves
+      more than finding a supplier and asking for a price per kilogram.
+    </p>
+
+    <p>
+      Buyers may need to consider the product form, slicing method, moisture,
+      physical condition, quantity, packing, documentation, and delivery
+      requirements before deciding whether a product is suitable for their
+      application.
+    </p>
+
+    <p>
+      This guide covers 12 practical points buyers can check when evaluating
+      dried sliced turmeric and communicating with an Indonesian supplier.
+    </p>
+
+
+    <div class="article-info-box">
+      <strong>Quick Buyer Checklist</strong>
+
+      <p>
+        Before requesting a quotation, it helps to know your required product
+        form, specifications, approximate quantity, packing, destination, and
+        any testing or documentation requirements.
+      </p>
+    </div>
+
+
+    <h2>What Is Dried Sliced Turmeric?</h2>
+
+    <p>
+      Dried sliced turmeric is produced from fresh turmeric rhizomes
+      (<em>Curcuma longa</em>) that are prepared, sliced, and dried to reduce
+      their moisture.
+    </p>
+
+    <p>
+      Unlike turmeric powder, the product remains in visible sliced form.
+      Buyers can therefore receive turmeric as a dried agricultural raw
+      material before carrying out any additional processing required for
+      their application.
+    </p>
+
+    <p>
+      Because turmeric is an agricultural product, some natural variation in
+      shape, size, and appearance can occur. Product evaluation should
+      therefore consider the agreed specifications together with its physical
+      condition.
+    </p>
+
+
+    <h2>1. Confirm the Product Form</h2>
+
+    <p>
+      Turmeric can be supplied in several forms, including fresh rhizomes,
+      dried whole material, dried slices, and powder.
+    </p>
+
+    <p>
+      Buyers looking specifically for sliced material should state
+      <strong>dried sliced turmeric</strong> clearly in the inquiry.
+    </p>
+
+    <p>
+      Identifying the product form from the beginning helps prevent confusion
+      when discussing specifications, samples, availability, and quotations.
+    </p>
+
+
+    <h2>2. Confirm the Botanical Identity</h2>
+
+    <p>
+      A commercial inquiry can also include the botanical name of the
+      required turmeric.
+    </p>
+
+    <div class="article-specification-box">
+      <ul>
+        <li>
+          <strong>Product:</strong>
+          Dried Sliced Turmeric
+        </li>
+
+        <li>
+          <strong>Botanical name:</strong>
+          <em>Curcuma longa</em>
+        </li>
+
+        <li>
+          <strong>Origin:</strong>
+          Indonesia
+        </li>
+      </ul>
+    </div>
+
+    <p>
+      Including the botanical identity is especially useful when buyers are
+      evaluating different botanical ingredients or communicating with
+      multiple suppliers.
+    </p>
+
+
+    <h2>3. Define the Required Specifications Before Asking for Price</h2>
+
+    <p>
+      Price is important in commercial sourcing, but a price comparison is
+      only useful when suppliers are quoting products based on comparable
+      requirements.
+    </p>
+
+    <p>
+      Before requesting a quotation, buyers should identify the parameters
+      that are relevant to their application.
+    </p>
+
+    <div class="article-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Product Factor</th>
+            <th>What Buyers Should Confirm</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><strong>Product form</strong></td>
+            <td>
+              Confirm that dried sliced turmeric is required
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Slicing method</strong></td>
+            <td>
+              Manual or machine slicing, when relevant
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Moisture</strong></td>
+            <td>
+              Required moisture specification
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Ash</strong></td>
+            <td>
+              Required ash specification, when applicable
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Physical condition</strong></td>
+            <td>
+              Required slice characteristics and general product condition
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Cleanliness</strong></td>
+            <td>
+              Expected product condition according to buyer requirements
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Packing</strong></td>
+            <td>
+              Required bag size and packing arrangement
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Other requirements</strong></td>
+            <td>
+              Testing, documentation, or additional technical parameters
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <h2>4. Choose Between Manual and Machine-Sliced Turmeric</h2>
+
+    <p>
+      Dried sliced turmeric can be prepared using manual or machine slicing.
+      The two methods can result in different physical characteristics.
+    </p>
+
+    <p>
+      Manual slicing involves more manual labor and individual slices may show
+      more natural variation. Machine slicing generally produces slices that
+      are more uniform and allows larger quantities of fresh turmeric to be
+      sliced more efficiently.
+    </p>
+
+    <img
+      src="/assets/Article/manual-vs-machine-turmeric-sourcing.webp"
+      alt="Manual and machine sliced dried turmeric from Indonesia"
+    />
+
+    <p>
+      This does not mean that one method is automatically better than the
+      other. The appropriate option depends on the buyer's required product
+      characteristics.
+    </p>
+
+    <p>
+      For a more detailed comparison, read:
+      <a href="/articles/manual-vs-machine-sliced-turmeric">
+        Manual vs Machine-Sliced Turmeric: What’s the Difference?
+      </a>
+    </p>
+
+
+    <h2>5. Check the Moisture Requirement</h2>
+
+    <p>
+      Moisture is one of the specifications commonly considered when sourcing
+      dried agricultural products.
+    </p>
+
+    <p>
+      Buyers with a specific moisture requirement should communicate it before
+      confirming an order rather than estimating moisture based only on the
+      visible appearance of the slices.
+    </p>
+
+    <p>
+      PT Dwi Srikandi Bakoh's current dried sliced turmeric specification has
+      a moisture level of <strong>10–12%</strong>.
+    </p>
+
+    <p>
+      If a buyer requires a different specification, the requirement should be
+      communicated early so its feasibility can be evaluated.
+    </p>
+
+
+    <h2>6. Discuss Other Technical Requirements Early</h2>
+
+    <p>
+      Moisture may not be the only parameter required by a buyer.
+    </p>
+
+    <p>
+      Depending on the intended application and internal purchasing standards,
+      buyers may request additional specifications, laboratory testing,
+      documentation, or other supporting information.
+    </p>
+
+    <p>
+      PT Dwi Srikandi Bakoh's current dried sliced turmeric specification
+      includes an ash value of <strong>2%</strong>.
+    </p>
+
+    <p>
+      Any additional requirements should be discussed before an order is
+      confirmed so both sides understand what needs to be supported.
+    </p>
+
+
+    <h2>7. Review Product Photos</h2>
+
+    <p>
+      Product photos are useful during the initial supplier evaluation because
+      they allow buyers to review the visible characteristics of the turmeric.
+    </p>
+
+    <p>
+      Buyers may look at the general slice appearance, slicing characteristics,
+      visible cleanliness, color variation, and overall physical condition.
+    </p>
+
+    <img
+      src="/assets/Article/dried-turmeric-buyer-evaluation.webp"
+      alt="Dried sliced turmeric for buyer product evaluation"
+    />
+
+    <p>
+      However, photographs should not replace agreed product specifications.
+      Agricultural products can naturally vary between individual pieces and
+      production batches.
+    </p>
+
+
+    <h2>8. Request a Sample When Further Evaluation Is Needed</h2>
+
+    <p>
+      When a buyer needs more information than product photos can provide,
+      sample availability can be discussed before moving toward a larger
+      commercial order.
+    </p>
+
+    <p>
+      A sample allows the buyer to evaluate the physical characteristics of
+      the dried turmeric more closely and, when required, carry out their own
+      evaluation according to internal procedures.
+    </p>
+
+    <div class="article-info-box">
+      <strong>Tip for Buyers</strong>
+
+      <p>
+        Share your required specifications when requesting a sample. This
+        gives the supplier a clearer understanding of what you intend to
+        evaluate.
+      </p>
+    </div>
+
+
+    <h2>9. Confirm the Required Quantity</h2>
+
+    <p>
+      The quantity required is an important part of a commercial inquiry.
+    </p>
+
+    <p>
+      A sample request, a small trial order, and a requirement for several
+      metric tons involve different supply and preparation considerations.
+    </p>
+
+    <p>
+      Providing an expected quantity helps the supplier evaluate availability,
+      production requirements, packing, and lead time before preparing a
+      quotation.
+    </p>
+
+    <p>
+      Buyers with recurring requirements can also communicate their expected
+      purchasing frequency so longer-term supply requirements can be discussed.
+    </p>
+
+
+    <h2>10. Confirm the Packing</h2>
+
+    <p>
+      Packing requirements should be discussed together with the order
+      quantity and intended destination.
+    </p>
+
+    <p>
+      PT Dwi Srikandi Bakoh currently supplies dried sliced turmeric in
+      <strong>25 kg or 40 kg PP bags with inner plastic</strong>.
+    </p>
+
+    <img
+      src="/assets/Article/dried-turmeric-bulk-packing.webp"
+      alt="Bulk packing for dried sliced turmeric from Indonesia"
+    />
+
+    <p>
+      Buyers requiring another packing arrangement should communicate the
+      requirement before confirming an order.
+    </p>
+
+    <p>
+      Additional points may include bag weight, inner packing, labels,
+      shipping marks, or other buyer-specific requirements.
+    </p>
+
+
+    <h2>11. Provide the Delivery Destination and Required Timing</h2>
+
+    <p>
+      A supplier should know where the product needs to be delivered when
+      evaluating a commercial requirement.
+    </p>
+
+    <p>
+      For domestic inquiries, this may include the destination city or
+      province. For international requirements, buyers can provide the
+      destination country and relevant port when applicable.
+    </p>
+
+    <p>
+      Buyers should also communicate when the goods are required.
+    </p>
+
+    <p>
+      Quantity, current availability, production, packing, testing, and
+      transportation arrangements can all affect the timing of an order.
+    </p>
+
+
+    <h2>12. Confirm Documentation and Testing Requirements</h2>
+
+    <p>
+      Documentation requirements can vary between companies and destination
+      markets.
+    </p>
+
+    <p>
+      Buyers requiring specific certificates, laboratory parameters,
+      supporting documents, or testing procedures should communicate these
+      requirements during the sourcing discussion.
+    </p>
+
+    <p>
+      This is preferable to introducing additional requirements after an order
+      or production process has already progressed.
+    </p>
+
+
+    <h2>Why Asking Only for the Price Can Be Misleading</h2>
+
+    <p>
+      Two suppliers can quote different prices for products that appear to
+      have the same name while actually offering different specifications,
+      slicing methods, packing arrangements, quantities, or commercial terms.
+    </p>
+
+    <p>
+      For example, a quotation for manually sliced turmeric should not
+      automatically be compared with a machine-sliced product without
+      considering the differences in processing and buyer requirements.
+    </p>
+
+    <p>
+      The same applies when moisture, packing, testing, or delivery
+      requirements are different.
+    </p>
+
+    <p>
+      A more useful comparison starts with a clearly defined requirement and
+      then compares quotations based on that same requirement.
+    </p>
+
+
+    <h2>Common Mistakes When Sourcing Dried Sliced Turmeric</h2>
+
+    <p>
+      A sourcing discussion can become unnecessarily complicated when the
+      initial requirement is unclear.
+    </p>
+
+    <div class="article-checklist-box">
+      <ul>
+        <li>
+          Asking for a price without providing the required quantity
+        </li>
+
+        <li>
+          Requesting "turmeric" without specifying the required product form
+        </li>
+
+        <li>
+          Assuming all dried turmeric has the same moisture specification
+        </li>
+
+        <li>
+          Comparing manual and machine-sliced products without considering
+          their differences
+        </li>
+
+        <li>
+          Evaluating product quality from photos alone
+        </li>
+
+        <li>
+          Providing the delivery destination only after requesting a quotation
+        </li>
+
+        <li>
+          Introducing testing or documentation requirements late in the
+          purchasing process
+        </li>
+      </ul>
+    </div>
+
+    <p>
+      Providing clearer information from the beginning can make communication
+      more efficient for both the buyer and supplier.
+    </p>
+
+
+    <h2>What Should a Dried Turmeric Inquiry Include?</h2>
+
+    <p>
+      A commercial inquiry does not need to be complicated. It simply needs to
+      provide enough information for the supplier to understand the
+      requirement.
+    </p>
+
+    <div class="article-inquiry-box">
+      <span class="article-box-label">
+        Example Buyer Inquiry
+      </span>
+
+      <p>
+        We are looking for dried sliced turmeric (<em>Curcuma longa</em>) from
+        Indonesia. Our requirement is approximately [quantity] with [manual or
+        machine] slicing and delivery to [destination]. Please advise available
+        specifications, packing, lead time, and quotation.
+      </p>
+    </div>
+
+    <p>
+      Buyers with specific technical, testing, or documentation requirements
+      can include those details in the same discussion.
+    </p>
+
+
+    <h2>Buyer Checklist Before Requesting a Quotation</h2>
+
+    <div class="article-checklist-box">
+      <ul>
+        <li>
+          Dried sliced turmeric has been confirmed as the required product form
+        </li>
+
+        <li>
+          Botanical identity has been confirmed where required
+        </li>
+
+        <li>
+          Manual or machine slicing preference has been identified
+        </li>
+
+        <li>
+          Moisture and other required specifications have been communicated
+        </li>
+
+        <li>
+          Product photos or samples have been evaluated when necessary
+        </li>
+
+        <li>
+          Required quantity has been provided
+        </li>
+
+        <li>
+          Packing requirements have been discussed
+        </li>
+
+        <li>
+          Delivery destination has been provided
+        </li>
+
+        <li>
+          Required timing has been communicated
+        </li>
+
+        <li>
+          Testing and documentation requirements have been discussed
+        </li>
+      </ul>
+    </div>
+
+
+    <h2>Sourcing Dried Sliced Turmeric from Indonesia</h2>
+
+    <p>
+      Selecting a dried turmeric supplier should involve more than comparing
+      price per kilogram.
+    </p>
+
+    <p>
+      Buyers can make a more informed evaluation by comparing the product
+      form, specifications, slicing method, physical condition, quantity,
+      packing, documentation, and delivery requirements together.
+    </p>
+
+    <p>
+      PT Dwi Srikandi Bakoh is based in Ponorogo, East Java, Indonesia and
+      supplies dried sliced turmeric sourced and processed from local turmeric
+      raw material.
+    </p>
+
+    <p>
+      Our current product specification includes:
+    </p>
+
+    <div class="article-specification-box">
+      <ul>
+        <li>
+          <strong>Product:</strong>
+          Dried Sliced Turmeric
+        </li>
+
+        <li>
+          <strong>Botanical name:</strong>
+          <em>Curcuma longa</em>
+        </li>
+
+        <li>
+          <strong>Origin:</strong>
+          Indonesia
+        </li>
+
+        <li>
+          <strong>Slicing:</strong>
+          Manual or machine
+        </li>
+
+        <li>
+          <strong>Moisture:</strong>
+          10–12%
+        </li>
+
+        <li>
+          <strong>Ash:</strong>
+          2%
+        </li>
+
+        <li>
+          <strong>Packing:</strong>
+          25 kg / 40 kg PP bag with inner plastic
+        </li>
+      </ul>
+    </div>
+
+    <p>
+      Buyers can view our
+      <a href="/products/dried-sliced-turmeric">
+        dried sliced turmeric product information
+      </a>
+      for current specifications and product details.
+    </p>
+
+    <p>
+      You can also see how the product is prepared in:
+      <a href="/articles/how-we-process-dried-sliced-turmeric-indonesia">
+        How We Process Dried Sliced Turmeric in Indonesia
+      </a>.
+    </p>
+
+
+    <h2>Frequently Asked Questions</h2>
+
+
+    <h3>What should I check when buying dried sliced turmeric?</h3>
+
+    <p>
+      Buyers should consider the required product form, slicing method,
+      moisture, other technical specifications, physical condition, quantity,
+      packing, destination, and any testing or documentation requirements.
+    </p>
+
+
+    <h3>What is the moisture specification of PT Dwi Srikandi Bakoh's dried turmeric?</h3>
+
+    <p>
+      Our current dried sliced turmeric specification has a moisture level of
+      10–12%. Buyers requiring another specification should communicate their
+      requirement before ordering.
+    </p>
+
+
+    <h3>Is manual or machine-sliced turmeric better?</h3>
+
+    <p>
+      Neither method is automatically better. Manual slicing may show more
+      variation between individual slices, while machine slicing generally
+      produces more uniform slices and allows more efficient processing.
+      Buyers should choose according to their required specifications.
+    </p>
+
+
+    <h3>Can buyers request a dried turmeric sample?</h3>
+
+    <p>
+      Sample availability can be discussed when a buyer needs further product
+      evaluation before considering a larger commercial requirement.
+    </p>
+
+
+    <h3>What information is needed for a dried turmeric quotation?</h3>
+
+    <p>
+      Buyers should ideally provide the required product specifications,
+      approximate quantity, slicing preference, packing requirement,
+      destination, required timing, and any testing or documentation
+      requirements.
+    </p>
+  `,
+},
 ];
+
