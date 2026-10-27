@@ -55,6 +55,30 @@ type SubmitResponse = {
   submissionNo?: number;
 };
 
+type PreparedMedia = {
+  mediaType?:
+    | "productPhoto"
+    | "stockPhoto"
+    | "productVideo";
+  mimeType?: string;
+  fileSize?: number;
+  fileName?: string;
+  uploadUrl?: string;
+};
+
+type PreparedProduct = {
+  productNumber?: number;
+  media?: PreparedMedia[];
+};
+
+type PrepareResponse = {
+  success?: boolean;
+  message?: string;
+  registrationToken?: string;
+  products?: PreparedProduct[];
+};
+
+
 type SupplierFormProps = {
   maxCommodities: number;
 };
@@ -152,6 +176,114 @@ function normalizeText(value: string) {
   return value
     .trim()
     .replace(/\s+/g, " ");
+}
+
+async function uploadPreparedFile(
+  file: File,
+  uploadUrl: string
+) {
+  const CHUNK_SIZE =
+    4 * 1024 * 1024;
+
+  let start = 0;
+
+  while (
+    start <
+    file.size
+  ) {
+    const endExclusive =
+      Math.min(
+        start + CHUNK_SIZE,
+        file.size
+      );
+
+    const end =
+      endExclusive - 1;
+
+    const chunk =
+      file.slice(
+        start,
+        endExclusive
+      );
+
+    const uploadResponse =
+      await fetch(
+        "/api/supplier-registration/upload",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/octet-stream",
+
+            "x-upload-url":
+              uploadUrl,
+
+            "x-file-type":
+              file.type,
+
+            "x-file-size":
+              String(
+                file.size
+              ),
+
+            "x-chunk-start":
+              String(start),
+
+            "x-chunk-end":
+              String(end),
+          },
+
+          body:
+            chunk,
+        }
+      );
+
+    const uploadData =
+      (await uploadResponse.json()) as {
+        success?: boolean;
+        complete?: boolean;
+        message?: string;
+      };
+
+    if (
+      !uploadResponse.ok ||
+      uploadData.success !==
+        true
+    ) {
+      throw new Error(
+        uploadData.message ||
+          `Upload ${file.name} ke penyimpanan gagal.`
+      );
+    }
+
+    const isFinalChunk =
+      endExclusive ===
+      file.size;
+
+    if (
+      isFinalChunk &&
+      uploadData.complete !==
+        true
+    ) {
+      throw new Error(
+        `Upload ${file.name} belum selesai.`
+      );
+    }
+
+    if (
+      !isFinalChunk &&
+      uploadData.complete ===
+        true
+    ) {
+      throw new Error(
+        `Upload ${file.name} selesai sebelum seluruh file terkirim.`
+      );
+    }
+
+    start =
+      endExclusive;
+  }
 }
 
 /* ========================================
@@ -1809,7 +1941,7 @@ const validateProduct = (
     );
   };
 
-  /* ========================================
+    /* ========================================
      FINAL SUBMIT
   ======================================== */
 
@@ -1838,38 +1970,6 @@ const validateProduct = (
       try {
         const form =
           formRef.current;
-
-        const payload =
-          new FormData();
-
-        payload.append(
-          "fullName",
-          normalizeText(
-            stepOneData.supplierName
-          )
-        );
-
-        payload.append(
-          "businessName",
-          normalizeText(
-            stepOneData.businessName
-          )
-        );
-
-        payload.append(
-          "whatsapp",
-          getFullWhatsApp()
-        );
-
-        payload.append(
-          "email",
-          stepOneData.email.trim()
-        );
-
-        payload.append(
-          "supplierType",
-          stepOneData.supplierType
-        );
 
         const provinceField =
           form.elements.namedItem(
@@ -1923,43 +2023,21 @@ const validateProduct = (
           );
         }
 
-        payload.append(
-          "province",
-          provinceField.value.trim()
-        );
-
-        payload.append(
-          "regency",
-          cityField.value.trim()
-        );
-
-        payload.append(
-          "district",
-          normalizeText(
-            districtField.value
-          )
-        );
-
-        payload.append(
-          "village",
-          normalizeText(
-            villageField.value
-          )
-        );
-
-        payload.append(
-          "fullAddress",
-          normalizeText(
-            addressField.value
-          )
-        );
-
-        payload.append(
-          "productCount",
-          String(
-            commodities.length
-          )
-        );
+        const collectedProducts: {
+          commodity: CommodityName;
+          productForm: string;
+          currentStockKg: string;
+          monthlyCapacityKg: string;
+          minimumOrderKg: string;
+          offerPriceIdrKg: string;
+          specification: string;
+          certifications: CertificationName[];
+          otherCertification: string;
+          sampleAvailable: string;
+          productPhoto: File;
+          stockPhoto: File;
+          productVideo: File;
+        }[] = [];
 
         for (
           let index = 0;
@@ -2100,96 +2178,237 @@ const validateProduct = (
 
           if (!sampleField) {
             throw new Error(
-              `Pilihan sample Produk ${
+              `Pilihan sampel Produk ${
                 index + 1
               } belum diisi.`
             );
           }
 
-          payload.append(
-            `${prefix}[commodity]`,
-            item.commodity
+          collectedProducts.push({
+            commodity:
+              item.commodity,
+            productForm:
+              item.productForm,
+            currentStockKg:
+              onlyDigits(
+                stockField.value
+              ),
+            monthlyCapacityKg:
+              onlyDigits(
+                capacityField.value
+              ),
+            minimumOrderKg:
+              onlyDigits(
+                minimumOrderField.value
+              ),
+            offerPriceIdrKg:
+              onlyDigits(
+                priceField.value
+              ),
+            specification:
+              normalizeText(
+                specificationField.value
+              ),
+            certifications:
+              item.certifications,
+            otherCertification:
+              normalizeText(
+                item.otherCertification
+              ),
+            sampleAvailable:
+              sampleField.value,
+            productPhoto,
+            stockPhoto,
+            productVideo,
+          });
+        }
+
+        const prepareResponse =
+          await fetch(
+            "/api/supplier-registration/prepare",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+              body: JSON.stringify({
+                products:
+                  collectedProducts.map(
+                    (
+                      product,
+                      index
+                    ) => ({
+                      productNumber:
+                        index + 1,
+                      media: [
+                        {
+                          mediaType:
+                            "productPhoto",
+                          mimeType:
+                            product.productPhoto.type,
+                          fileSize:
+                            product.productPhoto.size,
+                        },
+                        {
+                          mediaType:
+                            "stockPhoto",
+                          mimeType:
+                            product.stockPhoto.type,
+                          fileSize:
+                            product.stockPhoto.size,
+                        },
+                        {
+                          mediaType:
+                            "productVideo",
+                          mimeType:
+                            product.productVideo.type,
+                          fileSize:
+                            product.productVideo.size,
+                        },
+                      ],
+                    })
+                  ),
+              }),
+            }
           );
 
-          payload.append(
-            `${prefix}[productForm]`,
-            item.productForm
-          );
+        let prepareData:
+          PrepareResponse;
 
-          payload.append(
-            `${prefix}[currentStockKg]`,
-            onlyDigits(
-              stockField.value
+        try {
+          prepareData =
+            (await prepareResponse.json()) as PrepareResponse;
+        } catch {
+          throw new Error(
+            "Server tidak dapat menyiapkan upload media."
+          );
+        }
+
+        if (
+          !prepareResponse.ok ||
+          !prepareData.success ||
+          !prepareData.registrationToken ||
+          !Array.isArray(
+            prepareData.products
+          ) ||
+          prepareData.products.length !==
+            collectedProducts.length
+        ) {
+          throw new Error(
+            prepareData.message ||
+              "Upload media tidak dapat disiapkan."
+          );
+        }
+
+        const products = [];
+
+        for (
+          let index = 0;
+          index <
+          collectedProducts.length;
+          index += 1
+        ) {
+          const product =
+            collectedProducts[index];
+
+          const preparedProduct =
+            prepareData.products[index];
+
+          if (
+            !product ||
+            !preparedProduct ||
+            preparedProduct.productNumber !==
+              index + 1 ||
+            !Array.isArray(
+              preparedProduct.media
             )
-          );
-
-          payload.append(
-            `${prefix}[monthlyCapacityKg]`,
-            onlyDigits(
-              capacityField.value
-            )
-          );
-
-          payload.append(
-            `${prefix}[minimumOrderKg]`,
-            onlyDigits(
-              minimumOrderField.value
-            )
-          );
-
-          payload.append(
-            `${prefix}[offerPriceIdrKg]`,
-            onlyDigits(
-              priceField.value
-            )
-          );
-
-          payload.append(
-            `${prefix}[specification]`,
-            normalizeText(
-              specificationField.value
-            )
-          );
-
-          for (
-            const certification of
-            item.certifications
           ) {
-            payload.append(
-              `${prefix}[certifications]`,
-              certification
+            throw new Error(
+              `Data upload Produk ${
+                index + 1
+              } tidak sesuai.`
             );
           }
 
-          payload.append(
-            `${prefix}[otherCertification]`,
-            normalizeText(
-              item.otherCertification
-            )
+          const getPreparedMedia = (
+            mediaType:
+              | "productPhoto"
+              | "stockPhoto"
+              | "productVideo"
+          ) => {
+            const preparedMedia =
+              preparedProduct.media?.find(
+                (media) =>
+                  media.mediaType ===
+                  mediaType
+              );
+
+            if (
+              !preparedMedia?.uploadUrl
+            ) {
+              throw new Error(
+                `Upload ${mediaType} Produk ${
+                  index + 1
+                } tidak tersedia.`
+              );
+            }
+
+            return preparedMedia;
+          };
+
+          const productPhotoPrepared =
+            getPreparedMedia(
+              "productPhoto"
+            );
+
+          const stockPhotoPrepared =
+            getPreparedMedia(
+              "stockPhoto"
+            );
+
+          const productVideoPrepared =
+            getPreparedMedia(
+              "productVideo"
+            );
+
+          await uploadPreparedFile(
+            product.productPhoto,
+            productPhotoPrepared.uploadUrl!
           );
 
-          payload.append(
-            `${prefix}[sampleAvailable]`,
-            sampleField.value
+          await uploadPreparedFile(
+            product.stockPhoto,
+            stockPhotoPrepared.uploadUrl!
           );
 
-          payload.append(
-            `${prefix}[productPhoto]`,
-            productPhoto,
-            productPhoto.name
+          await uploadPreparedFile(
+            product.productVideo,
+            productVideoPrepared.uploadUrl!
           );
 
-          payload.append(
-            `${prefix}[stockPhoto]`,
-            stockPhoto,
-            stockPhoto.name
-          );
-
-          payload.append(
-            `${prefix}[productVideo]`,
-            productVideo,
-            productVideo.name
-          );
+          products.push({
+            commodity:
+              product.commodity,
+            productForm:
+              product.productForm,
+            currentStockKg:
+              product.currentStockKg,
+            monthlyCapacityKg:
+              product.monthlyCapacityKg,
+            minimumOrderKg:
+              product.minimumOrderKg,
+            offerPriceIdrKg:
+              product.offerPriceIdrKg,
+            specification:
+              product.specification,
+            certifications:
+              product.certifications,
+            otherCertification:
+              product.otherCertification,
+            sampleAvailable:
+              product.sampleAvailable,
+          });
         }
 
         const confirmationField =
@@ -2209,22 +2428,60 @@ const validateProduct = (
           );
         }
 
-        payload.append(
-          "declaration",
-          "true"
-        );
-
-        payload.append(
-          "website",
-          honeypot
-        );
+        const payload = {
+          registrationToken:
+            prepareData.registrationToken,
+          fullName:
+            normalizeText(
+              stepOneData.supplierName
+            ),
+          businessName:
+            normalizeText(
+              stepOneData.businessName
+            ),
+          whatsapp:
+            getFullWhatsApp(),
+          email:
+            stepOneData.email.trim(),
+          supplierType:
+            stepOneData.supplierType,
+          province:
+            provinceField.value.trim(),
+          regency:
+            cityField.value.trim(),
+          district:
+            normalizeText(
+              districtField.value
+            ),
+          village:
+            normalizeText(
+              villageField.value
+            ),
+          fullAddress:
+            normalizeText(
+              addressField.value
+            ),
+          productCount:
+            products.length,
+          products,
+          declaration: true,
+          website:
+            honeypot,
+        };
 
         const response =
           await fetch(
             "/api/supplier-registration/submit",
             {
               method: "POST",
-              body: payload,
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+              body:
+                JSON.stringify(
+                  payload
+                ),
             }
           );
 

@@ -6,15 +6,14 @@ import {
 } from "@/lib/googleSheets";
 
 import {
-  createProductFolder,
-  createSubmissionFolder,
+  findChildFolder,
+  findDriveChildByName,
+  getGoogleDriveRootFolderId,
   getOrCreateSupplierFolder,
-  uploadDriveFile,
+  getTemporaryRegistrationFolder,
+  moveDriveFile,
+  verifyDriveFile,
 } from "@/lib/googleDrive";
-
-import {
-  optimizeSupplierImage,
-} from "@/lib/optimizeSupplierImage";
 
 export const runtime = "nodejs";
 
@@ -26,66 +25,94 @@ const ABSOLUTE_MAX_COMMODITIES = 5;
 const DEFAULT_MAX_SUBMISSIONS = 2;
 const DEFAULT_MAX_COMMODITIES = 1;
 const MIN_SPECIFICATION_WORDS = 2;
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const MAX_VIDEO_FILE_SIZE = 30 * 1024 * 1024;
 
-const ALLOWED_SUPPLIER_TYPES = new Set([
-  "petani",
-  "produsen-pengolah",
-  "pengepul",
-  "distributor",
-]);
+const MAX_IMAGE_FILE_SIZE =
+  5 * 1024 * 1024;
 
-const ALLOWED_REGENCIES = new Set([
-  "Kabupaten Ponorogo",
-  "Kabupaten Madiun",
-  "Kota Madiun",
-  "Kabupaten Magetan",
-]);
+const MAX_VIDEO_FILE_SIZE =
+  30 * 1024 * 1024;
 
-const ALLOWED_COMMODITIES = new Set([
-  "kunyit",
-  "laos"
-]);
+const ALLOWED_SUPPLIER_TYPES =
+  new Set([
+    "petani",
+    "produsen-pengolah",
+    "pengepul",
+    "distributor",
+  ]);
 
-const ALLOWED_PRODUCT_FORMS: Record<
-  string,
-  Set<string>
-> = {
-  kunyit: new Set([
-    "segar",
-    "iris-kering",
-  ]),
+const ALLOWED_REGENCIES =
+  new Set([
+    "Kabupaten Ponorogo",
+    "Kabupaten Madiun",
+    "Kota Madiun",
+    "Kabupaten Magetan",
+  ]);
+
+const ALLOWED_COMMODITIES =
+  new Set([
+    "kunyit",
+    "laos",
+  ]);
+
+const ALLOWED_PRODUCT_FORMS:
+  Record<string, Set<string>> = {
+    kunyit: new Set([
+      "segar",
+    ]),
     laos: new Set([
-    "segar",
-  ]),
-};
+      "segar",
+    ]),
+  };
 
-const ALLOWED_CERTIFICATIONS = new Set([
-  "halal",
-  "organic",
-  "gmp",
-  "haccp",
-  "lainnya",
-  "belum-ada",
-]);
+const ALLOWED_CERTIFICATIONS =
+  new Set([
+    "halal",
+    "organic",
+    "gmp",
+    "haccp",
+    "lainnya",
+    "belum-ada",
+  ]);
 
-const ALLOWED_SAMPLE_VALUES = new Set([
-  "ya",
-  "tidak",
-]);
+const ALLOWED_SAMPLE_VALUES =
+  new Set([
+    "ya",
+    "tidak",
+  ]);
 
-const ALLOWED_IMAGE_TYPES = new Set([
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-]);
+const ALLOWED_IMAGE_TYPES =
+  new Set([
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+  ]);
 
-const ALLOWED_VIDEO_TYPES = new Set([
-  "video/mp4",
-  "video/quicktime",
-  "video/webm",
-]);
+const ALLOWED_VIDEO_TYPES =
+  new Set([
+    "video/mp4",
+    "video/quicktime",
+    "video/webm",
+  ]);
+
+const PRODUCT_PHOTO_NAMES = [
+  "foto-produk.jpg",
+  "foto-produk.jpeg",
+  "foto-produk.png",
+  "foto-produk.webp",
+];
+
+const STOCK_PHOTO_NAMES = [
+  "foto-stok.jpg",
+  "foto-stok.jpeg",
+  "foto-stok.png",
+  "foto-stok.webp",
+];
+
+const PRODUCT_VIDEO_NAMES = [
+  "video-produk.mp4",
+  "video-produk.mov",
+  "video-produk.webm",
+];
 
 /* ========================================
    TYPES
@@ -99,24 +126,78 @@ type Settings = {
   maxCommodities: number;
 };
 
+type ProductRequest = {
+  commodity?: string;
+  productForm?: string;
+
+  currentStockKg?:
+    | string
+    | number;
+
+  monthlyCapacityKg?:
+    | string
+    | number;
+
+  minimumOrderKg?:
+    | string
+    | number
+    | null;
+
+  offerPriceIdrKg?:
+    | string
+    | number;
+
+  specification?: string;
+  certifications?: string[];
+  otherCertification?: string;
+  sampleAvailable?: string;
+};
+
+type SubmitRequest = {
+  website?: string;
+  registrationToken?: string;
+
+  fullName?: string;
+  businessName?: string;
+  whatsapp?: string;
+  email?: string;
+  supplierType?: string;
+
+  province?: string;
+  regency?: string;
+  district?: string;
+  village?: string;
+  fullAddress?: string;
+
+  declaration?:
+    | boolean
+    | string;
+
+  products?: ProductRequest[];
+};
+
 type ProductInput = {
   commodity: string;
   productForm: string;
+
   currentStockKg: number;
   monthlyCapacityKg: number;
+
   minimumOrderKg:
     | number
     | null;
+
   offerPriceIdrKg: number;
+
   specification: string;
+
   certifications: string[];
+
   otherCertification: string;
+
   sampleAvailable:
     | "ya"
     | "tidak";
-  productPhoto: File;
-  stockPhoto: File;
-  productVideo: File;
 };
 
 type ExistingSupplier = {
@@ -124,17 +205,20 @@ type ExistingSupplier = {
   submissionCount: number;
 };
 
+type VerifiedProduct = {
+  product: ProductInput;
+  productPhotoId: string;
+  stockPhotoId: string;
+  productVideoId: string;
+};
+
 /* ========================================
    STRING HELPERS
 ======================================== */
 
 function getString(
-  formData: FormData,
-  key: string
+  value: unknown
 ) {
-  const value =
-    formData.get(key);
-
   if (
     typeof value !== "string"
   ) {
@@ -196,7 +280,9 @@ function sanitizeSheetText(
     normalizeText(value);
 
   if (
-    /^[=+\-@]/.test(trimmed)
+    /^[=+\-@]/.test(
+      trimmed
+    )
   ) {
     return `'${trimmed}`;
   }
@@ -204,19 +290,29 @@ function sanitizeSheetText(
   return trimmed;
 }
 
+function getDriveViewUrl(
+  fileId: string
+) {
+  return `https://drive.google.com/file/d/${fileId}/view`;
+}
+
 /* ========================================
    NUMBER HELPERS
 ======================================== */
 
 function parseRequiredPositiveNumber(
-  value: string,
+  value: unknown,
   label: string
 ) {
   const normalized =
-    value.replace(/\./g, "");
+    String(
+      value ?? ""
+    ).replace(/\./g, "");
 
   if (
-    !/^\d+$/.test(normalized)
+    !/^\d+$/.test(
+      normalized
+    )
   ) {
     throw new Error(
       `${label} tidak valid.`
@@ -227,7 +323,9 @@ function parseRequiredPositiveNumber(
     Number(normalized);
 
   if (
-    !Number.isSafeInteger(number) ||
+    !Number.isSafeInteger(
+      number
+    ) ||
     number <= 0
   ) {
     throw new Error(
@@ -239,10 +337,14 @@ function parseRequiredPositiveNumber(
 }
 
 function parseOptionalPositiveNumber(
-  value: string,
+  value: unknown,
   label: string
 ) {
-  if (!value.trim()) {
+  if (
+    value === null ||
+    value === undefined ||
+    String(value).trim() === ""
+  ) {
     return null;
   }
 
@@ -274,6 +376,45 @@ function clampInteger(
       integer
     )
   );
+}
+
+/* ========================================
+   DATE TIME
+======================================== */
+
+function getJakartaDateTime() {
+  const parts =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Jakarta",
+
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+
+        hourCycle: "h23",
+      }
+    ).formatToParts(
+      new Date()
+    );
+
+  const values =
+    Object.fromEntries(
+      parts.map(
+        ({ type, value }) => [
+          type,
+          value,
+        ]
+      )
+    );
+
+  return `${values.year}-${values.month}-${values.day} ${values.hour}:${values.minute}:${values.second}`;
 }
 
 /* ========================================
@@ -381,6 +522,7 @@ async function getSuppliersSheet() {
         (value) =>
           String(value).trim()
       ),
+
     dataRows:
       rows.slice(1),
   };
@@ -431,7 +573,9 @@ function assertRequiredHeaders(
         ) === -1
     );
 
-  if (missing.length > 0) {
+  if (
+    missing.length > 0
+  ) {
     throw new Error(
       `Struktur database ${sheetName} belum sesuai.`
     );
@@ -447,7 +591,9 @@ function buildRowByHeaders(
 ) {
   const normalizedValues =
     new Map(
-      Object.entries(values).map(
+      Object.entries(
+        values
+      ).map(
         ([key, value]) => [
           key
             .trim()
@@ -505,21 +651,23 @@ function findExistingSupplier(
   }
 
   const matchingRows =
-    dataRows.filter((row) => {
-      const rowWhatsApp =
-        normalizeWhatsApp(
-          String(
-            row?.[
-              whatsappIndex
-            ] ?? ""
-          )
-        );
+    dataRows.filter(
+      (row) => {
+        const rowWhatsApp =
+          normalizeWhatsApp(
+            String(
+              row?.[
+                whatsappIndex
+              ] ?? ""
+            )
+          );
 
-      return (
-        rowWhatsApp ===
-        normalizedWhatsApp
-      );
-    });
+        return (
+          rowWhatsApp ===
+          normalizedWhatsApp
+        );
+      }
+    );
 
   if (
     matchingRows.length === 0
@@ -529,12 +677,13 @@ function findExistingSupplier(
 
   const supplierIds =
     matchingRows
-      .map((row) =>
-        String(
-          row?.[
-            supplierIdIndex
-          ] ?? ""
-        ).trim()
+      .map(
+        (row) =>
+          String(
+            row?.[
+              supplierIdIndex
+            ] ?? ""
+          ).trim()
       )
       .filter(
         (supplierId) =>
@@ -557,7 +706,8 @@ function findExistingSupplier(
   let highestSubmissionNo = 0;
 
   for (
-    const row of matchingRows
+    const row of
+    matchingRows
   ) {
     const rowSupplierId =
       String(
@@ -594,6 +744,7 @@ function findExistingSupplier(
 
   return {
     supplierId,
+
     submissionCount:
       highestSubmissionNo > 0
         ? highestSubmissionNo
@@ -622,7 +773,8 @@ function generateNextSupplierId(
   let highestNumber = 0;
 
   for (
-    const row of dataRows
+    const row of
+    dataRows
   ) {
     const supplierId =
       String(
@@ -661,80 +813,104 @@ function generateNextSupplierId(
 }
 
 /* ========================================
-   FILE VALIDATION
+   MEDIA
 ======================================== */
 
-function validateImageFile(
-  file: File,
-  label: string
-) {
+async function findMediaFile({
+  folderId,
+  fileNames,
+  allowedMimeTypes,
+  maximumSize,
+  label,
+}: {
+  folderId: string;
+  fileNames: string[];
+  allowedMimeTypes: Set<string>;
+  maximumSize: number;
+  label: string;
+}) {
+  const matches = [];
+
+  for (
+    const fileName of
+    fileNames
+  ) {
+    const file =
+      await findDriveChildByName(
+        fileName,
+        folderId
+      );
+
+    if (file) {
+      matches.push(file);
+    }
+  }
+
   if (
-    file.size <= 0
+    matches.length === 0
   ) {
     throw new Error(
-      `${label} belum tersedia.`
+      `${label} belum ditemukan. Pastikan file sudah selesai diunggah.`
     );
   }
 
   if (
-    file.size > MAX_FILE_SIZE
+    matches.length > 1
   ) {
     throw new Error(
-      `${label} maksimal 5 MB.`
+      `${label} ditemukan lebih dari satu file.`
     );
   }
 
-  if (
-    !ALLOWED_IMAGE_TYPES.has(
-      file.type
-    )
-  ) {
-    throw new Error(
-      `${label} harus menggunakan format JPG, PNG, atau WEBP.`
-    );
-  }
-}
+  const file =
+    matches[0];
 
-function validateVideoFile(
-  file: File,
-  label: string
-) {
-  if (
-    file.size <= 0
-  ) {
+  if (!file) {
     throw new Error(
-      `${label} belum tersedia.`
+      `${label} tidak ditemukan.`
     );
   }
 
-  if (
-    file.size >
-    MAX_VIDEO_FILE_SIZE
-  ) {
-    throw new Error(
-      `${label} maksimal 30 MB.`
-    );
-  }
+  await verifyDriveFile({
+    fileId:
+      file.id,
 
-  if (
-    !ALLOWED_VIDEO_TYPES.has(
-      file.type
-    )
-  ) {
-    throw new Error(
-      `${label} harus menggunakan format MP4, MOV, atau WEBM.`
-    );
-  }
+    folderId,
+
+    allowedMimeTypes,
+
+    maximumSize,
+
+    expectedFileName:
+      file.name,
+  });
+
+  return file;
 }
 
 /* ========================================
-   PRODUCT PARSER
+   PRODUCTS
 ======================================== */
 
 function parseProducts(
-  formData: FormData,
-  productCount: number
+  productsValue: unknown,
+  maximumProducts: number
 ): ProductInput[] {
+  if (
+    !Array.isArray(
+      productsValue
+    ) ||
+    productsValue.length < 1 ||
+    productsValue.length >
+      maximumProducts ||
+    productsValue.length >
+      ABSOLUTE_MAX_COMMODITIES
+  ) {
+    throw new Error(
+      "Jumlah produk tidak sesuai."
+    );
+  }
+
   const products:
     ProductInput[] = [];
 
@@ -743,25 +919,37 @@ function parseProducts(
 
   for (
     let index = 0;
-    index < productCount;
+    index <
+    productsValue.length;
     index += 1
   ) {
     const productNumber =
       index + 1;
 
-    const prefix =
-      `products[${index}]`;
+    const rawProduct =
+      productsValue[index];
+
+    if (
+      !rawProduct ||
+      typeof rawProduct !==
+        "object"
+    ) {
+      throw new Error(
+        `Data Produk ${productNumber} tidak valid.`
+      );
+    }
+
+    const product =
+      rawProduct as ProductRequest;
 
     const commodity =
       getString(
-        formData,
-        `${prefix}[commodity]`
+        product.commodity
       );
 
     const productForm =
       getString(
-        formData,
-        `${prefix}[productForm]`
+        product.productForm
       );
 
     if (
@@ -809,45 +997,32 @@ function parseProducts(
 
     const currentStockKg =
       parseRequiredPositiveNumber(
-        getString(
-          formData,
-          `${prefix}[currentStockKg]`
-        ),
+        product.currentStockKg,
         `Stok Produk ${productNumber}`
       );
 
     const monthlyCapacityKg =
       parseRequiredPositiveNumber(
-        getString(
-          formData,
-          `${prefix}[monthlyCapacityKg]`
-        ),
+        product.monthlyCapacityKg,
         `Kapasitas Produk ${productNumber}`
       );
 
     const minimumOrderKg =
       parseOptionalPositiveNumber(
-        getString(
-          formData,
-          `${prefix}[minimumOrderKg]`
-        ),
+        product.minimumOrderKg,
         `Minimum Pembelian Produk ${productNumber}`
       );
 
     const offerPriceIdrKg =
       parseRequiredPositiveNumber(
-        getString(
-          formData,
-          `${prefix}[offerPriceIdrKg]`
-        ),
+        product.offerPriceIdrKg,
         `Harga Produk ${productNumber}`
       );
 
     const specification =
       normalizeText(
         getString(
-          formData,
-          `${prefix}[specification]`
+          product.specification
         )
       );
 
@@ -872,22 +1047,23 @@ function parseProducts(
     }
 
     const certifications =
-      formData
-        .getAll(
-          `${prefix}[certifications]`
-        )
-        .filter(
-          (
-            value
-          ): value is string =>
-            typeof value ===
-            "string"
-        )
-        .map(
-          (value) =>
-            value.trim()
-        )
-        .filter(Boolean);
+      Array.isArray(
+        product.certifications
+      )
+        ? product.certifications
+            .filter(
+              (
+                value
+              ): value is string =>
+                typeof value ===
+                "string"
+            )
+            .map(
+              (value) =>
+                value.trim()
+            )
+            .filter(Boolean)
+        : [];
 
     const uniqueCertifications =
       [
@@ -897,7 +1073,8 @@ function parseProducts(
       ];
 
     if (
-      uniqueCertifications.length === 0
+      uniqueCertifications.length ===
+      0
     ) {
       throw new Error(
         `Status sertifikasi Produk ${productNumber} wajib dipilih. Jika belum memiliki sertifikasi, pilih "Belum Memiliki Sertifikasi".`
@@ -934,8 +1111,7 @@ function parseProducts(
     const otherCertification =
       normalizeText(
         getString(
-          formData,
-          `${prefix}[otherCertification]`
+          product.otherCertification
         )
       );
 
@@ -975,8 +1151,7 @@ function parseProducts(
 
     const sampleAvailable =
       getString(
-        formData,
-        `${prefix}[sampleAvailable]`
+        product.sampleAvailable
       );
 
     if (
@@ -985,72 +1160,9 @@ function parseProducts(
       )
     ) {
       throw new Error(
-        `Pilihan sample Produk ${productNumber} belum sesuai.`
+        `Pilihan sampel Produk ${productNumber} belum sesuai.`
       );
     }
-
-    const productPhoto =
-    formData.get(
-      `${prefix}[productPhoto]`
-    );
-
-    const stockPhoto =
-      formData.get(
-        `${prefix}[stockPhoto]`
-      );
-
-    const productVideo =
-      formData.get(
-        `${prefix}[productVideo]`
-      );
-
-    if (
-      !(
-        productPhoto instanceof
-        File
-      )
-    ) {
-      throw new Error(
-        `Foto produk ${productNumber} belum tersedia.`
-      );
-    }
-
-    if (
-      !(
-        stockPhoto instanceof
-        File
-      )
-    ) {
-      throw new Error(
-        `Foto stok Produk ${productNumber} belum tersedia.`
-      );
-    }
-
-    if (
-    !(
-      productVideo instanceof
-      File
-    )
-  ) {
-    throw new Error(
-      `Video detail Produk ${productNumber} belum tersedia.`
-    );
-  }
-
-    validateImageFile(
-      productPhoto,
-      `Foto produk ${productNumber}`
-    );
-
-    validateImageFile(
-      stockPhoto,
-      `Foto stok Produk ${productNumber}`
-    );
-
-    validateVideoFile(
-    productVideo,
-    `Video detail Produk ${productNumber}`
-    );
 
     products.push({
       commodity,
@@ -1060,30 +1172,20 @@ function parseProducts(
       minimumOrderKg,
       offerPriceIdrKg,
       specification,
+
       certifications:
         uniqueCertifications,
+
       otherCertification,
+
       sampleAvailable:
         sampleAvailable as
           | "ya"
           | "tidak",
-      productPhoto,
-      stockPhoto,
-      productVideo,
     });
   }
 
   return products;
-}
-
-/* ========================================
-   DRIVE
-======================================== */
-
-function getDriveViewUrl(
-  fileId: string
-) {
-  return `https://drive.google.com/file/d/${fileId}/view`;
 }
 
 /* ========================================
@@ -1095,7 +1197,7 @@ export async function POST(
 ) {
   try {
     /* ========================================
-       REQUEST VALIDATION
+       REQUEST
     ======================================== */
 
     const contentType =
@@ -1108,7 +1210,7 @@ export async function POST(
       !contentType
         .toLowerCase()
         .includes(
-          "multipart/form-data"
+          "application/json"
         )
     ) {
       return NextResponse.json(
@@ -1123,41 +1225,18 @@ export async function POST(
       );
     }
 
-    if (
-      !contentType
-        .toLowerCase()
-        .includes(
-          "boundary="
-        )
-    ) {
-      return NextResponse.json(
-        {
-          success: false,
-          message:
-            "Data formulir tidak dapat dibaca karena format multipart tidak lengkap.",
-        },
-        {
-          status: 400,
-        }
-      );
-    }
-
-    let formData: FormData;
+    let body: SubmitRequest;
 
     try {
-      formData =
-        await request.formData();
-    } catch (error) {
-      console.error(
-        "Supplier multipart parsing error:",
-        error
-      );
-
+      body =
+        (await request.json()) as
+          SubmitRequest;
+    } catch {
       return NextResponse.json(
         {
           success: false,
           message:
-            "Data formulir tidak dapat dibaca. Silakan pilih ulang foto dan kirim kembali.",
+            "Data pendaftaran tidak dapat dibaca.",
         },
         {
           status: 400,
@@ -1171,8 +1250,7 @@ export async function POST(
 
     const website =
       getString(
-        formData,
-        "website"
+        body.website
       );
 
     if (website) {
@@ -1185,6 +1263,25 @@ export async function POST(
         {
           status: 400,
         }
+      );
+    }
+
+    /* ========================================
+       REGISTRATION TOKEN
+    ======================================== */
+
+    const registrationToken =
+      getString(
+        body.registrationToken
+      );
+
+    if (
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+        registrationToken
+      )
+    ) {
+      throw new Error(
+        "Token upload tidak valid."
       );
     }
 
@@ -1218,37 +1315,32 @@ export async function POST(
     const fullName =
       normalizeText(
         getString(
-          formData,
-          "fullName"
+          body.fullName
         )
       );
 
     const businessName =
       normalizeText(
         getString(
-          formData,
-          "businessName"
+          body.businessName
         )
       );
 
     const whatsapp =
       normalizeWhatsApp(
         getString(
-          formData,
-          "whatsapp"
+          body.whatsapp
         )
       );
 
     const email =
       getString(
-        formData,
-        "email"
+        body.email
       );
 
     const supplierType =
       getString(
-        formData,
-        "supplierType"
+        body.supplierType
       );
 
     if (
@@ -1261,7 +1353,8 @@ export async function POST(
     }
 
     if (
-      businessName.length > 200
+      businessName.length >
+      200
     ) {
       throw new Error(
         "Nama usaha maksimal 200 karakter."
@@ -1313,37 +1406,32 @@ export async function POST(
 
     const province =
       getString(
-        formData,
-        "province"
+        body.province
       );
 
     const regency =
       getString(
-        formData,
-        "regency"
+        body.regency
       );
 
     const district =
       normalizeText(
         getString(
-          formData,
-          "district"
+          body.district
         )
       );
 
     const village =
       normalizeText(
         getString(
-          formData,
-          "village"
+          body.village
         )
       );
 
     const fullAddress =
       normalizeText(
         getString(
-          formData,
-          "fullAddress"
+          body.fullAddress
         )
       );
 
@@ -1384,14 +1472,17 @@ export async function POST(
       );
     }
 
-    if (!fullAddress) {
+    if (
+      !fullAddress
+    ) {
       throw new Error(
         "Alamat lengkap wajib diisi."
       );
     }
 
     if (
-      fullAddress.length > 1000
+      fullAddress.length >
+      1000
     ) {
       throw new Error(
         "Alamat lengkap maksimal 1000 karakter."
@@ -1403,12 +1494,10 @@ export async function POST(
     ======================================== */
 
     const declaration =
-      getString(
-        formData,
-        "declaration"
-      );
+      body.declaration;
 
     if (
+      declaration !== true &&
       declaration !== "true"
     ) {
       throw new Error(
@@ -1420,33 +1509,10 @@ export async function POST(
        PRODUCTS
     ======================================== */
 
-    const productCount =
-      Number(
-        getString(
-          formData,
-          "productCount"
-        )
-      );
-
-    if (
-      !Number.isInteger(
-        productCount
-      ) ||
-      productCount < 1 ||
-      productCount >
-        settings.maxCommodities ||
-      productCount >
-        ABSOLUTE_MAX_COMMODITIES
-    ) {
-      throw new Error(
-        "Jumlah produk tidak sesuai."
-      );
-    }
-
     const products =
       parseProducts(
-        formData,
-        productCount
+        body.products,
+        settings.maxCommodities
       );
 
     /* ========================================
@@ -1493,12 +1559,16 @@ export async function POST(
     let supplierId: string;
     let submissionNo: number;
 
-    if (existingSupplier) {
+    if (
+      existingSupplier
+    ) {
       supplierId =
-        existingSupplier.supplierId;
+        existingSupplier
+          .supplierId;
 
       submissionNo =
-        existingSupplier.submissionCount +
+        existingSupplier
+          .submissionCount +
         1;
 
       if (
@@ -1508,6 +1578,7 @@ export async function POST(
         return NextResponse.json(
           {
             success: false,
+
             message:
               `Nomor WhatsApp ini telah mencapai batas maksimal ${settings.maxSubmissions} pendaftaran.`,
           },
@@ -1557,118 +1628,202 @@ export async function POST(
     );
 
     /* ========================================
-       DRIVE
+       TEMP REGISTRATION FOLDER
     ======================================== */
+
+    const temporaryRegistrationFolder =
+      await getTemporaryRegistrationFolder(
+        registrationToken
+      );
+
+    if (
+      !temporaryRegistrationFolder
+    ) {
+      throw new Error(
+        "Folder upload sementara belum ditemukan. Pastikan seluruh media selesai diunggah."
+      );
+    }
+
+    if (
+      temporaryRegistrationFolder
+        .trashed
+    ) {
+      throw new Error(
+        "Folder upload sementara sudah tidak tersedia."
+      );
+    }
+
+    if (
+      temporaryRegistrationFolder
+        .name !==
+      `TEMP-${registrationToken}`
+    ) {
+      throw new Error(
+        "Folder upload sementara tidak sesuai."
+      );
+    }
+
+    if (
+      temporaryRegistrationFolder
+        .appProperties
+        .registrationToken &&
+      temporaryRegistrationFolder
+        .appProperties
+        .registrationToken !==
+        registrationToken
+    ) {
+      throw new Error(
+        "Token folder upload tidak sesuai."
+      );
+    }
+
+    /* ========================================
+       VERIFY MEDIA
+    ======================================== */
+
+    const verifiedProducts:
+      VerifiedProduct[] = [];
+
+    for (
+      let index = 0;
+      index <
+      products.length;
+      index += 1
+    ) {
+      const product =
+        products[index];
+
+      if (!product) {
+        throw new Error(
+          `Data Produk ${index + 1} tidak ditemukan.`
+        );
+      }
+
+      const productNumber =
+        index + 1;
+
+      const productFolder =
+        await findChildFolder(
+          `Produk-${productNumber}`,
+          temporaryRegistrationFolder.id
+        );
+
+      if (
+        !productFolder
+      ) {
+        throw new Error(
+          `Folder Produk ${productNumber} belum ditemukan.`
+        );
+      }
+
+      if (
+        productFolder.trashed
+      ) {
+        throw new Error(
+          `Folder Produk ${productNumber} sudah tidak tersedia.`
+        );
+      }
+
+      const productPhoto =
+        await findMediaFile({
+          folderId:
+            productFolder.id,
+
+          fileNames:
+            PRODUCT_PHOTO_NAMES,
+
+          allowedMimeTypes:
+            ALLOWED_IMAGE_TYPES,
+
+          maximumSize:
+            MAX_IMAGE_FILE_SIZE,
+
+          label:
+            `Foto produk ${productNumber}`,
+        });
+
+      const stockPhoto =
+        await findMediaFile({
+          folderId:
+            productFolder.id,
+
+          fileNames:
+            STOCK_PHOTO_NAMES,
+
+          allowedMimeTypes:
+            ALLOWED_IMAGE_TYPES,
+
+          maximumSize:
+            MAX_IMAGE_FILE_SIZE,
+
+          label:
+            `Foto stok Produk ${productNumber}`,
+        });
+
+      const productVideo =
+        await findMediaFile({
+          folderId:
+            productFolder.id,
+
+          fileNames:
+            PRODUCT_VIDEO_NAMES,
+
+          allowedMimeTypes:
+            ALLOWED_VIDEO_TYPES,
+
+          maximumSize:
+            MAX_VIDEO_FILE_SIZE,
+
+          label:
+            `Video detail Produk ${productNumber}`,
+        });
+
+      verifiedProducts.push({
+        product,
+
+        productPhotoId:
+          productPhoto.id,
+
+        stockPhotoId:
+          stockPhoto.id,
+
+        productVideoId:
+          productVideo.id,
+      });
+    }
+
+    /* ========================================
+       FINAL DRIVE FOLDER
+    ======================================== */
+
+    const driveRootFolderId =
+      getGoogleDriveRootFolderId();
 
     const supplierFolderId =
       await getOrCreateSupplierFolder(
         supplierId
       );
 
-    const submissionFolderId =
-      await createSubmissionFolder(
+    await moveDriveFile({
+      fileId:
+        temporaryRegistrationFolder.id,
+
+      fromFolderId:
+        driveRootFolderId,
+
+      toFolderId:
         supplierFolderId,
-        submissionNo
-      );
 
-    const uploadedProducts: {
-    product: ProductInput;
-    productPhotoId: string;
-    stockPhotoId: string;
-    productVideoId: string;
-  }[] = [];
-
-    for (
-      let index = 0;
-      index < products.length;
-      index += 1
-    ) {
-      const product =
-        products[index];
-
-      const productFolderId =
-        await createProductFolder(
-          submissionFolderId,
-          index + 1
-        );
-
-      const optimizedProductPhoto =
-        await optimizeSupplierImage(
-          product.productPhoto
-        );
-
-      const optimizedStockPhoto =
-        await optimizeSupplierImage(
-          product.stockPhoto
-        );
-
-      const uploadedProductPhoto =
-        await uploadDriveFile({
-          buffer:
-            optimizedProductPhoto.buffer,
-          fileName:
-            "foto-produk.webp",
-          mimeType:
-            optimizedProductPhoto.mimeType,
-          folderId:
-            productFolderId,
-        });
-
-      const uploadedStockPhoto =
-        await uploadDriveFile({
-          buffer:
-            optimizedStockPhoto.buffer,
-          fileName:
-            "foto-stok.webp",
-          mimeType:
-            optimizedStockPhoto.mimeType,
-          folderId:
-            productFolderId,
-        });
-
-        const productVideoBuffer =
-        Buffer.from(
-          await product.productVideo.arrayBuffer()
-        );
-
-      const videoExtension =
-        product.productVideo.type ===
-        "video/quicktime"
-          ? "mov"
-          : product.productVideo.type ===
-              "video/webm"
-            ? "webm"
-            : "mp4";
-
-      const uploadedProductVideo =
-        await uploadDriveFile({
-          buffer:
-            productVideoBuffer,
-          fileName:
-            `video-produk.${videoExtension}`,
-          mimeType:
-            product.productVideo.type,
-          folderId:
-            productFolderId,
-        });
-
-      uploadedProducts.push({
-      product,
-      productPhotoId:
-        uploadedProductPhoto.id,
-      stockPhotoId:
-        uploadedStockPhoto.id,
-      productVideoId:
-        uploadedProductVideo.id,
+      fileName:
+        `Submission-${submissionNo}`,
     });
-    }
 
     /* ========================================
        SUPPLIER ROW
     ======================================== */
 
     const submittedAt =
-      new Date().toISOString();
+      getJakartaDateTime();
 
     const supplierRow =
       buildRowByHeaders(
@@ -1738,7 +1893,7 @@ export async function POST(
     ======================================== */
 
     const productRows =
-      uploadedProducts.map(
+      verifiedProducts.map(
         (
           {
             product,
@@ -1824,12 +1979,16 @@ export async function POST(
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
+
       range:
         "Suppliers!A:Z",
+
       valueInputOption:
         "RAW",
+
       insertDataOption:
         "INSERT_ROWS",
+
       requestBody: {
         values: [
           supplierRow,
@@ -1839,12 +1998,16 @@ export async function POST(
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
+
       range:
         "Products!A:Z",
+
       valueInputOption:
         "RAW",
+
       insertDataOption:
         "INSERT_ROWS",
+
       requestBody: {
         values:
           productRows,
@@ -1858,8 +2021,10 @@ export async function POST(
     return NextResponse.json(
       {
         success: true,
+
         message:
           "Pendaftaran supplier berhasil dikirim.",
+
         supplierId,
         submissionNo,
       },
